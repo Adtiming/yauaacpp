@@ -1,0 +1,274 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2021 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPhone"'
+    extract:
+    - 'DeviceBrand                         :      120 :"Apple"'
+    - 'DeviceClass                         :      120 :"Phone"'
+    - 'DeviceName                          :      120 :"iPhone"'
+    - 'DeviceVersion                       :       99 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    extract:
+    - 'DeviceBrand                         :      220 :"Apple"'
+    - 'DeviceClass                         :      220 :"Phone"'
+    - 'DeviceName                          :      220 :"iPhone"'
+    - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPhone"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[1]="iPhone"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Phone"'
+    - 'DeviceName                          :      121 :"iPhone"'
+    - 'DeviceVersion                       :      121 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.text[1]="iPhone"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Phone"'
+    - 'DeviceName                          :      121 :"iPhone"'
+    - 'DeviceVersion                       :      121 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPad"'
+    extract:
+    - 'DeviceBrand                         :      120 :"Apple"'
+    - 'DeviceClass                         :      120 :"Tablet"'
+    - 'DeviceName                          :      120 :"iPad"'
+    - 'DeviceVersion                       :      120 :"iPad"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    extract:
+    - 'DeviceBrand                         :      220 :"Apple"'
+    - 'DeviceClass                         :      220 :"Tablet"'
+    - 'DeviceName                          :      220 :"iPad"'
+    - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPad"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[1]="iPad"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Tablet"'
+    - 'DeviceName                          :      121 :"iPad"'
+    - 'DeviceVersion                       :      121 :"iPad"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.text[1]="iPad"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Tablet"'
+    - 'DeviceName                          :      121 :"iPad"'
+    - 'DeviceVersion                       :      121 :"iPad"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPod"'
+    extract:
+    - 'DeviceBrand                         :      120 :"Apple"'
+    - 'DeviceClass                         :      120 :"Phone"'
+    - 'DeviceName                          :      120 :"iPod"'
+    - 'DeviceVersion                       :      120 :"iPod"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    extract:
+    - 'DeviceBrand                         :      220 :"Apple"'
+    - 'DeviceClass                         :      220 :"Phone"'
+    - 'DeviceName                          :      220 :"iPod"'
+    - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPod"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name="iPod"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Phone"'
+    - 'DeviceName                          :      121 :"iPod"'
+    - 'DeviceVersion                       :      121 :"iPod"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.text="iPod"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Phone"'
+    - 'DeviceName                          :      121 :"iPod"'
+    - 'DeviceVersion                       :      121 :"iPod"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="iPod touch"'
+    extract:
+    - 'DeviceBrand                         :      120 :"Apple"'
+    - 'DeviceClass                         :      120 :"Phone"'
+    - 'DeviceName                          :      120 :"iPod touch"'
+    - 'DeviceVersion                       :      120 :"iPod touch"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    extract:
+    - 'DeviceBrand                         :      220 :"Apple"'
+    - 'DeviceClass                         :      220 :"Phone"'
+    - 'DeviceName                          :      220 :"iPod touch"'
+    - 'DeviceVersion                       :      220 :agent.product.comments.entry.(1)product.name="iPod touch"^.version'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name="iPod touch"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Phone"'
+    - 'DeviceName                          :      121 :"iPod touch"'
+    - 'DeviceVersion                       :      121 :"iPod touch"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.text="iPod touch"'
+    extract:
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Phone"'
+    - 'DeviceName                          :      121 :"iPod touch"'
+    - 'DeviceVersion                       :      121 :"iPod touch"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Input                               :agent.text?AppleDeviceClass'
+    extract:
+    - 'DeviceBrand                         :      111 :"Apple"'
+    - 'DeviceClass                         :      111 :LookUp[AppleDeviceClass;@Input]'
+    - 'DeviceName                          :      111 :LookUp[AppleDeviceName;@Input]'
+    - 'DeviceVersion                       :      111 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'Input                               :agent.product.name?AppleDeviceClass'
+    extract:
+    - 'DeviceBrand                         :      114 :"Apple"'
+    - 'DeviceClass                         :      114 :LookUp[AppleDeviceClass;@Input]'
+    - 'DeviceName                          :      114 :LookUp[AppleDeviceName;@Input]'
+    - 'DeviceVersion                       :      114 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Input                               :agent.(1)product.(1)comments.entry.(1)text?AppleDeviceClass'
+    extract:
+    - 'DeviceBrand                         :      110 :"Apple"'
+    - 'DeviceClass                         :      110 :LookUp[AppleDeviceClass;@Input]'
+    - 'DeviceName                          :      110 :LookUp[AppleDeviceName;@Input]'
+    - 'DeviceVersion                       :      110 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Input                               :agent.(2-)product.(1)comments.entry.(1)text?AppleDeviceClass'
+    extract:
+    - 'DeviceBrand                         :      131 :"Apple"'
+    - 'DeviceClass                         :      131 :LookUp[AppleDeviceClass;@Input]'
+    - 'DeviceName                          :      131 :LookUp[AppleDeviceName;@Input]'
+    - 'DeviceVersion                       :      131 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Input                               :agent.(1)product.(1)comments.entry.(1)product.name?AppleDeviceClass'
+    extract:
+    - 'DeviceBrand                         :      110 :"Apple"'
+    - 'DeviceClass                         :      110 :LookUp[AppleDeviceClass;@Input]'
+    - 'DeviceName                          :      110 :LookUp[AppleDeviceName;@Input]'
+    - 'DeviceVersion                       :      110 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Input                               :agent.(2-)product.(1)comments.entry.(1)product.name?AppleDeviceClass'
+    extract:
+    - 'DeviceBrand                         :      130 :"Apple"'
+    - 'DeviceClass                         :      130 :LookUp[AppleDeviceClass;@Input]'
+    - 'DeviceName                          :      130 :LookUp[AppleDeviceName;@Input]'
+    - 'DeviceVersion                       :      130 :LookUp[AppleDeviceVersion;@Input]'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+

@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+string(REPLACE "," ";" YAUAA_CPP_DEPENDS_LIST @YAUAA_CPP_DEPENDS@)
+foreach(YAUAA_CPP_DEP ${YAUAA_CPP_DEPENDS_LIST})
+    find_dependency(${YAUAA_CPP_DEP} REQUIRED)
+endforeach()
+
+include("${CMAKE_CURRENT_LIST_DIR}/yauaacpp-targets.cmake")
+
+check_required_components(yauaacpp)

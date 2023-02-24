@@ -1,0 +1,883 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2021 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- lookup:
+    name: 'MobileBrands'
+    map:
+      "Acer"                    : "Acer"
+      "AKAI"                    : "AKAI"
+      "Alcatel"                 : "Alcatel"
+      "Amazon"                  : "Amazon"
+      "Apache"                  : "Apache"
+      "Archos"                  : "Archos"
+      "Asus"                    : "Asus"
+      "Avea"                    : "Avea"
+      "Avvio"                   : "Avvio"
+      "Azumi"                   : "Azumi"
+      "BlackBerry"              : "BlackBerry"
+      "Cat"                     : "Cat"
+      "Coolpad"                 : "Coolpad"
+      "Cubot"                   : "Cubot"
+      "eZee"                    : "eZee"
+      "Fairphone"               : "Fairphone"
+      "General Mobile"          : "General Mobile"
+      "Honor"                   : "Huawei"
+      "HP"                      : "HP"
+      "HTC"                     : "HTC"
+      "Huawei"                  : "Huawei"
+      "KDDI"                    : "KDDI"
+      "Lenovo"                  : "Lenovo"
+      "LG"                      : "LG"
+      "Lyf"                     : "Lyf"
+      "MDA"                     : "MDA"
+
+      # Special case; Microsoft is Hardware and Software --> This "hardware brand" also matches "software"
+#      "Microsoft"               : "Microsoft"
+      "Meizu"                   : "Meizu"
+      "Nokia"                   : "Nokia"
+      "OnePlus"                 : "OnePlus"
+      "Oppo"                    : "Oppo"
+      "Panasonic"               : "Panasonic"
+      "Philips"                 : "Philips"
+      "Samsung"                 : "Samsung"
+      "SonyEricsson"            : "SonyEricsson"
+      "Sony"                    : "Sony"
+      "SpreadTrum"              : "SpreadTrum"
+      "Telegram"                : "Telegram"
+      "T-Mobile"                : "T-Mobile"
+      "Vivo"                    : "Vivo"
+      "Wileyfox"                : "Wileyfox"
+      "Xiaomi"                  : "Xiaomi"
+      "ZTE"                     : "ZTE"
+
+- lookup:
+    name: 'MobileBrandPrefixes'
+    map:
+      "ONE TOUCH"               : "Alcatel"
+      "ONETOUCH"                : "Alcatel"
+      "AM-H"                    : "Alcatel"
+      "S4035"                   : "Alcatel"
+      "DIGICELD"                : "Alcatel"
+      "I21"                     : "Alcatel"
+      "A46"                     : "Alcatel"
+      "400"                     : "Alcatel"
+      "401"                     : "Alcatel"
+      "402"                     : "Alcatel"
+      "403"                     : "Alcatel"
+      "404"                     : "Alcatel"
+      "501"                     : "Alcatel"
+      "502"                     : "Alcatel"
+      "503"                     : "Alcatel"
+      "504"                     : "Alcatel"
+      "505"                     : "Alcatel"
+      "506"                     : "Alcatel"
+      "507"                     : "Alcatel"
+      "508"                     : "Alcatel"
+      "509"                     : "Alcatel"
+      "510"                     : "Alcatel"
+      "511"                     : "Alcatel"
+      "601"                     : "Alcatel"
+      "602"                     : "Alcatel"
+      "603"                     : "Alcatel"
+      "604"                     : "Alcatel"
+      "605"                     : "Alcatel"
+      "606"                     : "Alcatel"
+      "607"                     : "Alcatel"
+      "805"                     : "Alcatel"
+      "806"                     : "Alcatel"
+      "807"                     : "Alcatel"
+      "900"                     : "Alcatel"
+      "901"                     : "Alcatel"
+      "902"                     : "Alcatel"
+      "A405"                    : "Alcatel"
+
+      "Aspire"                  : "Acer"
+      "Liquid"                  : "Acer"
+      "A3-"                     : "Acer"
+      "B3-"                     : "Acer"
+
+      "AG "                     : "AG Mobile"
+
+      "Fire "                   : "Amazon"
+      "Kindle"                  : "Amazon"
+      "SD"                      : "Amazon"
+      "KF"                      : "Amazon"
+
+      "K00"                     : "Asus"
+      "K01"                     : "Asus"
+      "ME1"                     : "Asus"
+      "ME3"                     : "Asus"
+      "P00"                     : "Asus"
+      "P01"                     : "Asus"
+      "P02"                     : "Asus"
+      "PadFone"                 : "Asus"
+      "Transformer"             : "Asus"
+      "Z00D"                    : "Asus"
+      "ZB5"                     : "Asus"
+      "ZC5"                     : "Asus"
+      "ZE5"                     : "Asus"
+
+      "BBA "                    : "BlackBerry"
+      "BBB "                    : "BlackBerry"
+      "BBC "                    : "BlackBerry"
+      "BBD "                    : "BlackBerry"
+      "BBE "                    : "BlackBerry"
+      "BBF "                    : "BlackBerry"
+      "BBG "                    : "BlackBerry"
+      "BBH "                    : "BlackBerry"
+      "Leap "                   : "BlackBerry"
+      "Passport "               : "BlackBerry"
+      "PlayBook"                : "BlackBerry"
+      "Q10"                     : "BlackBerry"
+      "Q5"                      : "BlackBerry"
+      "SQW"                     : "BlackBerry"
+      "STH"                     : "BlackBerry"
+      "STJ"                     : "BlackBerry"
+      "STL"                     : "BlackBerry"
+      "STV"                     : "BlackBerry"
+      "Vienna"                  : "BlackBerry"
+      "Z10"                     : "BlackBerry"
+      "Z20"                     : "BlackBerry"
+      "Z30"                     : "BlackBerry"
+
+      "B3"                      : "Cat"
+      "S3"                      : "Cat"
+      "S4"                      : "Cat"
+      "S6"                      : "Cat"
+      "T2"                      : "Cat"
+
+      "FP"                      : "Fairphone"
+
+      "GM "                     : "General Mobile"
+
+      "GS1"                     : "Gigaset"
+      "GS2"                     : "Gigaset"
+      "GS3"                     : "Gigaset"
+
+      "Chromecast"              : "Google"
+      "Nexus"                   : "Google"
+      "Pixelbook"               : "Google"
+# Pixel is a special case that conflicts with the Pixel/ tag used by Tencent browsers
+#      "Pixel"                   : "Google"
+      "Android SDK"             : "Google"
+      "SDK"                     : "Google"
+
+      "Hi 1"                    : "Hisense"
+      "Hi 2"                    : "Hisense"
+      "Hi 3"                    : "Hisense"
+      "HI98"                    : "Hisense"
+      "HITV"                    : "Hisense"
+      "HLTE"                    : "Hisense"
+      "HS-"                     : "Hisense"
+
+      "HT70"                    : "Homtom"
+
+#      "Apache"                  : "HTC"
+      "Artist"                  : "HTC"
+      "Bahamas"                 : "HTC"
+      "Bravo"                   : "HTC"
+      "Breeze"                  : "HTC"
+      "Butterfly"               : "HTC"
+      "Buzz"                    : "HTC"
+      "Desire"                  : "HTC"
+      "DLX"                     : "HTC"
+      "Dream"                   : "HTC"
+      "Endeavour"               : "HTC"
+      "Evo"                     : "HTC"
+      "Gemini"                  : "HTC"
+      "Glacier"                 : "HTC"
+      "Golf"                    : "HTC"
+      "Hermes"                  : "HTC"
+      "Hero"                    : "HTC"
+      "HuaShan"                 : "HTC"
+      "Inspire HD"              : "HTC"
+      "Leo 70"                  : "HTC"
+      "Liberty"                 : "HTC"
+      "Magic"                   : "HTC"
+      "Marvel"                  : "HTC"
+      "Master"                  : "HTC"
+      "MTeoR"                   : "HTC"
+      "Pico"                    : "HTC"
+      "Polaris"                 : "HTC"
+      "Primo"                   : "HTC"
+      "Prophet"                 : "HTC"
+      "Radiant"                 : "HTC"
+      "Rio"                     : "HTC"
+      "Rome"                    : "HTC"
+      "Runnymede"               : "HTC"
+      "Schubert"                : "HTC"
+      "SongShan"                : "HTC"
+      "Spark"                   : "HTC"
+      "Tiara"                   : "HTC"
+      "U Play"                  : "HTC"
+      "U Ultra"                 : "HTC"
+      "Velocity"                : "HTC"
+      "Vertex"                  : "HTC"
+      "Vision"                  : "HTC"
+      "Wizard"                  : "HTC"
+
+      "7D-"                     : "Huawei"
+      "AGR-"                    : "Huawei"
+      "AGS2-"                   : "Huawei"
+      "AGS3-"                   : "Huawei"
+      "AGS-"                    : "Huawei"
+      "AKA-"                    : "Huawei"
+      "ALA-"                    : "Huawei"
+      "ALE-"                    : "Huawei"
+      "ALP-"                    : "Huawei"
+      "AMN-"                    : "Huawei"
+      "ANA-"                    : "Huawei"
+      "ANE-"                    : "Huawei"
+      "ANG-"                    : "Huawei"
+      "AQM-"                    : "Huawei"
+      "ARE-"                    : "Huawei"
+      "ARS-"                    : "Huawei"
+      "ART-"                    : "Huawei"
+      "Ascend"                  : "Huawei"
+      "ASK-"                    : "Huawei"
+      "ATH-"                    : "Huawei"
+      "ATU-"                    : "Huawei"
+      "AUM-"                    : "Huawei"
+      "BAC-"                    : "Huawei"
+      "BAH2-"                   : "Huawei"
+      "BAH3-"                   : "Huawei"
+      "BAH-"                    : "Huawei"
+      "BAZ-"                    : "Huawei"
+      "BG2-"                    : "Huawei"
+      "BGO-"                    : "Huawei"
+      "BKK-"                    : "Huawei"
+      "BKL-"                    : "Huawei"
+      "BLA-"                    : "Huawei"
+      "BLL-"                    : "Huawei"
+      "BLN-"                    : "Huawei"
+      "BMH-"                    : "Huawei"
+      "BND-"                    : "Huawei"
+      "BRQ-"                    : "Huawei"
+      "BTV-"                    : "Huawei"
+      "BZA-"                    : "Huawei"
+      "BZK-"                    : "Huawei"
+      "BZT-"                    : "Huawei"
+      "CAG-"                    : "Huawei"
+      "CAM-"                    : "Huawei"
+      "CAN-"                    : "Huawei"
+      "CAZ-"                    : "Huawei"
+      "CDL-"                    : "Huawei"
+      "CDY-"                    : "Huawei"
+      "CHC-"                    : "Huawei"
+      "Che1-"                   : "Huawei"
+      "Che2-"                   : "Huawei"
+      "CHE-"                    : "Huawei"
+      "CHM-"                    : "Huawei"
+      "CLT-"                    : "Huawei"
+      "CMR-"                    : "Huawei"
+      "CND-"                    : "Huawei"
+      "COL-"                    : "Huawei"
+      "COR-"                    : "Huawei"
+      "CPN-"                    : "Huawei"
+      "CRO-"                    : "Huawei"
+      "CRR-"                    : "Huawei"
+      "CUN-"                    : "Huawei"
+      "D2-"                     : "Huawei"
+      "DAN-"                    : "Huawei"
+      "DAV-"                    : "Huawei"
+      "DIG-"                    : "Huawei"
+      "DLI-"                    : "Huawei"
+      "DNN-"                    : "Huawei"
+      "DRA-"                    : "Huawei"
+      "DUA-"                    : "Huawei"
+      "DUB-"                    : "Huawei"
+      "DUK-"                    : "Huawei"
+      "DVC-"                    : "Huawei"
+      "EBG-"                    : "Huawei"
+      "EDI-"                    : "Huawei"
+      "ELE-"                    : "Huawei"
+      "ELS-"                    : "Huawei"
+      "EML-"                    : "Huawei"
+      "EVA-"                    : "Huawei"
+      "EVR-"                    : "Huawei"
+      "FDR-"                    : "Huawei"
+      "FIG-"                    : "Huawei"
+      "FLA-"                    : "Huawei"
+      "FRD-"                    : "Huawei"
+      "FRL-"                    : "Huawei"
+      "G6"                      : "Huawei"
+      "G7"                      : "Huawei"
+      "GEM-"                    : "Huawei"
+      "GLK-"                    : "Huawei"
+      "GRA-"                    : "Huawei"
+      "H30-"                    : "Huawei"
+      "H60-"                    : "Huawei"
+      "HDL-"                    : "Huawei"
+      "HDN-"                    : "Huawei"
+      "HiTV-"                   : "Huawei"
+      "HLK-"                    : "Huawei"
+      "HMA-"                    : "Huawei"
+      "HN3-"                    : "Huawei"
+      "Hol-"                    : "Huawei"
+      "Honor"                   : "Huawei"
+      "HRY-"                    : "Huawei"
+      "HW-"                     : "Huawei"
+      "HWI-"                    : "Huawei"
+      "HWV32-"                  : "Huawei"
+      "HZ-"                     : "Huawei"
+      "INE-"                    : "Huawei"
+      "JAT-"                    : "Huawei"
+      "JDN2-"                   : "Huawei"
+      "JDN-"                    : "Huawei"
+      "JEF-"                    : "Huawei"
+      "JER-"                    : "Huawei"
+      "JKM-"                    : "Huawei"
+      "JMM-"                    : "Huawei"
+      "JNY-"                    : "Huawei"
+      "JSC-"                    : "Huawei"
+      "JSN-"                    : "Huawei"
+      "K1-"                     : "Huawei"
+      "K2-"                     : "Huawei"
+      "KII-"                    : "Huawei"
+      "KIW-"                    : "Huawei"
+      "KKG-"                    : "Huawei"
+      "KNT-"                    : "Huawei"
+      "KOB2-"                   : "Huawei"
+      "KOB-"                    : "Huawei"
+      "KRJ-"                    : "Huawei"
+      "KSA-"                    : "Huawei"
+      "LDN-"                    : "Huawei"
+      "LEO-"                    : "Huawei"
+      "LIO-"                    : "Huawei"
+      "LLD-"                    : "Huawei"
+      "LND-"                    : "Huawei"
+      "LON-"                    : "Huawei"
+      "LRA-"                    : "Huawei"
+      "LTN-"                    : "Huawei"
+      "LUA-"                    : "Huawei"
+      "LYA-"                    : "Huawei"
+      "LYO-"                    : "Huawei"
+      "M2-"                     : "Huawei"
+      "MAR-"                    : "Huawei"
+      "MED-"                    : "Huawei"
+      "MediaPad"                : "Huawei"
+      "MHA-"                    : "Huawei"
+      "MLA-"                    : "Huawei"
+      "MOA-"                    : "Huawei"
+      "MON-"                    : "Huawei"
+      "MRD-"                    : "Huawei"
+      "MRX-"                    : "Huawei"
+      "MT1-"                    : "Huawei"
+      "MT2-"                    : "Huawei"
+      "MT7-"                    : "Huawei"
+      "MXW-"                    : "Huawei"
+      "MYA-"                    : "Huawei"
+      "NCE-"                    : "Huawei"
+      "NEM-"                    : "Huawei"
+      "NEO-"                    : "Huawei"
+      "NMO-"                    : "Huawei"
+      "NOH-"                    : "Huawei"
+      "NOP-"                    : "Huawei"
+      "NTS-"                    : "Huawei"
+      "NXT-"                    : "Huawei"
+      "OCE-"                    : "Huawei"
+      "OXF-"                    : "Huawei"
+      "P2-"                     : "Huawei"
+      "P6-"                     : "Huawei"
+      "P7-"                     : "Huawei"
+      "PAR-"                    : "Huawei"
+      "PCT-"                    : "Huawei"
+      "PE-"                     : "Huawei"
+      "PIC-"                    : "Huawei"
+      "PLE-"                    : "Huawei"
+      "PLK"                     : "Huawei"
+      "PLK-"                    : "Huawei"
+      "POT-"                    : "Huawei"
+      "PPA-"                    : "Huawei"
+      "PRA-"                    : "Huawei"
+      "RIO-"                    : "Huawei"
+      "RNE-"                    : "Huawei"
+      "RVL-"                    : "Huawei"
+      "s10-"                    : "Huawei"
+      "S10-"                    : "Huawei"
+      "S7-"                     : "Huawei"
+      "S8-"                     : "Huawei"
+      "SCC-"                    : "Huawei"
+      "SC-"                     : "Huawei"
+      "SCL-"                    : "Huawei"
+      "SCM-"                    : "Huawei"
+      "SCU-"                    : "Huawei"
+      "SEA-"                    : "Huawei"
+      "SHT-"                    : "Huawei"
+      "SLA-"                    : "Huawei"
+      "SNE-"                    : "Huawei"
+      "SPN-"                    : "Huawei"
+      "STF-"                    : "Huawei"
+      "STK-"                    : "Huawei"
+      "SXX-"                    : "Huawei"
+      "T1 "                     : "Huawei"
+      "T1-"                     : "Huawei"
+      "TAG-"                    : "Huawei"
+      "TAH-"                    : "Huawei"
+      "TAS-"                    : "Huawei"
+      "TEL-"                    : "Huawei"
+      "TET-"                    : "Huawei"
+      "T-"                      : "Huawei"
+      "TIT-"                    : "Huawei"
+      "TNY-"                    : "Huawei"
+      "TRT-"                    : "Huawei"
+      "VAT-"                    : "Huawei"
+      "VCE-"                    : "Huawei"
+      "VEN-"                    : "Huawei"
+      "VIE-"                    : "Huawei"
+      "VKY-"                    : "Huawei"
+      "VNS-"                    : "Huawei"
+      "VOG-"                    : "Huawei"
+      "VRD-"                    : "Huawei"
+      "VTR-"                    : "Huawei"
+      "W1-"                     : "Huawei"
+      "W2-"                     : "Huawei"
+      "WAS-"                    : "Huawei"
+      "WKG-"                    : "Huawei"
+      "WLZ-"                    : "Huawei"
+      "Y210"                    : "Huawei"
+      "Y220"                    : "Huawei"
+      "Y221"                    : "Huawei"
+      "Y300"                    : "Huawei"
+      "Y310"                    : "Huawei"
+      "Y320"                    : "Huawei"
+      "Y321"                    : "Huawei"
+      "Y325"                    : "Huawei"
+      "Y330"                    : "Huawei"
+      "Y336"                    : "Huawei"
+      "Y340"                    : "Huawei"
+      "Y360"                    : "Huawei"
+      "Y500"                    : "Huawei"
+      "Y511"                    : "Huawei"
+      "Y516"                    : "Huawei"
+      "Y518"                    : "Huawei"
+      "Y520"                    : "Huawei"
+      "Y523"                    : "Huawei"
+      "Y530"                    : "Huawei"
+      "Y535"                    : "Huawei"
+      "Y536"                    : "Huawei"
+      "Y538"                    : "Huawei"
+      "Y540"                    : "Huawei"
+      "Y541"                    : "Huawei"
+      "Y550"                    : "Huawei"
+      "Y560"                    : "Huawei"
+      "Y600"                    : "Huawei"
+      "Y610"                    : "Huawei"
+      "Y618"                    : "Huawei"
+      "Y625"                    : "Huawei"
+      "Y635"                    : "Huawei"
+      "Y6C"                     : "Huawei"
+      "Y6"                      : "Huawei"
+      "Y9"                      : "Huawei"
+      "YAL-"                    : "Huawei"
+
+      "Arc 10"                  : "Kobo"
+      "Arc 6"                   : "Kobo"
+      "Arc 7"                   : "Kobo"
+      "Arc 8"                   : "Kobo"
+      "Arc 9"                   : "Kobo"
+
+      "ThinkPad"                : "Lenovo"
+      "Yoga"                    : "Lenovo"
+
+      # This is a robot
+      "YaK"                     : "Linkfluence"
+
+      "G Watch"                 : "LG"
+      "LG-"                     : "LG"
+      "402LG"                   : "LG"
+      "AS98"                    : "LG"
+      "DM-01"                   : "LG"
+      "L-01"                    : "LG"
+      "RS98"                    : "LG"
+      "VK"                      : "LG"
+      "VS"                      : "LG"
+      "LM-"                     : "LG"
+
+      "MID0"                    : "Manta"
+      "MID1"                    : "Manta"
+      "MID2"                    : "Manta"
+      "MID3"                    : "Manta"
+      "MID4"                    : "Manta"
+      "MID5"                    : "Manta"
+      "MID6"                    : "Manta"
+      "MID7"                    : "Manta"
+      "MID8"                    : "Manta"
+      "MID9"                    : "Manta"
+
+      "B50"                     : "Medion"
+      "E10"                     : "Medion"
+      "P10"                     : "Medion"
+      "X10"                     : "Medion"
+
+      "MZ-"                     : "Meizu"
+      "M3"                      : "Meizu"
+      "M5"                      : "Meizu"
+      "MX"                      : "Meizu"
+
+      # Avoid match with OnePlus because this value is NOT a device brand
+      "OneDrive"                : "<<<null>>>"
+      "Surface"                 : "Microsoft"
+      "XBOX"                    : "Microsoft"
+      "Zune HD"                 : "Microsoft"
+
+      "Trium"                   : "Mitsubishi"
+
+      "Moto"                    : "Motorola"
+      "Xoom"                    : "Motorola"
+      "XT"                      : "Motorola"
+      "Z2"                      : "Motorola"
+
+      "MP"                      : "Mpman"
+
+      "MS50L"                   : "Multilaser"
+
+      "Lumia"                   : "Nokia"
+      "RM-"                     : "Nokia"
+      "TA-"                     : "Nokia"
+
+      "SHIELD"                  : "Nvidia"
+
+      "ELEMENT10"               : "Odys"
+
+      "O2"                      : "O2"
+
+      "A0001"                   : "OnePlus"
+      "A1001"                   : "OnePlus"
+      "A2001"                   : "OnePlus"
+      "A2003"                   : "OnePlus"
+      "A2005"                   : "OnePlus"
+      "A3000"                   : "OnePlus"
+      "A3003"                   : "OnePlus"
+      "A3010"                   : "OnePlus"
+      "A5000"                   : "OnePlus"
+      "A5010"                   : "OnePlus"
+      "A6000"                   : "OnePlus"
+      "A6003"                   : "OnePlus"
+      "A6013"                   : "OnePlus"
+      "E1000"                   : "OnePlus"
+      "E1001"                   : "OnePlus"
+      "E1003"                   : "OnePlus"
+      "E1005"                   : "OnePlus"
+      "One"                     : "OnePlus"
+
+      "A1601"                   : "Oppo"
+      "A37f"                    : "Oppo"
+      "CPH1"                    : "Oppo"
+      "CPH"                     : "Oppo"
+      "F1f"                     : "Oppo"
+      "Mirror 5"                : "Oppo"
+      "R7 Plus"                 : "Oppo"
+      "R9s"                     : "Oppo"
+      "R9t"                     : "Oppo"
+      "X9009"                   : "Oppo"
+
+      "AND1"                    : "Philips"
+
+      "POV_"                    : "Point of view"
+
+      "S420"                    : "Positivo"
+      "Twist"                   : "Positivo"
+
+      "PSP"                     : "Prestigio"
+
+      "Linq "                   : "QMobile"
+      "Noir "                   : "QMobile"
+      "QNote"                   : "QMobile"
+      "QTab"                    : "QMobile"
+
+      "QW"                      : "Qware"
+
+#From: https://en.wikipedia.org/wiki/Samsung_Galaxy#Variants
+#Variants
+#The model number of Samsung Galaxy devices will indicate the variant:
+#   GT-Nnnn0 – mainstream Note model (Old type of model number)
+#   SM-Nnn0 – mainstream Note model (New type of model number)
+#   GT-Pnn00/10 – mainstream Tab model (Old type of model number)
+#   SM-Tnn0/1 – mainstream Tab model (New type of model number)
+#   GT-Snnn0 – mainstream model
+#   GT-Snnn2/ SM-Gnnn/DS / SM-Gnnn/DD SM-Gnnn2 Dual-SIM "Duos" model
+#   GT-Snnn5/GT-Nnnn5/GT-Pnnn5/GT-Innn5/SM-NnnnF/SM-Tnn5/SM-GnnnF – 4G/LTE model
+
+      "Galaxy"                  : "Samsung"
+      "GT -"                    : "Samsung"
+      "GT-"                     : "Samsung"
+      "SM -"                    : "Samsung"
+      "SM-"                     : "Samsung"
+      "SCH-"                    : "Samsung" # Usually combined with Verizon
+
+      "SM7"                     : "Smartisan"
+      "SM8"                     : "Smartisan"
+      "SM9"                     : "Smartisan"
+      "YQ6"                     : "Smartisan"
+
+      "401S"                    : "Sony"
+      "402S"                    : "Sony"
+      "501S"                    : "Sony"
+      "502S"                    : "Sony"
+      "601S"                    : "Sony"
+      "602S"                    : "Sony"
+      "Arc BUILD"               : "Sony"
+      "Bravia"                  : "Sony"
+      "C1"                      : "Sony"
+      "C2"                      : "Sony"
+      "C5"                      : "Sony"
+      "C6"                      : "Sony"
+      "D2"                      : "Sony"
+      "D5"                      : "Sony"
+      "D6"                      : "Sony"
+      "E2"                      : "Sony"
+      "E5"                      : "Sony"
+      "E6"                      : "Sony"
+      "F3"                      : "Sony"
+      "F5"                      : "Sony"
+      "F8"                      : "Sony"
+      "G3"                      : "Sony"
+      "G8"                      : "Sony"
+      "H31"                     : "Sony"
+      "H32"                     : "Sony"
+      "H33"                     : "Sony"
+      "H8"                      : "Sony"
+      "H9"                      : "Sony"
+      "L39"                     : "Sony"
+      "L50"                     : "Sony"
+      "LT2"                     : "Sony"
+      "LT3"                     : "Sony"
+      "NSX-"                    : "Sony"
+      "NSZ-"                    : "Sony"
+      "SGP"                     : "Sony"
+      "SmartWatch"              : "Sony"
+      "SOL"                     : "Sony"
+      "Solaris"                 : "<<<null>>>" # Override "Solaris" matching against "Sol" pattern.
+      "SonyC"                   : "Sony"
+      "SonyD"                   : "Sony"
+      "SonyL"                   : "Sony"
+      "SonyS"                   : "Sony"
+      "SO-"                     : "Sony"
+      "SOV"                     : "Sony"
+      "ST2"                     : "Sony"
+      "Xperia"                  : "Sony"
+      "EBRD"                    : "Sony" # EBookb ReaDer
+      "H60 "                    : "Symphony"
+
+      "X98"                     : "Teclast"
+
+      "MDA "                    : "T-Mobile"
+      "T-Mobile"                : "T-Mobile" # To fix conflict with the "T-" prefix
+
+      "Armor"                   : "Ulephone"
+
+      "Vodacom"                 : "Vodafone"
+      "VFD "                    : "Vodafone"
+      "VF-"                     : "Vodafone"
+      "VF69"                    : "Vodafone"
+
+      "Barry"                   : "Wiko"
+      "Birdy"                   : "Wiko"
+      "Bloom"                   : "Wiko"
+      "Cink"                    : "Wiko"
+      "Darkfull"                : "Wiko"
+      "Darkmoon"                : "Wiko"
+      "Darknight"               : "Wiko"
+      "Darkside"                : "Wiko"
+      "Fever"                   : "Wiko"
+      "Fizz"                    : "Wiko"
+      "Freddy"                  : "Wiko"
+      "Getaway"                 : "Wiko"
+# Special case: conflicts with Goanna engine
+#      "Goa"                     : "Wiko"
+      "Harry"                   : "Wiko"
+      "Highway"                 : "Wiko"
+      "Iggy"                    : "Wiko"
+      "Jerry"                   : "Wiko"
+      "Jimmy"                   : "Wiko"
+      "Kar 3"                   : "Wiko"
+      "Kenny"                   : "Wiko"
+      "Kite"                    : "Wiko"
+      "K-Kool"                  : "Wiko"
+      "Lenny"                   : "Wiko"
+      "Lubi"                    : "Wiko"
+      "Ozzy"                    : "Wiko"
+      "Pulp"                    : "Wiko"
+      "Rainbow"                 : "Wiko"
+      "Ridge"                   : "Wiko"
+      "Riff"                    : "Wiko"
+      "Robby"                   : "Wiko"
+      "Selfy"                   : "Wiko"
+      "Slide"                   : "Wiko"
+      "Stairway"                : "Wiko"
+      "Sunny"                   : "Wiko"
+      "Sunset"                  : "Wiko"
+      "Tommy"                   : "Wiko"
+      "ufeel"                   : "Wiko"
+      "U Feel"                  : "Wiko"
+      "U Pulse"                 : "Wiko"
+      "View"                    : "Wiko"
+      "Wax"                     : "Wiko"
+      "W C"                     : "Wiko"
+      "W_C"                     : "Wiko"
+      "Wim"                     : "Wiko"
+      "W K"                     : "Wiko"
+      "W_K"                     : "Wiko"
+      "W P"                     : "Wiko"
+      "W_P"                     : "Wiko"
+      "Zdroid"                  : "Wiko"
+
+      "Swift"                   : "Wileyfox"
+
+      "AT-"                     : "Wolfgang Mobile"
+
+      "HM2014"                  : "Xiaomi"
+      "HM "                     : "Xiaomi"
+      "Hongmi"                  : "Xiaomi"
+      "Mi4"                     : "Xiaomi"
+      "Mi6"                     : "Xiaomi"
+      "MiBox"                   : "Xiaomi"
+      "MiPad"                   : "Xiaomi"
+      "MiTV"                    : "Xiaomi"
+      "Mi "                     : "Xiaomi"
+      "Mi-"                     : "Xiaomi"
+      "Mix "                    : "Xiaomi"
+      "M20"                     : "Xiaomi"
+      "M21"                     : "Xiaomi"
+      "M22"                     : "Xiaomi"
+      "Pocophone"               : "Xiaomi"
+      "Poco "                   : "Xiaomi"
+      "Redmi "                  : "Xiaomi"
+
+      "Blade"                   : "ZTE"
+
+# ========================================================================
+# Huawei specifics:
+
+- matcher:
+    # HMSCore = "Huawei Mobile Services"
+    # https://consumer.huawei.com/en/support/content/en-us00794738/
+    # https://www.huaweicentral.com/hms-core/
+    require:
+    - 'agent.(1)product.(1)comments.entry.product.name="HMSCore"'
+    extract:
+    - 'DeviceBrand                         :      325 :"Huawei"'
+
+- matcher:
+    # HMSCore = "Huawei Mobile Services"
+    # https://consumer.huawei.com/en/support/content/en-us00794738/
+    # https://www.huaweicentral.com/hms-core/
+    variable:
+    - 'HMSCore                             :agent.(1)product.(1)comments.entry.product.name="HMSCore"^^'
+    - 'Name                                :@HMSCore<'
+    extract:
+    - 'DeviceBrand                         :      325 :"Huawei"'
+    - 'DeviceName                          :      325 :@Name!="Android"'
+
+# HarmonyOS: https://www.harmonyos.com/en/home
+- matcher:
+    require:
+    - 'agent.(1-4)product.comments.entry="HarmonyOS"'
+    extract:
+    - 'DeviceClass                         :        1 : "Mobile"'
+    - 'DeviceBrand                         :     1000 : "Huawei"'
+    - 'OperatingSystemClass                :     1000 : "Mobile"'
+    - 'OperatingSystemName                 :     1000 : "HarmonyOS"'
+    - 'OperatingSystemVersion              :     1000 : "<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'HarmonyOS                           :agent.(1-4)product.comments.entry.product.name="HarmonyOS"'
+    extract:
+    - 'DeviceClass                         :        1 : "Mobile"'
+    - 'DeviceBrand                         :     1000 : "Huawei"'
+    - 'OperatingSystemClass                :     1000 : "Mobile"'
+    - 'OperatingSystemName                 :     1000 : "HarmonyOS"'
+    - 'OperatingSystemVersion              :     1000 : @HarmonyOS^.version'
+
+
+  # ========================================================================
+
+# Special case: To avoid conflicts with Goanna engine
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry{"GOA"~"Build"'
+    extract:
+    - 'DeviceBrand                         :     3000 :"Wiko"'
+
+- lookup: # DO NOT USE THESE AS PREFIX MATCHING
+    name: 'ExactMatchMobileBrands'
+    map:
+      "Pre"                     : "Palm"
+      "Pixi"                    : "Palm"
+      "Veer"                    : "Palm"
+      "Tungsten"                : "Palm"
+
+- matcher:
+    variable:
+    - 'Agent                               :agent.product.(1)name?ExactMatchMobileBrands'
+    extract:
+    - 'DeviceBrand                         :     3000 :LookUp[ExactMatchMobileBrands;@Agent]'
+    - 'DeviceName                          :     3000 :@Agent'
+    - 'DeviceVersion                       :     3000 :@Agent^.version'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1)comments.entry.(1)product.(1)name="webos"'
+    extract:
+    - 'DeviceClass                         :        1 : "Mobile"'
+    - 'OperatingSystemClass                :     3000 :"Mobile"'
+    - 'OperatingSystemName                 :     3000 :"WebOS"'
+    - 'OperatingSystemVersion              :     3000 :@OS^.version'
+
+
+
+# Chrome 70+ on Android no longer has the BUILD/... part
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry.(1-2)text="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product.name="Android"'
+    extract:
+    - 'DeviceBrand                         :      323 :"Wiko"'
+    - 'DeviceName                          :      323 :agent.(1)product.(1)comments.(3)entry{"GOA"'
+
+- lookup:
+    name: 'XiaomiModels'
+    map:
+      "2013022"       : "Redmi 1"
+      "2013023"       : "Redmi 1W"
+      "2014011"       : "Redmi 1S"
+      "2014811"       : "Redmi 2"
+      "2014812"       : "Redmi 2"
+      "2014813"       : "Redmi 2"
+      "2014814"       : "Redmi 2"
+      "2014815"       : "Redmi 2"
+      "2014816"       : "Redmi 2A"
+      "2014817"       : "Redmi 2"
+      "2014818"       : "Redmi 2"
+      "2014819"       : "Redmi 2"
+
+- matcher:
+    variable:
+    - 'Product                             :agent.(1)product.(1)comments.entry.(1)product{"HM "'
+    extract:
+    - 'DeviceName                          :     1010 :LookUp[XiaomiModels;@Product[1];"Redmi Note 4"]'
+    - 'DeviceBrand                         :     1010 :"Xiaomi"'
+
+- matcher:
+    variable:
+    - 'Product                             :agent.(1)product.(1)comments.entry.(1)product.name{"201"'
+    extract:
+    - 'DeviceName                          :     3000 :LookUpPrefix[XiaomiModels;@Product[1];"Redmi 1"]'
+    - 'DeviceBrand                         :     3000 :"Xiaomi"'

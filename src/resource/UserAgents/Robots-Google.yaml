@@ -1,0 +1,1728 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2021 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+# All bot tags described here
+#     https://support.google.com/webmasters/answer/1061943?hl=en
+- lookup:
+    name: 'NamedGoogleRobots'
+    map:
+        # Token  --> Google Robot name
+        'APIs-Google'                  : 'Google APIs'
+        'Mediapartners-Google'         : 'Google AdSense crawler'    # Normal/ Mobile
+        'AdsBot-Google-Mobile'         : 'Google AdsBot'  #  (Checks Android/iPhone web page ad quality)
+        'AdsBot-Google'                : 'Google AdsBot'  #  (Checks Desktop web page ad quality)
+        'Googlebot-Image'              : 'Google Images'
+        'Googlebot-News'               : 'Google News'
+        'Googlebot Video'              : 'Google Video'
+#        'Googlebot'                    : 'Googlebot (Desktop)' # Not in this list because of imitations
+        'AdsBot-Google-Mobile-Apps'    : 'Google Mobile Apps'
+        'FeedFetcher-Google'           : 'Google Feedfetcher'
+        'Google-Read-Aloud'            : 'Google Read Aloud'
+        'google-speakr'                : 'Google Read Aloud'
+        'DuplexWeb-Google'             : 'Google Duplex on the Web'
+        'Google Favicon'               : 'Google Favicon'
+        'Google-Shopping-Quality'      : 'Google Shopping Quality'
+        'Google-SearchByImage'         : 'Google Search by image'
+
+- matcher:
+    variable:
+    - 'Google                              :agent.(1-8)product.comments.entry.(1-2)product.name[1]="Googlebot"'
+    require:
+    - 'agent.(1-8)product.comments.entry.(1-2)url="http://www.google.com/bot.html"'
+    - 'IsNull[agent.(1-8)product.comments.entry.(1-2)url!="http://www.google.com/bot.html"]'
+    extract:
+    - '__Set_ALL_Fields__                  :   299900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300000 :"Robot"'
+    - 'DeviceBrand                         :   300000 :"Google"'
+    - 'DeviceName                          :   300000 :"Google"'
+    - 'OperatingSystemClass                :   300000 :"Cloud"'
+    - 'OperatingSystemName                 :   300000 :"Google"'
+    - 'OperatingSystemVersion              :   300000 :"Google"'
+    - 'LayoutEngineClass                   :   300000 :"Robot"'
+    - 'LayoutEngineName                    :   300000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   300000 :"Googlebot"'
+    - 'AgentClass                          :   300000 :"Robot"'
+    - 'AgentName                           :   300000 :@Google@'
+    - 'AgentVersion                        :   300000 :@Google^.version'
+
+- matcher:
+    variable:
+    - 'Google                              :agent.(1)product.name[1]="Googlebot"'
+    extract:
+    - '__Set_ALL_Fields__                  :   300900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   301000 :"Robot"'
+    - 'DeviceBrand                         :   301000 :"Google"'
+    - 'DeviceName                          :   301000 :"Google"'
+    - 'OperatingSystemClass                :   301000 :"Cloud"'
+    - 'OperatingSystemName                 :   301000 :"Google"'
+    - 'OperatingSystemVersion              :   301000 :"Google"'
+    - 'LayoutEngineClass                   :   301000 :"Robot"'
+    - 'LayoutEngineName                    :   301000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   301000 :"Googlebot"'
+    - 'AgentClass                          :   301000 :"Robot"'
+    - 'AgentName                           :   301000 :@Google@'
+    - 'AgentVersion                        :   301000 :@Google^.version'
+
+# ------------------------------------------------------------
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="AdsBot-Google"'
+    extract:
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="AdsBot-Google"'
+    extract:
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="AdsBot-Google-Mobile"'
+    extract:
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot Mobile"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google-Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)text="AdsBot-Google-Mobile"'
+    extract:
+    - '__Set_ALL_Fields__                  :   301900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   302000 :"Robot Mobile"'
+    - 'DeviceBrand                         :   302000 :"Google"'
+    - 'DeviceName                          :   302000 :"Google"'
+    - 'OperatingSystemClass                :   302000 :"Cloud"'
+    - 'OperatingSystemName                 :   302000 :"Google"'
+    - 'OperatingSystemVersion              :   302000 :"Google"'
+    - 'LayoutEngineClass                   :   302000 :"Robot"'
+    - 'LayoutEngineName                    :   302000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :   302000 :"Googlebot"'
+    - 'AgentClass                          :   302000 :"Robot"'
+    - 'AgentName                           :   302000 :"Googlebot"'
+    - 'AgentVersion                        :   302000 :"AdsBot-Google-Mobile"'
+
+
+# https://support.google.com/webmasters/answer/1061943?hl=en
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+# ------------------------------------------------------------
+- test:
+    input:
+      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google BOT'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+# ------------------------------------------------------------
+
+- test:
+    input:
+      user_agent_string: 'Googlebot-Image/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google BOT-Image'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot-Image'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Googlebot-Image 1.0'
+      AgentNameVersionMajor                : 'Googlebot-Image 1'
+
+# ------------------------------------------------------------
+- test:
+    input:
+      user_agent_string: 'Googlebot-Video/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google BOT-Video'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot-Video'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Googlebot-Video 1.0'
+      AgentNameVersionMajor                : 'Googlebot-Video 1'
+
+# ------------------------------------------------------------
+#Googlebot-Mobile
+
+# Mobile google bots
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)product.name="Googlebot"'
+    - 'agent.product.name="Mobile"'
+    extract:
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)product.name="Googlebot"'
+    - 'agent.product.name="Mobile Safari"'
+    extract:
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1)product.name="Googlebot-Mobile"'
+    extract:
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+- test:
+    input:
+      user_agent_string: 'SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot-Mobile'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot-Mobile 2.1'
+      AgentNameVersionMajor                : 'Googlebot-Mobile 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+# ------------------------------------------------------------
+- test:
+    input:
+      user_agent_string: 'DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot-Mobile'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot-Mobile 2.1'
+      AgentNameVersionMajor                : 'Googlebot-Mobile 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+# ------------------------------------------------------------
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+# ------------------------------------------------------------
+
+#Google Mobile AdSense Mediapartners-Google
+#
+#of
+#
+#Mediapartners
+#(Googlebot)    [verschillende soorten mobiele apparaten] (compatibel; Mediapartners-Google/2.1; +http://www.google.com/bot.html)
+#Google AdSense    Mediapartners-Google
+#Mediapartners
+#(Googlebot)    Mediapartners-Google
+#Kwaliteitscontrole voor Google AdsBot-bestemmingspagina    AdsBot-Google
+
+- test:
+    input:
+      user_agent_string: 'AdsBot-Google (+http://www.google.com/adsbot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Adsbot-Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : 'AdsBot-Google'
+      AgentVersionMajor                    : 'AdsBot'
+      AgentNameVersion                     : 'Googlebot AdsBot-Google'
+      AgentNameVersionMajor                : 'Googlebot AdsBot'
+      AgentInformationUrl                  : 'http://www.google.com/adsbot.html'
+
+# https://support.google.com/adwords/answer/2404197
+# Quote:  Currently, we use two HTTP User-Agent header to identify AdWords mobile visits:
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0; SM-G920A) AppleWebKit (KHTML, like Gecko) Chrome Mobile Safari (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : 'AdsBot-Google-Mobile'
+      AgentVersionMajor                    : 'AdsBot'
+      AgentNameVersion                     : 'Googlebot AdsBot-Google-Mobile'
+      AgentNameVersionMajor                : 'Googlebot AdsBot'
+      AgentInformationUrl                  : 'http://www.google.com/mobile/adsbot.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : 'AdsBot-Google-Mobile'
+      AgentVersionMajor                    : 'AdsBot'
+      AgentNameVersion                     : 'Googlebot AdsBot-Google-Mobile'
+      AgentNameVersionMajor                : 'Googlebot AdsBot'
+      AgentInformationUrl                  : 'http://www.google.com/mobile/adsbot.html'
+
+
+# Google developer testing tool
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry~"testing"'
+    extract:
+    - 'AgentClass                          :   100000 :"Testclient"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +http://developers.google.com/structured-data/testing-tool/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Robot'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google-Structured-Data-Testing-Tool'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google-Structured-Data-Testing-Tool ??'
+      LayoutEngineNameVersionMajor         : 'Google-Structured-Data-Testing-Tool ??'
+      AgentClass                           : 'Testclient'
+      AgentName                            : 'Google-Structured-Data-Testing-Tool'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Structured-Data-Testing-Tool ??'
+      AgentNameVersionMajor                : 'Google-Structured-Data-Testing-Tool ??'
+      AgentInformationUrl                  : 'http://developers.google.com/structured-data/testing-tool/'
+
+# Google developer testing tool
+- matcher:
+    variable:
+    - 'ToolName:NormalizeBrand[agent.product.(1)comments.(1-5)entry.(1)product.(1-2)version.(1-2)url~"://developers.google.com"^.name]'
+    extract:
+    - 'DeviceClass                         :    99999 : "Robot"'
+    - 'DeviceName                          :    99999 : "Google Robot"'
+    - 'DeviceBrand                         :    99999 : "Google"'
+    - 'OperatingSystemClass                :    99999 : "Cloud"'
+    - 'OperatingSystemName                 :    99999 : "Cloud"'
+    - 'OperatingSystemVersion              :    99999 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :    99999 : "Robot"'
+    - 'LayoutEngineName                    :    99999 : @ToolName'
+    - 'LayoutEngineVersion                 :    99999 : "<<<null>>>"'
+    - 'AgentClass                          :    99999 : "Robot"'
+    - 'AgentName                           :    99999 : @ToolName'
+    - 'AgentVersion                        :    99999 : "<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'URL:agent.product.(1)comments.(1-5)entry.url~"https://developers.google.com"'
+    - 'ToolName:Concat["Google Robot ";NormalizeBrand[ReplaceString[ReplaceString[ReplaceString[@URL;"https://developers.google.com";""];"+";""];"/";" "]]]'
+    extract:
+    - 'DeviceClass                         :    99999 : "Robot"'
+    - 'DeviceName                          :    99999 : "Google Robot"'
+    - 'DeviceBrand                         :    99999 : "Google"'
+    - 'OperatingSystemClass                :    99999 : "Cloud"'
+    - 'OperatingSystemName                 :    99999 : "Cloud"'
+    - 'OperatingSystemVersion              :    99999 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :    99999 : "Robot"'
+    - 'LayoutEngineName                    :    99999 : @ToolName'
+    - 'LayoutEngineVersion                 :    99999 : "<<<null>>>"'
+    - 'AgentClass                          :    99999 : "Robot"'
+    - 'AgentName                           :    99999 : @ToolName'
+    - 'AgentVersion                        :    99999 : "<<<null>>>"'
+
+  # https://stackoverflow.com/questions/20750191/google-plus-crawler/20751481
+  # This was the Google+ Snippet bot
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 Google (+https://developers.google.com/+/web/snippet/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Robot'
+      DeviceBrand                          : 'Google'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Robot WEB Snippet'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Robot WEB Snippet ??'
+      LayoutEngineNameVersionMajor         : 'Google Robot WEB Snippet ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Robot WEB Snippet'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Robot WEB Snippet ??'
+      AgentNameVersionMajor                : 'Google Robot WEB Snippet ??'
+      AgentInformationUrl                  : 'https://developers.google.com/+/web/snippet/'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :   311500 :"Robot"'
+    - 'DeviceName                          :   311500 :"Google Search Appliance"'
+    - 'DeviceBrand                         :   311500 :"Google"'
+    - 'AgentClass                          :   311500 :"Robot"'
+    - 'AgentName                           :   311500 :"Google Search Appliance"'
+    - 'GSAInstallationID                   :   311500 :agent.(1)product.(1)comments.(2)entry.(1)text[-1]="GID"@'
+
+- test:
+    input:
+      user_agent_string: 'gsa-crawler (Enterprise; GID-01422; jplastiras@google.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Search Appliance'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'gsa-crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'gsa-crawler ??'
+      LayoutEngineNameVersionMajor         : 'gsa-crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Search Appliance'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Search Appliance ??'
+      AgentNameVersionMajor                : 'Google Search Appliance ??'
+      AgentInformationEmail                : 'jplastiras@google.com'
+      GSAInstallationID                    : 'GID-01422'
+
+- matcher:
+    require:
+    - 'agent.product.name="AppEngine-Google"'
+    - 'agent.product.(1)comments.(1)entry.(1)url="http://code.google.com/appengine"'
+    - 'agent.product.(1)comments.(2)entry.(1)keyvalue.(1)key="appid"'
+    extract:
+    - 'DeviceClass                         :   400000 :"Robot"'
+    - 'DeviceName                          :   400000 :"Google AppEngine"'
+    - 'DeviceBrand                         :   400000 :"Google"'
+    - 'OperatingSystemClass                :   400000 : "Cloud"'
+    - 'OperatingSystemName                 :   400000 : "Google Cloud"'
+    - 'OperatingSystemVersion              :   400000 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :   400000 : "Cloud"'
+    - 'LayoutEngineName                    :   400000 : "Cloud"'
+    - 'LayoutEngineVersion                 :   400000 : "<<<null>>>"'
+    - 'AgentClass                          :   400000 :"Robot"'
+    - 'AgentName                           :   400000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(1)version[1]="s"@[2-]'
+    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name="AppEngine-Google"'
+    - 'agent.product.(1)comments.(1)entry.(1)url="http://code.google.com/appengine"'
+    - 'agent.product.(1)comments.(2)entry.(1)keyvalue.(1)key="appid"'
+    extract:
+    - 'DeviceClass                         :   400000 :"Robot"'
+    - 'DeviceName                          :   400000 :"Google AppEngine"'
+    - 'DeviceBrand                         :   400000 :"Google"'
+    - 'OperatingSystemClass                :   400000 : "Cloud"'
+    - 'OperatingSystemName                 :   400000 : "Google Cloud"'
+    - 'OperatingSystemVersion              :   400000 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :   400000 : "Cloud"'
+    - 'LayoutEngineName                    :   400000 : "Cloud"'
+    - 'LayoutEngineVersion                 :   400000 : "<<<null>>>"'
+    - 'AgentClass                          :   400000 :"Robot"'
+    - 'AgentName                           :   400000 :agent.product.(1)comments.(2)entry.(1)keyvalue.(2)text[1]="s"@[2-]'
+    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.name~"bot"'
+    - 'agent.(1)product.name~"Google"'
+    extract:
+    - 'DeviceBrand                         :    20000 :"Google"'
+    - 'OperatingSystemClass                :    20000 : "Cloud"'
+    - 'OperatingSystemName                 :    20000 : "Google Cloud"'
+    - 'OperatingSystemVersion              :    20000 : "<<<null>>>"'
+
+#Google AppEngine apps
+- test:
+    input:
+      user_agent_string: 'AppEngine-Google; (+http://code.google.com/appengine; appid: s~king4proxy)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appengine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'KING4PROXY'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'KING4PROXY ??'
+      AgentNameVersionMajor                : 'KING4PROXY ??'
+      AgentInformationUrl                  : 'http://code.google.com/appengine'
+
+- test:
+    input:
+      user_agent_string: 'AppEngine-Google; (+http://code.google.com/appengine; appid: s~linkqualityaag)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appengine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Linkqualityaag'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Linkqualityaag ??'
+      AgentNameVersionMajor                : 'Linkqualityaag ??'
+      AgentInformationUrl                  : 'http://code.google.com/appengine'
+
+- test:
+    input:
+      user_agent_string: 'AppEngine-Google; (+http://code.google.com/appengine; appid: s~snapchat-proxy)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appengine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Snapchat-Proxy'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Snapchat-Proxy ??'
+      AgentNameVersionMajor                : 'Snapchat-Proxy ??'
+      AgentInformationUrl                  : 'http://code.google.com/appengine'
+
+
+  #AppEngine-Google; (+http://code.google.com/appengine; appid: s~loa10167767606076078)
+#AppEngine-Google; (+http://code.google.com/appengine; appid: s~magicscrollreader234)
+#AppEngine-Google; (+http://code.google.com/appengine; appid: s~misterhac)
+
+# Google shopping quality checks
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)product.name="Google-Shopping-Quality"'
+    - 'agent.product.name="Mobile"'
+    extract:
+    - 'DeviceClass                         :  1000000 :"Robot Mobile"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :"Google-Shopping-Quality"'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google Cloud"'
+    - 'OperatingSystemVersion              :  1000000 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :  1000000 :"Googlebot"'
+    - 'AgentClass                          :  1000000 :"Robot Mobile"'
+    - 'AgentName                           :  1000000 :"Google-Shopping-Quality"'
+    - 'AgentVersion                        :  1000000 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)product.name="Google-Shopping-Quality"'
+    - 'IsNull[agent.product.name="Mobile"]'
+    extract:
+    - 'DeviceClass                         :  1000000 :"Robot"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :"Google-Shopping-Quality"'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google Cloud"'
+    - 'OperatingSystemVersion              :  1000000 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :"Googlebot"'
+    - 'LayoutEngineVersion                 :  1000000 :"Googlebot"'
+    - 'AgentClass                          :  1000000 :"Robot"'
+    - 'AgentName                           :  1000000 :"Google-Shopping-Quality"'
+    - 'AgentVersion                        :  1000000 :"<<<null>>>"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Google-Shopping-Quality +http://www.google.com/merchants/tos/extend/BE/tos.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceVersion                        : 'Google-Shopping-Quality'
+      DeviceFirmwareVersion                : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot Mobile'
+      AgentName                            : 'Google-Shopping-Quality'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Shopping-Quality ??'
+      AgentNameVersionMajor                : 'Google-Shopping-Quality ??'
+      AgentInformationUrl                  : 'http://www.google.com/merchants/tos/extend/BE/tos.html'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453 Safari/537.36 (compatible; Google-Shopping-Quality +http://www.google.com/merchants/tos/extend/NL/tos.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceFirmwareVersion                : 'Google'
+      DeviceVersion                        : 'Google-Shopping-Quality'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : 'Googlebot'
+      LayoutEngineVersionMajor             : 'Googlebot'
+      LayoutEngineNameVersion              : 'Googlebot'
+      LayoutEngineNameVersionMajor         : 'Googlebot'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google-Shopping-Quality'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Shopping-Quality ??'
+      AgentNameVersionMajor                : 'Google-Shopping-Quality ??'
+      AgentInformationUrl                  : 'http://www.google.com/merchants/tos/extend/NL/tos.html'
+
+#TODO: gfe means the Google Front End
+#Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0,gzip(gfe) (via shopping.google.com)
+# https://support.google.com/webmasters/answer/1061943?hl=en
+# http://stackoverflow.com/questions/2862874/what-is-gzipgfe
+
+- test:
+    input:
+      user_agent_string: 'AdsBot-Google-Mobile-Apps (compatible; Mediapartners-Google/2.1;+http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Adsbot-Google-Mobile-Apps'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Mobile Apps'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Mobile Apps ??'
+      LayoutEngineNameVersionMajor         : 'Google Mobile Apps ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Mobile Apps'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Mobile Apps ??'
+      AgentNameVersionMajor                : 'Google Mobile Apps ??'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+
+# https://developers.google.com/speed/docs/insights/faq#whyonlinediff
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry="Google Page Speed Insights"'
+    extract:
+    - '__Set_ALL_Fields__                  :     9999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Robot"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :"Google Page Speed Insights"'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google Cloud"'
+    - 'OperatingSystemVersion              :  1000000 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :  1000000 :"Google Cloud ??"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :"Google Page Speed Insights"'
+    - 'LayoutEngineVersion                 :  1000000 :"<<<null>>>"'
+    - 'AgentClass                          :  1000000 :"Robot"'
+    - 'AgentName                           :  1000000 :"Google Page Speed Insights"'
+    - 'AgentVersion                        :  1000000 :"<<<null>>>"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko; Google Page Speed Insights) Chrome/27.0.1453 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceFirmwareVersion                : 'Google'
+      DeviceVersion                        : 'Google Page Speed Insights'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Page Speed Insights'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Page Speed Insights ??'
+      LayoutEngineNameVersionMajor         : 'Google Page Speed Insights ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Page Speed Insights'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Page Speed Insights ??'
+      AgentNameVersionMajor                : 'Google Page Speed Insights ??'
+
+# https://support.google.com/webmasters/answer/1062498?hl=en
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry[1-2]="Google Web"'
+    extract:
+    - '__Set_ALL_Fields__                  :     9999 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Robot"'
+    - 'DeviceName                          :  1000000 :"Google"'
+    - 'DeviceBrand                         :  1000000 :"Google"'
+    - 'DeviceVersion                       :  1000000 :agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
+    - 'DeviceFirmwareVersion               :  1000000 :"Google"'
+    - 'OperatingSystemClass                :  1000000 :"Cloud"'
+    - 'OperatingSystemName                 :  1000000 :"Google"'
+    - 'OperatingSystemVersion              :  1000000 :"Google"'
+    - 'LayoutEngineClass                   :  1000000 :"Robot"'
+    - 'LayoutEngineName                    :  1000000 :agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
+    - 'LayoutEngineVersion                 :  1000000 :"<<<null>>>"'
+    - 'AgentClass                          :  1000000 :"Robot"'
+    - 'AgentName                           :  1000000 :agent.product.(1)comments.entry[1-3]="Google Web Preview"@'
+    - 'AgentVersion                        :  1000000 :"<<<null>>>"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko; Google Web Preview) Chrome/27.0.1453 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceFirmwareVersion                : 'Google'
+      DeviceVersion                        : 'Google Web Preview'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Web Preview'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Web Preview ??'
+      LayoutEngineNameVersionMajor         : 'Google Web Preview ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Web Preview'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Web Preview ??'
+      AgentNameVersionMajor                : 'Google Web Preview ??'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; Google Web Preview Analytics) Chrome/27.0.1453 Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      DeviceFirmwareVersion                : 'Google'
+      DeviceVersion                        : 'Google Web Preview Analytics'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google'
+      OperatingSystemVersion               : 'Google'
+      OperatingSystemVersionMajor          : 'Google'
+      OperatingSystemNameVersion           : 'Google'
+      OperatingSystemNameVersionMajor      : 'Google'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Web Preview Analytics'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Web Preview Analytics ??'
+      LayoutEngineNameVersionMajor         : 'Google Web Preview Analytics ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Web Preview Analytics'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Web Preview Analytics ??'
+      AgentNameVersionMajor                : 'Google Web Preview Analytics ??'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+
+
+# Google developer testing tool
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry="Google-Test"'
+    extract:
+    - 'DeviceClass                         :   100000 :"Robot"'
+    - 'DeviceName                          :   100000 :"Robot"'
+    - 'DeviceBrand                         :   100000 :"Google"'
+    - 'OperatingSystemClass                :   100000 :"Cloud"'
+    - 'OperatingSystemName                 :   100000 :"Cloud"'
+    - 'OperatingSystemVersion              :   100000 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   100000 :"Robot"'
+    - 'LayoutEngineName                    :   100000 :"Google-Test"'
+    - 'LayoutEngineVersion                 :   100000 :"<<<null>>>"'
+    - 'AgentClass                          :   100000 :"Testclient"'
+    - 'AgentName                           :   100000 :"Google-Test"'
+    - 'AgentVersion                        :   100000 :"<<<null>>>"'
+
+
+- test: # TODO: Figure out what kind of useragent this really is.
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Google-Test;)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Robot'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google-Test'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google-Test ??'
+      LayoutEngineNameVersionMajor         : 'Google-Test ??'
+      AgentClass                           : 'Testclient'
+      AgentName                            : 'Google-Test'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google-Test ??'
+      AgentNameVersionMajor                : 'Google-Test ??'
+
+- matcher:
+    variable:
+    - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.name]'
+    extract:
+    - '__Set_ALL_Fields__                  :   299950 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300050 :"Robot"'
+    - 'DeviceName                          :   300050 :@BotName'
+    - 'DeviceBrand                         :   300050 :"Google"'
+    - 'OperatingSystemClass                :   300050 :"Cloud"'
+    - 'OperatingSystemName                 :   300050 :"Cloud"'
+    - 'OperatingSystemVersion              :   300050 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   300050 :"Robot"'
+    - 'LayoutEngineName                    :   300050 :@BotName'
+    - 'LayoutEngineVersion                 :   300050 :"<<<null>>>"'
+    - 'AgentClass                          :   300050 :"Robot"'
+    - 'AgentName                           :   300050 :@BotName'
+    - 'AgentVersion                        :   300050 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Google                              :agent.product.name?NamedGoogleRobots'
+    - 'BotVersion                          :@Google^.version'
+    extract:
+    - 'OperatingSystemVersion              :   300051 :@BotVersion'
+    - 'LayoutEngineVersion                 :   300051 :@BotVersion'
+    - 'AgentVersion                        :   300051 :@BotVersion'
+
+- matcher:
+    variable:
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.text]'
+    extract:
+    - '__Set_ALL_Fields__                  :   299940 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300040 :"Robot"'
+    - 'DeviceName                          :   300040 :@Google'
+    - 'DeviceBrand                         :   300040 :"Google"'
+    - 'OperatingSystemClass                :   300040 :"Cloud"'
+    - 'OperatingSystemName                 :   300040 :"Cloud"'
+    - 'OperatingSystemVersion              :   300040 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   300040 :"Robot"'
+    - 'LayoutEngineName                    :   300040 :@Google'
+    - 'LayoutEngineVersion                 :   300040 :"<<<null>>>"'
+    - 'AgentClass                          :   300040 :"Robot"'
+    - 'AgentName                           :   300040 :@Google'
+    - 'AgentVersion                        :   300040 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'BotName                             :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.entry.product.name]'
+    extract:
+    - '__Set_ALL_Fields__                  :   299930 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300030 :"Robot"'
+    - 'DeviceName                          :   300030 :@BotName'
+    - 'DeviceBrand                         :   300030 :"Google"'
+    - 'OperatingSystemClass                :   300030 :"Cloud"'
+    - 'OperatingSystemName                 :   300030 :"Cloud"'
+    - 'OperatingSystemVersion              :   300030 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   300030 :"Robot"'
+    - 'LayoutEngineName                    :   300030 :@BotName'
+    - 'LayoutEngineVersion                 :   300030 :"<<<null>>>"'
+    - 'AgentClass                          :   300030 :"Robot"'
+    - 'AgentName                           :   300030 :@BotName'
+    - 'AgentVersion                        :   300030 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Google                              :agent.(1-5)product.comments.entry.product.name?NamedGoogleRobots'
+    - 'BotVersion                          :@Google^.version'
+    extract:
+    - 'OperatingSystemVersion              :   300031 :@BotVersion'
+    - 'LayoutEngineVersion                 :   300031 :@BotVersion'
+    - 'AgentVersion                        :   300031 :@BotVersion'
+
+- matcher:
+    variable:
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.entry.text]'
+    extract:
+    - '__Set_ALL_Fields__                  :   299920 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   300020 :"Robot"'
+    - 'DeviceName                          :   300020 :@Google'
+    - 'DeviceBrand                         :   300020 :"Google"'
+    - 'OperatingSystemClass                :   300020 :"Cloud"'
+    - 'OperatingSystemName                 :   300020 :"Cloud"'
+    - 'OperatingSystemVersion              :   300020 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   300020 :"Robot"'
+    - 'LayoutEngineName                    :   300020 :@Google'
+    - 'LayoutEngineVersion                 :   300020 :"<<<null>>>"'
+    - 'AgentClass                          :   300020 :"Robot"'
+    - 'AgentName                           :   300020 :@Google'
+    - 'AgentVersion                        :   300020 :"<<<null>>>"'
+    - 'AgentLanguage                       :   500010 :"<<<null>>>"'
+    - 'AgentLanguageCode                   :   500010 :"<<<null>>>"'
+    - 'AgentSecurity                       :   500010 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.name]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300051 :"Robot Mobile"'
+
+- matcher:
+    variable:
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.text]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300041 :"Robot Mobile"'
+
+- matcher:
+    variable:
+    - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.comments.(1-5)entry.(1-2)product.name]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300031 :"Robot Mobile"'
+
+- matcher:
+    variable:
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.(1-5)entry.text]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300021 :"Robot Mobile"'
+
+- matcher:
+    variable:
+    - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.name]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300051 :"Robot Mobile"'
+
+- matcher:
+    variable:
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.text]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300041 :"Robot Mobile"'
+
+
+- matcher:
+    variable:
+    - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.comments.(1-5)entry.(1-2)product.name]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300031 :"Robot Mobile"'
+
+- matcher:
+    variable:
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.(1-5)entry.text]'
+    require:
+    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    extract:
+    - 'DeviceClass                         :   300021 :"Robot Mobile"'
+
+
+  #- test: # TODO: Figure out how to classify this one
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible) Feedfetcher-Google; (+http://www.google.com/feedfetcher.html)'
+#    expected:
+#      DeviceClass                          : 'Robot'
+#      DeviceName                           : 'Google Appengine'
+#      DeviceBrand                          : 'Google'
+#      OperatingSystemClass                 : 'Cloud'
+#      OperatingSystemName                  : 'Cloud'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemNameVersion           : 'Cloud ??'
+#      OperatingSystemNameVersionMajor      : 'Cloud ??'
+#      LayoutEngineClass                    : 'Unknown'
+#      LayoutEngineName                     : 'Unknown'
+#      LayoutEngineVersion                  : '??'
+#      LayoutEngineVersionMajor             : '??'
+#      AgentClass                           : 'Cloud Application'
+#      AgentName                            : 'Feedfetcher'
+#      AgentVersion                         : '??'
+#      AgentVersionMajor                    : '??'
+#      AgentNameVersion                     : 'Feedfetcher ??'
+#      AgentNameVersionMajor                : 'Feedfetcher ??'
+#      AgentInformationUrl                  : 'http://www.google.com/feedfetcher.html'
+#
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Google-Site-Verification/1.0)'
+#
+#
+#- test: # TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +https://search.google.com/structured-data/testing-tool)'
+#
+#
+## https://support.google.com/adsense/answer/10532?hl=en
+## https://support.google.com/adsense/answer/99376
+## = Google Adsense Crawler
+## https://support.google.com/webmasters/answer/1061943?hl=en
+- test:
+    input:
+      user_agent_string: 'Mediapartners-Google'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Adsense Crawler'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google AdSense crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google AdSense crawler ??'
+      LayoutEngineNameVersionMajor         : 'Google AdSense crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google AdSense crawler'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google AdSense crawler ??'
+      AgentNameVersionMajor                : 'Google AdSense crawler ??'
+
+
+- test:
+    input:
+      user_agent_string: 'APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Apis'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google APIs'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google APIs ??'
+      LayoutEngineNameVersionMajor         : 'Google APIs ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google APIs'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google APIs ??'
+      AgentNameVersionMajor                : 'Google APIs ??'
+      AgentInformationUrl                  : 'https://developers.google.com/webmasters/APIs-Google.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Googlebot News'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Googlebot News'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot News'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Googlebot News ??'
+      LayoutEngineNameVersionMajor         : 'Googlebot News ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot News'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Googlebot News ??'
+      AgentNameVersionMajor                : 'Googlebot News ??'
+#      # Yes, silly. I know.
+#      HackerAttackVector                   : 'Unknown'
+#      HackerToolkit                        : 'Unknown'
+
+
+- test:
+    input:
+      user_agent_string: 'FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Feedfetcher'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Feedfetcher'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Feedfetcher ??'
+      LayoutEngineNameVersionMajor         : 'Google Feedfetcher ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Feedfetcher'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Feedfetcher ??'
+      AgentNameVersionMajor                : 'Google Feedfetcher ??'
+      AgentInformationUrl                  : 'http://www.google.com/feedfetcher.html'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Read Aloud'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Read Aloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Read Aloud ??'
+      LayoutEngineNameVersionMajor         : 'Google Read Aloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Read Aloud'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Read Aloud ??'
+      AgentNameVersionMajor                : 'Google Read Aloud ??'
+      AgentInformationUrl                  : 'https://support.google.com/webmasters/answer/1061943'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012; DuplexWeb-Google/1.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Duplex ON THE WEB'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'Cloud 1.0'
+      OperatingSystemNameVersionMajor      : 'Cloud 1'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Duplex on the Web'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Google Duplex on the Web 1.0'
+      LayoutEngineNameVersionMajor         : 'Google Duplex on the Web 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Duplex on the Web'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Duplex on the Web 1.0'
+      AgentNameVersionMajor                : 'Google Duplex on the Web 1'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)  Chrome/49.0.2623.75 Safari/537.36 Google Favicon'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Favicon'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Favicon'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Favicon ??'
+      LayoutEngineNameVersionMajor         : 'Google Favicon ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Favicon'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Favicon ??'
+      AgentNameVersionMajor                : 'Google Favicon ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/[WEBKIT_VERSION] (KHTML, like Gecko; Mediapartners-Google) Chrome/[CHROME_VERSION] Mobile Safari/[WEBKIT_VERSION]'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Adsense Crawler'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google AdSense crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google AdSense crawler ??'
+      LayoutEngineNameVersionMajor         : 'Google AdSense crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google AdSense crawler'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google AdSense crawler ??'
+      AgentNameVersionMajor                : 'Google AdSense crawler ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/[WEBKIT_VERSION] (KHTML, like Gecko, Mediapartners-Google) Chrome/[CHROME_VERSION] Safari/[WEBKIT_VERSION]'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Adsense Crawler'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google AdSense crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google AdSense crawler ??'
+      LayoutEngineNameVersionMajor         : 'Google AdSense crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google AdSense crawler'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google AdSense crawler ??'
+      AgentNameVersionMajor                : 'Google AdSense crawler ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/537.36 (KHTML, like Gecko; Mediapartners-Google) Chrome/41.0.2272.118 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Adsense Crawler'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google AdSense crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google AdSense crawler ??'
+      LayoutEngineNameVersionMajor         : 'Google AdSense crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google AdSense crawler'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google AdSense crawler ??'
+      AgentNameVersionMajor                : 'Google AdSense crawler ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/537.36 (KHTML, like Gecko, Mediapartners-Google) Chrome/41.0.2272.118 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Adsense Crawler'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google AdSense crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google AdSense crawler ??'
+      LayoutEngineNameVersionMajor         : 'Google AdSense crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google AdSense crawler'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google AdSense crawler ??'
+      AgentNameVersionMajor                : 'Google AdSense crawler ??'
+
+# If you put an image url in the Google search box and then press the "search for this image" functionality
+# the Google servers will retrieve the image using this useragent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.0.7; Google-SearchByImage) Gecko/2009021910 Firefox/3.0.7'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Search BY Image'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Search by image'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Search by image ??'
+      LayoutEngineNameVersionMajor         : 'Google Search by image ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Search by image'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Search by image ??'
+      AgentNameVersionMajor                : 'Google Search by image ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Google-Safety; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Nexus 5X'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      OperatingSystemVersionBuild          : 'MMB29P'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '41.0'
+      LayoutEngineVersionMajor             : '41'
+      LayoutEngineNameVersion              : 'Blink 41.0'
+      LayoutEngineNameVersionMajor         : 'Blink 41'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '41.0.2272.96'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Chrome 41.0.2272.96'
+      AgentNameVersionMajor                : 'Chrome 41'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'

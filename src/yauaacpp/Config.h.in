@@ -1,0 +1,3 @@
+#pragma once
+
+#define USER_AGENT_YAML_FILES_PATH "@USER_AGENT_YAML_FILES_PATH@"

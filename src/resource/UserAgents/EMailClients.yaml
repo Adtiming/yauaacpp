@@ -1,0 +1,1744 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2021 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- lookup:
+    name: 'MSOfficeApplicationNames'
+    map:
+      "MAPI"   : "Microsoft Office MAPI Client" # Messaging Application Programming Interface (MAPI)
+      "UCMAPI" : "Microsoft Office MAPI Client" # Messaging Application Programming Interface (MAPI)
+      "InfoPath Editor" : "Microsoft Office InfoPath Editor"
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :        1 : "Desktop"'
+    - 'DeviceName                          :        1 : "Desktop"'
+    - 'OperatingSystemClass                :        1 : "Desktop"'
+    - 'OperatingSystemName                 :        1 : "Windows NT"'
+    - 'AgentClass                          :        9 : "Special"'
+    - 'AgentName                           :        9 : "Microsoft Office"'
+    - 'AgentVersion                        :        9 : agent.(1)product.name="Microsoft Office"^.version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="Microsoft Office"'
+    variable:
+    - 'OfficeAppName                       :agent.(1)product.(1)comments.entry.(1)product.name[1]="Microsoft"@'
+    extract:
+    - 'DeviceClass                         :        1 : "Desktop"'
+    - 'DeviceName                          :        1 : "Desktop"'
+    - 'OperatingSystemClass                :        1 : "Desktop"'
+    - 'OperatingSystemName                 :        1 : "Windows NT"'
+    - 'AgentClass                          :       10 : "Special"'
+    - 'AgentName                           :       10 : @OfficeAppName'
+    - 'AgentVersion                        :       10 : @OfficeAppName^.version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="Microsoft Office"'
+    variable:
+    - 'OfficeAppName                       :LookUp[MSOfficeApplicationNames;agent.(1)product.(1)comments.entry.(1)product.name]'
+    extract:
+    - 'DeviceClass                         :        1 : "Desktop"'
+    - 'DeviceName                          :        1 : "Desktop"'
+    - 'AgentClass                          :       10 : "Special"'
+    - 'AgentName                           :       11 : @OfficeAppName'
+    - 'AgentVersion                        :       10 : @OfficeAppName^.version'
+
+- matcher:
+    variable:
+    - 'Outlook                             :agent.(1)product.(1)comments.entry.(1)product.name="Microsoft Outlook"'
+    extract:
+    - 'AgentClass                          :     3000 :"Email Client"'
+    - 'AgentName                           :     3000 : "Microsoft Outlook"'
+    - 'AgentVersion                        :     3000 : @Outlook^.version'
+
+- matcher:
+    variable:
+    - 'Outlook                             :agent.(1)product.name="Outlook-Express"'
+    extract:
+    - 'AgentClass                          :     3000 :"Email Client"'
+    - 'AgentName                           :     3000 : "Microsoft Outlook-Express"'
+    - 'AgentVersion                        :     3000 : @Outlook^.version'
+
+- matcher:
+    variable:
+    - 'Outlook                             :agent.product.name="MacOutlook"'
+    extract:
+    - 'AgentClass                          :     3000 :"Email Client"'
+    - 'AgentName                           :     1000 : "Microsoft Outlook"'
+    - 'AgentVersion                        :     1000 : @Outlook^.version'
+
+
+- matcher:
+    variable:
+    - 'Outlook                             :agent.(1)product.name="Outlook-ios"'
+    require:
+    - '@Outlook^.version[4]="iphone"'
+    extract:
+    - 'DeviceClass                         :     1000 : "Phone"'
+    - 'DeviceName                          :     1000 : "iPhone"'
+    - 'DeviceBrand                         :     1000 : "Apple"'
+    - 'OperatingSystemClass                :     1000 : "Mobile"'
+    - 'OperatingSystemName                 :     1000 : "iOS"'
+    - 'OperatingSystemVersion              :     1000 : "<<<null>>>"'
+    - 'AgentClass                          :     3000 :"Email Client"'
+    - 'AgentName                           :     3000 : "Microsoft Outlook Mobile"'
+    - 'AgentVersion                        :     3000 : @Outlook^.(1)comments.(1)entry'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.name="MAPI"'
+    extract:
+    - 'AgentClass                          :      100 :"Email Client"'
+
+
+# Ensure that 'pro' is not detected as the language
+#   "pro" : "Old Provençal (to 1500)"
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.8241; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.8241'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.8241'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Office'
+      AgentVersion                         : '16.0'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office 16.0'
+      AgentNameVersionMajor                : 'Microsoft Office 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; InfoPath Editor 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Office InfoPath Editor'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Office InfoPath Editor 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Office InfoPath Editor 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Excel 15.0.5031; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Excel'
+      AgentVersion                         : '15.0.5031'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Excel 15.0.5031'
+      AgentNameVersionMajor                : 'Microsoft Excel 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Lync 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Lync'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Lync 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Lync 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft OneNote 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft OneNote'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft OneNote 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft OneNote 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Outlook 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Outlook 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Outlook 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft PowerPoint 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft PowerPoint'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft PowerPoint 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft PowerPoint 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 10.0; Microsoft Word 15.0.5059; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '15.0.5059'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Word 15.0.5059'
+      AgentNameVersionMajor                : 'Microsoft Word 15'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry="MS-Office rmj"'
+    extract:
+    - 'DeviceClass                         :        1 : "Desktop"'
+    - 'DeviceName                          :        1 : "Desktop"'
+    - 'OperatingSystemClass                :        1 : "Desktop"'
+    - 'LayoutEngineClass                   :       10 : "<<<null>>>"'
+    - 'LayoutEngineName                    :       10 : "<<<null>>>"'
+    - 'LayoutEngineVersion                 :       10 : "<<<null>>>"'
+    - 'AgentClass                          :       10 : "Special"'
+    - 'AgentName                           :       10 : "Microsoft Word"'
+    - 'AgentVersion                        :       10 : "<<<null>>>"'
+
+# https://github.com/nielsbasjes/yauaa/issues/301
+# Apparently this is send by MS Word 16.
+# Because this contains no indications about the version and/or the system it runs on the result
+# remains vague at best.
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; ms-office; MSOffice rmj)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Microsoft Word ??'
+      AgentNameVersionMajor                : 'Microsoft Word ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.10827; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.10827'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.10827'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.13110; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.13110'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.13110'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.13110; Pro), Mozilla/4.0 (compatible; ms-office; MSOffice 16)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.13110'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.13110'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/15.0 (Windows NT 6.2; Microsoft Outlook 15.0.4420; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '15.0.4420'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Microsoft Outlook 15.0.4420'
+      AgentNameVersionMajor                : 'Microsoft Outlook 15'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; Win64; x64; Trident/7.0; .NET4.0C; .NET4.0E; Microsoft Outlook 16.0.4266)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.4266'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.4266'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+      IECompatibilityVersion               : '7.0'
+      IECompatibilityVersionMajor          : '7'
+      IECompatibilityNameVersion           : 'Internet Explorer 7.0'
+      IECompatibilityNameVersionMajor      : 'Internet Explorer 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; Win64; x64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Microsoft Outlook 16.0.5056; ms-office; MSOffice 16)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.5056'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.5056'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+      IECompatibilityVersion               : '7.0'
+      IECompatibilityVersionMajor          : '7'
+      IECompatibilityNameVersion           : 'Internet Explorer 7.0'
+      IECompatibilityNameVersionMajor      : 'Internet Explorer 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; Win64; x64; Trident/7.0; Microsoft Outlook 16.0.10363; Microsoft Outlook 16.0.10363; Microsoft Outlook 16.0.10363; Microsoft Outlook 16.0.10363; ms-office; MSOffice 16)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.10363'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.10363'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; Win64; x64; Trident/7.0; Microsoft Outlook 16.0.10364; ms-office; MSOffice 16)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.10364'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.10364'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; Win64; x64; Trident/7.0; Microsoft Outlook 16.0.10366)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.0.10366'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.0.10366'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Outlook-Express/7.0 (MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; MALNJS; TmstmpExt)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Lenovo Desktop'
+      DeviceBrand                          : 'Lenovo'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook-Express'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Microsoft Outlook-Express 7.0'
+      AgentNameVersionMajor                : 'Microsoft Outlook-Express 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Outlook-Express/7.0 (MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; TmstmpExt)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook-Express'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Microsoft Outlook-Express 7.0'
+      AgentNameVersionMajor                : 'Microsoft Outlook-Express 7'
+
+
+- test:
+    input:
+      user_agent_string: 'Outlook-Express/7.0 (MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; TmstmpExt)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook-Express'
+      AgentVersion                         : '7.0'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Microsoft Outlook-Express 7.0'
+      AgentNameVersionMajor                : 'Microsoft Outlook-Express 7'
+
+
+- test:
+    input:
+      user_agent_string: 'MacOutlook/16.24.0.190412 (Intelx64 Mac OS X Version 10.15.6 (Build 19G73))'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.15.6'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.15.6'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.24.0.190412'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.24.0.190412'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'MacOutlook/16.38.20061401 (Intelx64 Mac OS X 10.15.6 (19G2021))'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.15.6'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.15.6'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook'
+      AgentVersion                         : '16.38.20061401'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Outlook 16.38.20061401'
+      AgentNameVersionMajor                : 'Microsoft Outlook 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Outlook-iOS/711.2587062.prod.iphone (3.33.0)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook Mobile'
+      AgentVersion                         : '3.33.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Microsoft Outlook Mobile 3.33.0'
+      AgentNameVersionMajor                : 'Microsoft Outlook Mobile 3'
+
+
+- test:
+    input:
+      user_agent_string: 'Outlook-iOS/726.5856270.prod.iphone (4.57.0)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook Mobile'
+      AgentVersion                         : '4.57.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Microsoft Outlook Mobile 4.57.0'
+      AgentNameVersionMajor                : 'Microsoft Outlook Mobile 4'
+
+
+# NASTY: The SAME string is documented for both iOS and Android without any information about Phone/Tablet.
+# https://docs.microsoft.com/en-us/exchange/clients/outlook-for-ios-and-android/manage-devices?view=exchserver-2019#blocking-outlook-for-ios-and-android
+- matcher:
+    require:
+    - 'agent.(1)product.name="Outlook-iOS-Android"'
+    extract:
+    - 'AgentClass                          :      100 : "Email Client"'
+    - 'AgentName                           :      100 : "Microsoft Outlook Mobile"'
+    - 'OperatingSystemName                 :      100 : "<<<null>>>"'
+    - 'OperatingSystemVersion              :      100 : "<<<null>>>"'
+
+- test:
+    input:
+      user_agent_string: 'Outlook-iOS-Android/1.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Outlook Mobile'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Microsoft Outlook Mobile 1.0'
+      AgentNameVersionMajor                : 'Microsoft Outlook Mobile 1'
+
+# Requesting an image within an email in the real Outlook on Android simply shows a webview
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-G950F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.110 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G950F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'PPR1.180610.011'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '86.0'
+      LayoutEngineVersionMajor             : '86'
+      LayoutEngineNameVersion              : 'Blink 86.0'
+      LayoutEngineNameVersionMajor         : 'Blink 86'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '86.0.4240.110'
+      AgentVersionMajor                    : '86'
+      AgentNameVersion                     : 'Chrome Webview 86.0.4240.110'
+      AgentNameVersionMajor                : 'Chrome Webview 86'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+# Broken: No application name --> Hence the generic answer "Office"
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0;  16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Office'
+      AgentVersion                         : '16.0'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office 16.0'
+      AgentNameVersionMajor                : 'Microsoft Office 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; MAPI 16.0.10827; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Microsoft Office MAPI Client'
+      AgentVersion                         : '16.0.10827'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office MAPI Client 16.0.10827'
+      AgentNameVersionMajor                : 'Microsoft Office MAPI Client 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Access 16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Access'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Access 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Access 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Project 16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Project'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Project 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Project 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Visio 16.0.10730; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Visio'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Visio 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Visio 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Word 16.0.10730; Converter)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '16.0.10730'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Word 16.0.10730'
+      AgentNameVersionMajor                : 'Microsoft Word 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; Microsoft Word 16.0.10827; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '16.0.10827'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Word 16.0.10827'
+      AgentNameVersionMajor                : 'Microsoft Word 16'
+
+
+- test:
+    input:
+      user_agent_string: 'Microsoft Office/16.0 (Windows NT 10.0; ucmapi 16.0.4738; Pro)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Office MAPI Client'
+      AgentVersion                         : '16.0.4738'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Microsoft Office MAPI Client 16.0.4738'
+      AgentNameVersionMajor                : 'Microsoft Office MAPI Client 16'
+
+# -----------------------------------------------------------------------------------------------------------------
+# GoogleDocs:
+
+- lookup:
+    name: 'GoogleDocsApps'
+    map:
+      "apps-spreadsheets":  "Google Docs Spreadsheets"
+      "apps-presentations": "Google Docs Presentations"
+      "documents":          "Google Docs Documents"
+      "script":             "Google Docs Script"
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry="compatible"'
+    - 'agent.(1)product.(1)comments.(2)entry="GoogleDocs"'
+    - 'agent.(1)product.(1)comments.(4)entry="http://docs.google.com"'
+    extract:
+    - 'DeviceClass                         :      101 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :      101 : "Google Docs"'
+    - 'DeviceBrand                         :      101 : "Google"'
+    - 'OperatingSystemClass                :      101 : "Cloud"'
+    - 'OperatingSystemName                 :      101 : "Google Cloud"'
+    - 'OperatingSystemVersion              :      101 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :      101 : "Cloud"'
+    - 'LayoutEngineName                    :      101 : "Cloud"'
+    - 'LayoutEngineVersion                 :      101 : "<<<null>>>"'
+    - 'AgentClass                          :      101 : "Cloud Application"'
+    - 'AgentName                           :      101 : LookUp[GoogleDocsApps;agent.(1)product.(1)comments.(3)entry]'
+    - 'AgentVersion                        :      101 : "<<<null>>>"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(1)entry="compatible"'
+    - 'agent.(1)product.(1)comments.(2)entry="GoogleDocs"'
+    - 'agent.(1)product.(1)comments.(4)entry="http://docs.google.com"'
+    extract:
+    - 'DeviceClass                         :      100 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :      100 : "Google Docs"'
+    - 'DeviceBrand                         :      100 : "Google"'
+    - 'OperatingSystemClass                :      100 : "Cloud"'
+    - 'OperatingSystemName                 :      100 : "Google Cloud"'
+    - 'OperatingSystemVersion              :      100 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :      100 : "Cloud"'
+    - 'LayoutEngineName                    :      100 : "Cloud"'
+    - 'LayoutEngineVersion                 :      100 : "<<<null>>>"'
+    - 'AgentClass                          :      100 : "Cloud Application"'
+    - 'AgentName                           :      100 : agent.(1)product.(1)comments.(3)entry'
+    - 'AgentVersion                        :      100 : "<<<null>>>"'
+
+
+# Google Docs Sheet (both via website and android app): Put this in cell: =IMAGE("https://niels.basjes.nl/Pasfoto-vierkant.jpg")
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; apps-spreadsheets; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Spreadsheets'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Spreadsheets ??'
+      AgentNameVersionMajor                : 'Google Docs Spreadsheets ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+# Chrome 71 on Ubuntu 16.04:
+# Google Docs Sheet: Insert --> Image --> By Url .
+#- test: #TODO: Implement
+#    input:
+#      user_agent_string: 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)'
+#    expected:
+#      DeviceClass                          : 'Desktop'
+#      DeviceName                           : 'Desktop'
+#      DeviceBrand                          : 'Ggpht'
+#      DeviceCpuBits                        : '32'
+#      OperatingSystemClass                 : 'Desktop'
+#      OperatingSystemName                  : 'Windows NT'
+#      OperatingSystemVersion               : 'XP'
+#      OperatingSystemVersionMajor          : 'XP'
+#      OperatingSystemNameVersion           : 'Windows XP'
+#      OperatingSystemNameVersionMajor      : 'Windows XP'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'Mozilla'
+#      LayoutEngineVersion                  : '5.0'
+#      LayoutEngineVersionMajor             : '5'
+#      LayoutEngineNameVersion              : 'Mozilla 5.0'
+#      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Firefox'
+#      AgentVersion                         : '11.0'
+#      AgentVersionMajor                    : '11'
+#      AgentNameVersion                     : 'Firefox 11.0'
+#      AgentNameVersionMajor                : 'Firefox 11'
+#      AgentInformationUrl                  : 'ggpht.com'
+
+# Chrome 71 on Ubuntu 16.04:
+# Google Docs document: Insert --> Image --> By Url .
+# Duplicate: 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; documents; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Documents'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Documents ??'
+      AgentNameVersionMajor                : 'Google Docs Documents ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+# Google Docs presentation: Insert --> Image --> By Url .
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; apps-presentations; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Presentations'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Presentations ??'
+      AgentNameVersionMajor                : 'Google Docs Presentations ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(2)entry="GoogleApps script"'
+    extract:
+    - 'DeviceClass                         :    11000 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :    11000 : "Google Docs"'
+    - 'DeviceBrand                         :    11000 : "Google"'
+    - 'OperatingSystemClass                :    11000 : "Cloud"'
+    - 'OperatingSystemName                 :    11000 : "Google Cloud"'
+    - 'OperatingSystemVersion              :    11000 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :    11000 : "Cloud"'
+    - 'LayoutEngineName                    :    11000 : "Cloud"'
+    - 'LayoutEngineVersion                 :    11000 : "<<<null>>>"'
+    - 'AgentClass                          :    11000 : "Cloud Application"'
+    - 'AgentName                           :    11000 : "Google Docs Script"'
+    - 'AgentVersion                        :    11000 : "<<<null>>>"'
+
+
+# GoogleDocs script; https://rehmann.co/blog/googleapps-script-bot/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleApps script; +http://script.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Script'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Script ??'
+      AgentNameVersionMajor                : 'Google Docs Script ??'
+      AgentInformationUrl                  : 'http://script.google.com/bot.html'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.(2)entry="Google-Apps-Script"'
+    extract:
+    - 'DeviceClass                         :      100 : "Desktop"' # Actually; it can be anything. We don't know.
+    - 'DeviceName                          :      100 : "Google Docs"'
+    - 'DeviceBrand                         :      100 : "Google"'
+    - 'OperatingSystemClass                :      100 : "Cloud"'
+    - 'OperatingSystemName                 :      100 : "Google Cloud"'
+    - 'OperatingSystemVersion              :      100 : "<<<null>>>"'
+    - 'LayoutEngineClass                   :      100 : "Cloud"'
+    - 'LayoutEngineName                    :      100 : "Cloud"'
+    - 'LayoutEngineVersion                 :      100 : "<<<null>>>"'
+    - 'AgentClass                          :      100 : "Cloud Application"'
+    - 'AgentName                           :      100 : "Google Docs Script"'
+    - 'AgentVersion                        :      100 : "<<<null>>>"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Google-Apps-Script)'
+    expected:
+      DeviceClass                          : 'Desktop' # Actually; it can be anything. We don't know.
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Script'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Script ??'
+      AgentNameVersionMajor                : 'Google Docs Script ??'
+
+# From https://stackoverflow.com/questions/15067462/urlfetch-with-custom-user-agent-string
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; GoogleDocs; script; +http://docs.google.com)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Google Docs'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Cloud Application'
+      AgentName                            : 'Google Docs Script'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Docs Script ??'
+      AgentNameVersionMajor                : 'Google Docs Script ??'
+      AgentInformationUrl                  : 'http://docs.google.com'
+
+
+
+# -----------------------------------------------------------------------------------------------------------------
+# Lotus notes
+
+- matcher:
+    extract:
+    - 'AgentClass                          :      100 :"Email Client"'
+    - 'AgentName                           :      100 :"Lotus-Notes"'
+    - 'AgentVersion                        :      100 :agent.(1)product.(1)comments.entry.(1)product.name="Lotus-Notes"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; Lotus-Notes/6.0; Windows-NT)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Mozilla 4.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 4'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Lotus-Notes'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Lotus-Notes 6.0'
+      AgentNameVersionMajor                : 'Lotus-Notes 6'
+
+# Thunderbird
+- matcher:
+    extract:
+    - 'AgentClass                          :     2100 :"Email Client"'
+    - 'AgentName                           :     2100 :"Thunderbird"'
+    - 'AgentVersion                        :     2100 :agent.product.name="Thunderbird"^.version'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.14) Gecko/20080505 Thunderbird/2.0.0.14'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.14'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.14'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20080505'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '2.0.0.14'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Thunderbird 2.0.0.14'
+      AgentNameVersionMajor                : 'Thunderbird 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.8.1.19) Gecko/20081209 Thunderbird/2.0.0.19'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'Vista'
+      OperatingSystemVersionMajor          : 'Vista'
+      OperatingSystemNameVersion           : 'Windows Vista'
+      OperatingSystemNameVersionMajor      : 'Windows Vista'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.1.19'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.1.19'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20081209'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '2.0.0.19'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Thunderbird 2.0.0.19'
+      AgentNameVersionMajor                : 'Thunderbird 2'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+# Lightning is a calendar addon for THunderbird
+# https://addons.mozilla.org/nl/thunderbird/addon/lightning/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; cs; rv:1.9.1.8) Gecko/20100227 Lightning/1.0b1 Thunderbird/3.0.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemVersionMajor          : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      OperatingSystemNameVersionMajor      : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.1.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.1.8'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100227'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '3.0.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Thunderbird 3.0.3'
+      AgentNameVersionMajor                : 'Thunderbird 3'
+      AgentLanguage                        : 'Czech'
+      AgentLanguageCode                    : 'cs'
+      AgentSecurity                        : 'Strong security'
+
+# ThunderBrowse is a webbrowsing addon for Thunderbird
+# https://addons.mozilla.org/nl/thunderbird/addon/thunderbrowse/
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2.8) Gecko/20100802 Lightning/1.0b2 Thunderbird/3.1.2 ThunderBrowse/3.3.2'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemVersionMajor          : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      OperatingSystemNameVersionMajor      : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9.2.8'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9.2.8'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20100802'
+      AgentClass                           : 'Email Client'
+      AgentName                            : 'Thunderbird'
+      AgentVersion                         : '3.1.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Thunderbird 3.1.2'
+      AgentNameVersionMajor                : 'Thunderbird 3'
+      AgentLanguage                        : 'Chinese (S)'
+      AgentLanguageCode                    : 'zh-cn'
+      AgentSecurity                        : 'Strong security'
+
+# Used by Skype to get a preview of a shared website.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) SkypeUriPreview Preview/0.5'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SkypeUriPreview Preview'
+      AgentVersion                         : '0.5'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'SkypeUriPreview Preview 0.5'
+      AgentNameVersionMajor                : 'SkypeUriPreview Preview 0'
+
+
+# This is really the default useragent for a library used by robots.
+- test:
+    input:
+      user_agent_string: 'Iframely/1.3.1 (+https://iframely.com/docs/about)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Iframely Robot'
+      DeviceBrand                          : 'Iframely'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Iframely'
+      AgentVersion                         : '1.3.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Iframely 1.3.1'
+      AgentNameVersionMajor                : 'Iframely 1'
+      AgentInformationUrl                  : 'https://iframely.com/docs/about'
+
+
+- matcher:
+    require:
+    - 'agent.(1-3)product.comments.entry.(1-4)product.name[1]="Desktop"'
+    variable:
+    - 'Dell                                :agent.(1-3)product.comments.entry.(1-4)product.name[1]="Dell"@'
+    extract:
+    - 'DeviceClass                         :     1000 : "Desktop"'
+    - 'DeviceName                          :     1000 : CleanVersion[@Dell^]'
+    - 'DeviceBrand                         :     1000 : @Dell'
+
+
+- test:
+    input:
+      user_agent_string: 'OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude 7480)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Dell Inc. Latitude 7480'
+      DeviceBrand                          : 'Dell Inc.'
+      DeviceCpu                            : 'x64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OneNote'
+      AgentVersion                         : '16.0.8431.2110'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'OneNote 16.0.8431.2110'
+      AgentNameVersionMajor                : 'OneNote 16'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+
+- test:
+    input:
+      user_agent_string: 'OneNote/16.0.8431.2110 (Windows/10.0; Desktop x64; nl-NL; Desktop app; Dell Inc./Latitude E7470)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Dell Inc. Latitude E7470'
+      DeviceBrand                          : 'Dell Inc.'
+      DeviceCpu                            : 'x64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OneNote'
+      AgentVersion                         : '16.0.8431.2110'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'OneNote 16.0.8431.2110'
+      AgentNameVersionMajor                : 'OneNote 16'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+
+- test:
+    input:
+      user_agent_string: 'OneNote/16.0.4639.1000 (Windows/10.0; Desktop WOW64; nl-NL; Desktop app; Dell Inc./Latitude 7480)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Dell Inc. Latitude 7480'
+      DeviceBrand                          : 'Dell Inc.'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'OneNote'
+      AgentVersion                         : '16.0.4639.1000'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'OneNote 16.0.4639.1000'
+      AgentNameVersionMajor                : 'OneNote 16'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+

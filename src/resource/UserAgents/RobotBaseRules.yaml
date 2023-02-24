@@ -1,0 +1,331 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2021 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+# =============== Robots with "spider" in it =====================
+
+- lookup:
+    name: 'RobotStrings'
+    map:
+      'spider'   : 'spider'
+      'crawl'    : 'crawl'
+      'bot'      : 'bot'
+      'scan'     : 'scan'
+      'site'     : 'site'
+      'probe'    : 'probe'
+      'alyzer'   : 'alyzer'
+
+- lookup:
+    name: 'RobotStringsExtra'
+    map:
+      'spider'   : 'spider'
+      'crawl'    : 'crawl'
+      'bot'      : 'bot'
+      'scan'     : 'scan'
+      'site'     : 'site'
+      'probe'    : 'probe'
+      'alyzer'   : 'alyzer'
+      'checker'  : 'checker'
+
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.product.name]'
+    extract:
+    - 'DeviceClass                         :    11100 :"Robot"'
+    - 'DeviceName                          :   311100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11100 :"Cloud"'
+    - 'OperatingSystemName                 :    11100 :"Cloud"'
+    - 'OperatingSystemVersion              :    11100 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    11100 :"Robot"'
+    - 'LayoutEngineName                    :    11100 :@RobotName'
+    - 'LayoutEngineVersion                 :    11100 :"<<<null>>>"'
+    - 'AgentClass                          :    11100 :"Robot"'
+    - 'AgentName                           :    11100 :@RobotName'
+    - 'AgentVersion                        :    11100 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStringsExtra;agent.url]'
+    - 'BrandName                           :ExtractBrandFromUrl[@RobotName]'
+    extract:
+    - 'DeviceClass                         :    11099 :"Robot"'
+    - 'DeviceName                          :   311099 :@BrandName'
+    - 'DeviceBrand                         :   311099 :@BrandName'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11099 :"Cloud"'
+    - 'OperatingSystemName                 :    11099 :"Cloud"'
+    - 'OperatingSystemVersion              :    11099 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    11099 :"Robot"'
+    - 'LayoutEngineName                    :    11099 :@BrandName'
+    - 'LayoutEngineVersion                 :    11099 :"<<<null>>>"'
+    - 'AgentClass                          :    11099 :"Robot"'
+    - 'AgentName                           :    11099 :@BrandName'
+    - 'AgentVersion                        :    11099 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'Robot                               :IsInLookUpContains[RobotStrings;agent.(1)product.name]'
+    require:
+    - '@Robot@~"mobile"'
+    extract:
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.name="Mobile Safari"'
+    - 'IsInLookUpContains[RobotStrings;agent.product.name]'
+    extract:
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
+
+- matcher:
+    require:
+    - 'agent.product.name="Mobile Safari"'
+    - 'IsInLookUpContains[RobotStrings;agent.text]'
+    extract:
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
+
+
+- matcher:
+    variable:
+    # This can match the second version and we want the first version in the result
+    - 'RobotMatchedVersion                 :IsInLookUpContains[RobotStrings;agent.product.version]'
+    - 'RobotProduct                        :@RobotMatchedVersion^'
+    - 'RobotName                           :@RobotProduct.name'
+    - 'RobotVersion                        :@RobotProduct.(1)version'
+    require:
+    - 'IsNull[@RobotVersion.url]'
+    extract:
+    - 'DeviceClass                         :    10200 :"Robot"'
+    - 'DeviceName                          :    10200 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10200 :"Cloud"'
+    - 'OperatingSystemName                 :    10200 :"Cloud"'
+    - 'OperatingSystemVersion              :    10200 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10200 :"Robot"'
+    - 'LayoutEngineName                    :    10200 :@RobotName'
+    - 'LayoutEngineVersion                 :    10200 :@RobotVersion'
+    - 'AgentClass                          :    10200 :"Robot"'
+    - 'AgentName                           :    10200 :@RobotName'
+    - 'AgentVersion                        :    10200 :@RobotVersion'
+
+- matcher:
+    variable:
+      # This can match the second version and we want the first version in the result
+    - 'RobotMatchedVersion                 :IsInLookUpContains[RobotStrings;agent.product.version]'
+    - 'RobotProduct                        :@RobotMatchedVersion^'
+    - 'RobotName                           :@RobotProduct.name'
+    - 'RobotVersion                        :@RobotProduct.(1)version'
+    require:
+    - '@RobotVersion.url'
+    extract:
+    - 'DeviceClass                         :    10200 :"Robot"'
+    - 'DeviceName                          :    10200 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10200 :"Cloud"'
+    - 'OperatingSystemName                 :    10200 :"Cloud"'
+    - 'OperatingSystemVersion              :    10200 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10200 :"Robot"'
+    - 'LayoutEngineName                    :    10200 :@RobotName'
+    - 'LayoutEngineVersion                 :    10200 :"<<<null>>>"'
+    - 'AgentClass                          :    10200 :"Robot"'
+    - 'AgentName                           :    10200 :@RobotName'
+    - 'AgentVersion                        :    10200 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.product.name]'
+    - 'RobotVersion                        :@RobotName^.(1)version'
+    require:
+    - 'IsNull[@RobotVersion.url]'
+    extract:
+    - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
+    - 'AgentVersion                        :    11200 :@RobotVersion'
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.product.name]'
+    - 'RobotVersion                        :@RobotName^.(1)version'
+    require:
+    - '@RobotVersion.url'
+    extract:
+    - 'LayoutEngineVersion                 :    11200 :"<<<null>>>"'
+    - 'AgentVersion                        :    11200 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-5)product.(1-2)comments.entry.(1-4)product.(1)name]'
+    - 'RobotVersion                        :@RobotName^.version'
+    require:
+    - 'IsNull[@RobotName[1]="cubot"]'
+    - 'IsNull[@RobotVersion.url]'
+    extract:
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   250000 :"Cloud"'
+    - 'OperatingSystemName                 :   250000 :"Cloud"'
+    - 'OperatingSystemVersion              :   250000 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   250000 :"Robot"'
+    - 'LayoutEngineName                    :   250000 :@RobotName'
+    - 'LayoutEngineVersion                 :   250000 :@RobotVersion'
+    - 'AgentClass                          :   250000 :"Robot"'
+    - 'AgentName                           :   250000 :@RobotName'
+    - 'AgentVersion                        :   250000 :@RobotVersion'
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-5)product.(1-2)comments.entry.(1-4)product.(1)name]'
+    - 'RobotVersion                        :@RobotName^.version'
+    require:
+    - 'IsNull[@RobotName[1]="cubot"]'
+    - '@RobotVersion.url'
+    extract:
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   250000 :"Cloud"'
+    - 'OperatingSystemName                 :   250000 :"Cloud"'
+    - 'OperatingSystemVersion              :   250000 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   250000 :"Robot"'
+    - 'LayoutEngineName                    :   250000 :@RobotName'
+    - 'LayoutEngineVersion                 :   250000 :"<<<null>>>"'
+    - 'AgentClass                          :   250000 :"Robot"'
+    - 'AgentName                           :   250000 :@RobotName'
+    - 'AgentVersion                        :   250000 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-5)product.(1-2)comments.entry.(1-4)product.(1)name]'
+    require:
+    - 'IsNull[@RobotName[1]="cubot"]'
+    - 'agent.product.name="Mobile Safari"'
+    extract:
+    - 'DeviceClass                         :   311200 :"Robot Mobile"'
+
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.product.comments.entry.(1-4)text]'
+    require:
+    - 'IsNull[@RobotName[1]="cubot"]'
+    extract:
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-10)keyvalue.key]'
+    require:
+    - 'IsNull[@RobotName[1]="cubot"]'
+    extract:
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'DeviceName                          :    10000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10000 :"Cloud"'
+    - 'OperatingSystemName                 :    10000 :"Cloud"'
+    - 'OperatingSystemVersion              :    10000 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10000 :"Robot"'
+    - 'LayoutEngineName                    :    10000 :@RobotName'
+    - 'LayoutEngineVersion                 :    10000 :@RobotName'
+    - 'AgentClass                          :    10000 :"Robot"'
+    - 'AgentName                           :    10000 :@RobotName'
+    - 'AgentVersion                        :    10000 :@RobotName'
+
+
+
+
+
+- matcher:
+    variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStringsExtra;agent.text]'
+    extract:
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceName                          :    10100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'LayoutEngineName                    :    10100 :@RobotName'
+    - 'LayoutEngineVersion                 :    10100 :"<<<null>>>"'
+    - 'AgentClass                          :    10100 :"Robot"'
+    - 'AgentName                           :    10100 :@RobotName'
+    - 'AgentVersion                        :    10100 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'IsInLookUpContains[RobotStringsExtra;agent.product.comments.entry.url]'
+    extract:
+    - 'DeviceClass                         :    10100 :"Robot"'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10100 :"Cloud"'
+    - 'OperatingSystemName                 :    10100 :"Cloud"'
+    - 'OperatingSystemVersion              :    10100 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10100 :"Robot"'
+    - 'AgentClass                          :    10100 :"Robot"'
+
+
+
+
+

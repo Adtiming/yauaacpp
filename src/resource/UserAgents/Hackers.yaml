@@ -1,0 +1,670 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2021 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- lookup:
+    name: 'HackerAttackVectors'
+    map:
+      # Shell scripting
+      "() {"                  : "Code Injection"
+      "('') {"                : "Code Injection"
+      "$("                    : "Code Injection"
+#      "${"                    : "Code Injection" # This one has exceptions --> Has separate rule
+
+      # Apache Log4j RCE CVE-2021-44228
+      "/Basic/Command/"       : "Code Injection" # ${jndi:ldap://195.54.160.149:12344/Basic/Command/Ba
+      "${jndi:"               : "Code Injection" # ${jndi:ldap://195.54.160.149:12344/Basic/Command/Ba
+      "${${::"                : "Code Injection" # ${${::-j}${::-n}${::-d}${::-i}
+
+      "{{"                    : "Code Injection"
+      "}}"                    : "Code Injection"
+      "curl "                 : "Code Injection"
+      "wget "                 : "Code Injection"
+      "bash"                  : "Code Injection"
+      "nslookup"              : "Code Injection"
+
+      # Javascript/frontend scripting
+      "<script"               : "Code Injection"
+      "javascript:"           : "Code Injection"
+      "<img"                  : "Code Injection"
+      "onerror="              : "Code Injection"
+      "eval("                 : "Code Injection"
+      "atob("                 : "Code Injection"
+
+      # SQL
+      "SELECT "               : "Code Injection"
+      "SELECT("               : "Code Injection"
+      "CASE WHEN"             : "Code Injection"
+      "UNION ALL"             : "Code Injection"
+      " OR "                  : "Code Injection"
+      " OR NOT"               : "Code Injection"
+      "WAITFOR "              : "Code Injection"
+      "ORDER BY"              : "Code Injection"
+      "FROM DUAL"             : "Code Injection"
+      "DECLARE "              : "Code Injection"
+      "VARCHAR"               : "Code Injection"
+      "RLIKE "                : "Code Injection"
+      "1=1"                   : "Code Injection"
+      "PG_SLEEP("             : "Code Injection"
+      "SLEEP("                : "Code Injection"
+
+      # XML
+      "<!ENTITY"              : "Code Injection"
+      "xmlns"                 : "Code Injection"
+
+      # Python
+      "chr("                  : "Code Injection"
+      "concat("               : "Code Injection"
+      "Socket.gethostbyname"  : "Code Injection"
+      "str("                  : "Code Injection"
+      "__import__("           : "Code Injection"
+      "gethostbyname("        : "Code Injection"
+      "while("                : "Code Injection"
+      "print("                : "Code Injection"
+      "typeof"                : "Code Injection"
+      "load_file"             : "Code Injection"
+
+      # Script retrieval sites
+      "bxss.me"               : "Code Injection"
+      "burp"                  : "Code Injection"
+      "orator.net"            : "Code Injection"
+
+      # Path Traversal
+      "path:"                 : "Path Traversal"
+      "file:"                 : "Path Traversal"
+      # Unix style paths
+      "../"                   : "Path Traversal"
+      "/.."                   : "Path Traversal"
+      "/./."                  : "Path Traversal"
+      "..%2f"                 : "Path Traversal"
+      "%2e%2e%2f"             : "Path Traversal"
+      "%2e%2e/"               : "Path Traversal"
+      # https://security.stackexchange.com/questions/48879/why-does-directory-traversal-attack-c0af-work
+      "%C0%2F"                : "Path Traversal"
+      "%C0%AF"                : "Path Traversal"
+      # Windows style paths
+      "..\\"                  : "Path Traversal"
+      "\\.."                  : "Path Traversal"
+      "..%5c"                 : "Path Traversal"
+      "%2e%2e%5c"             : "Path Traversal"
+      "%2e%2e\\"              : "Path Traversal"
+
+      "#exec"                 : "Serverside execute"
+      "#include"              : "Serverside include"
+
+      # Tool specifics
+      "JDatabaseDriverMysqli" : "Remote exec Joomla"
+
+- lookup:
+    name: 'HackerToolKits'
+    map:
+      "nessus"                : "Nessus"
+      "netsparker"            : "Netsparker"
+      "nmap"                  : "Nmap"
+      "sqlmap"                : "Sqlmap"
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.comments.entry="MSIE or Firefox mutant"]' # Only on Daum robot
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+    - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
+#    - 'HackerToolkit                       :   999901 :"<<<null>>>"'
+    - 'HackerAttackVector                  :  1000000 :LookUpContains[HackerAttackVectors;agent]'
+
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+    - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
+    - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent]'
+    - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+
+
+- matcher:
+    require:
+    - 'agent{"OR "'
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'HackerAttackVector                  :  1000000 :"Code Injection"'
+
+
+# If there are NO products found this is either manipulated or a Hacker.
+- matcher:
+    require:
+    - 'IsNull[agent.product]'
+    - 'IsNull[agent.url]'
+#    - '__SyntaxError__="true"'
+    extract:
+    - 'DeviceClass                         :       10 :"Hacker"'
+    - 'DeviceName                          :       10 :"Hacker"'
+    - 'DeviceBrand                         :       10 :"Hacker"'
+    - 'DeviceVersion                       :       10 :"Hacker"'
+    - 'OperatingSystemClass                :       10 :"Hacker"'
+    - 'OperatingSystemName                 :       10 :"Hacker"'
+    - 'OperatingSystemVersion              :       10 :"Hacker"'
+    - 'LayoutEngineClass                   :       10 :"Hacker"'
+    - 'LayoutEngineName                    :       10 :"Hacker"'
+    - 'LayoutEngineVersion                 :       10 :"Hacker"'
+    - 'AgentClass                          :       10 :"Hacker"'
+    - 'AgentName                           :       10 :"Hacker"'
+    - 'AgentVersion                        :       10 :"Hacker"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
+
+# If there are NO products found this is either manipulated or a Hacker.
+- matcher:
+    require:
+    - 'agent.(1)text'
+    - 'IsNull[agent.(1)text^>]'
+#    - '__SyntaxError__="true"'
+    extract:
+    - 'DeviceClass                         :       10 :"Hacker"'
+    - 'DeviceName                          :       10 :"Hacker"'
+    - 'DeviceBrand                         :       10 :"Hacker"'
+    - 'DeviceVersion                       :       10 :"Hacker"'
+    - 'OperatingSystemClass                :       10 :"Hacker"'
+    - 'OperatingSystemName                 :       10 :"Hacker"'
+    - 'OperatingSystemVersion              :       10 :"Hacker"'
+    - 'LayoutEngineClass                   :       10 :"Hacker"'
+    - 'LayoutEngineName                    :       10 :"Hacker"'
+    - 'LayoutEngineVersion                 :       10 :"Hacker"'
+    - 'AgentClass                          :       10 :"Hacker"'
+    - 'AgentName                           :       10 :"Hacker"'
+    - 'AgentVersion                        :       10 :"Hacker"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
+
+
+
+- matcher:
+    require:
+    - 'agent{"("'
+    extract:
+    - 'DeviceClass                         :       10 :"Hacker"'
+    - 'DeviceName                          :       10 :"Hacker"'
+    - 'DeviceBrand                         :       10 :"Hacker"'
+    - 'DeviceVersion                       :       10 :"Hacker"'
+    - 'OperatingSystemClass                :       10 :"Hacker"'
+    - 'OperatingSystemName                 :       10 :"Hacker"'
+    - 'OperatingSystemVersion              :       10 :"Hacker"'
+    - 'LayoutEngineClass                   :       10 :"Hacker"'
+    - 'LayoutEngineName                    :       10 :"Hacker"'
+    - 'LayoutEngineVersion                 :       10 :"Hacker"'
+    - 'AgentClass                          :       10 :"Hacker"'
+    - 'AgentName                           :       10 :"Hacker"'
+    - 'AgentVersion                        :       10 :"Hacker"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
+
+
+# If there is ONLY a product name and nothing else then this is either manipulated or a Hacker.
+- matcher:
+    require:
+    - 'IsNull[agent.(1)product.(1)version]'
+    - 'IsNull[agent.(1)product.(1)comments]'
+    - 'IsNull[agent.url]'
+    - 'IsNull[agent.product]'
+    extract:
+    - 'DeviceClass                         :       10 :"Hacker"'
+    - 'DeviceName                          :       10 :"Hacker"'
+    - 'DeviceBrand                         :       10 :"Hacker"'
+    - 'DeviceVersion                       :       10 :"Hacker"'
+    - 'OperatingSystemClass                :       10 :"Hacker"'
+    - 'OperatingSystemName                 :       10 :"Hacker"'
+    - 'OperatingSystemVersion              :       10 :"Hacker"'
+    - 'LayoutEngineClass                   :       10 :"Hacker"'
+    - 'LayoutEngineName                    :       10 :"Hacker"'
+    - 'LayoutEngineVersion                 :       10 :"Hacker"'
+    - 'AgentClass                          :       10 :"Hacker"'
+    - 'AgentName                           :       10 :"Hacker"'
+    - 'AgentVersion                        :       10 :"Hacker"'
+    - 'HackerAttackVector                  :       10 :"<<<null>>>"'
+    - 'HackerToolkit                       :       10 :"<<<null>>>"'
+
+
+- matcher:
+    require:
+    - 'agent~"${"'
+    - 'IsNull[agent.(1-2)product.(1)version="${pom.version}"]'
+    - 'IsNull[agent.(1-2)product.(1)comments.entry.(1-2)product.(1)version="${pom.version}"]'
+    extract:
+    - '__Set_ALL_Fields__                  :     4999 :"<<<null>>>"' # Must be at least 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :    10000 :"Hacker"'
+    - 'DeviceBrand                         :    10000 :"Hacker"'
+    - 'DeviceName                          :    10000 :"Hacker"'
+    - 'DeviceVersion                       :    10000 :"Hacker"'
+    - 'OperatingSystemClass                :    10000 :"Hacker"'
+    - 'OperatingSystemName                 :    10000 :"Hacker"'
+    - 'OperatingSystemVersion              :    10000 :"Hacker"'
+    - 'LayoutEngineClass                   :    10000 :"Hacker"'
+    - 'LayoutEngineName                    :    10000 :"Hacker"'
+    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
+    - 'AgentClass                          :    10000 :"Hacker"'
+    - 'AgentName                           :    10000 :"Hacker"'
+    - 'AgentVersion                        :    10000 :"Hacker"'
+    - 'HackerAttackVector                  :     5000 :"<<<null>>>"'
+    - 'HackerToolkit                       :     5000 :"<<<null>>>"'
+
+
+- lookup:
+    name: 'IfAllMissingThenHacker'
+    map:
+      "a" : "a"
+      "e" : "e"
+      "o" : "o"
+      "u" : "u"
+      "i" : "i"
+      "/" : "/"
+
+- matcher:
+    require:
+    - 'IsNull[LookUpContains[IfAllMissingThenHacker;agent]]'
+    extract:
+    - 'DeviceClass                         :        9 :"Hacker"'
+    - 'DeviceName                          :        9 :"Hacker"'
+    - 'DeviceBrand                         :        9 :"Hacker"'
+    - 'DeviceVersion                       :        9 :"Hacker"'
+    - 'OperatingSystemClass                :        9 :"Hacker"'
+    - 'OperatingSystemName                 :        9 :"Hacker"'
+    - 'OperatingSystemVersion              :        9 :"Hacker"'
+    - 'LayoutEngineClass                   :        9 :"Hacker"'
+    - 'LayoutEngineName                    :        9 :"Hacker"'
+    - 'LayoutEngineVersion                 :        9 :"Hacker"'
+    - 'LayoutEngineVersionMajor            :        9 :"Hacker"'
+    - 'AgentClass                          :        9 :"Hacker"'
+    - 'AgentName                           :        9 :"Hacker"'
+    - 'AgentVersion                        :        9 :"Hacker"'
+    - 'AgentVersionMajor                   :        9 :"Hacker"'
+    - 'AgentNameVersion                    :        9 :"Hacker"'
+    - 'AgentNameVersionMajor               :        9 :"Hacker"'
+    - 'HackerAttackVector                  :        9 :"Fuzzing"'
+    - 'HackerToolkit                       :        9 :"<<<null>>>"'
+
+
+# https://www.cirt.net/node/89
+# Nikto is an open source web server scanner which performs comprehensive tests against web servers for multiple items,
+#   including over 6500 potentially dangerous files/CGIs, checks for outdated versions of over 1200 servers,
+#   and version specific problems on over 270 servers.
+# https://en.wikipedia.org/wiki/Nikto_Web_Scanner
+
+
+- matcher:
+    variable:
+    - 'Nikto                               :agent.(1)product.(1)comments.(1)entry.(1)product.name="Nikto"'
+    - 'Evasions                            :agent.(1)product.(2)comments.(1)entry.(1)keyvalue.(1)key="Evasions"'
+    - 'Test                                :agent.(1)product.(3)comments.(1)entry.(1)keyvalue.(1)key="Test"'
+    extract:
+    - 'DeviceClass                         :    10000 :"Hacker"'
+    - 'DeviceBrand                         :    10000 :"Hacker"'
+    - 'DeviceName                          :    10000 :"Hacker"'
+    - 'DeviceVersion                       :    10000 :"Hacker"'
+    - 'OperatingSystemClass                :    10000 :"Hacker"'
+    - 'OperatingSystemName                 :    10000 :"Hacker"'
+    - 'OperatingSystemVersion              :    10000 :"Hacker"'
+    - 'LayoutEngineClass                   :    10000 :"Hacker"'
+    - 'LayoutEngineName                    :    10000 :"Hacker"'
+    - 'LayoutEngineVersion                 :    10000 :"Hacker"'
+    - 'AgentClass                          :    10000 :"Hacker"'
+    - 'AgentName                           :    10000 :"Nikto"'
+    - 'AgentVersion                        :    10000 :@Nikto^.version'
+    - 'HackerAttackVector                  :    10000 :Concat["Nikto test:";@Test^.value]'
+    - 'HackerToolkit                       :        1 :"Nikto"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:map_codes)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:map_codes'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:000964)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:000964'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:cgi dir check)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:cgi dir check'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:embedded detection)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:embedded detection'
+      HackerToolkit                        : 'Nikto'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:multiple_index)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Nikto'
+      AgentVersion                         : '2.1.5'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Nikto 2.1.5'
+      AgentNameVersionMajor                : 'Nikto 2'
+      HackerAttackVector                   : 'Nikto test:multiple_index'
+      HackerToolkit                        : 'Nikto'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      AgentInformationUrl                  : 'https://nmap.org/book/nse.html'
+      HackerToolkit                        : 'Nmap'
+      HackerAttackVector                   : 'Unknown'
+
+# This EXACT version is really nmap
+# https://nmap.org/nsedoc/lib/anyconnect.html
+- matcher:
+    require:
+    - 'agent="AnyConnect Darwin_i386 3.1.05160"'
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'HackerToolkit                       :  1000000 :"Nmap"'
+    - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+
+  # This EXACT version is really nmap
+  # https://nmap.org/nsedoc/lib/anyconnect.html
+- test:
+    input:
+      user_agent_string: 'AnyConnect Darwin_i386 3.1.05160'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerToolkit                        : 'Nmap'
+
+
+- matcher:
+    require:
+    - 'agent.(1-2)product.comments.entry.(1-2)product.name="Windows NT"^.version[1]="9"'
+    extract:
+    - 'DeviceClass                         :    10000 : "Hacker"'
+    - 'OperatingSystemClass                :    10000 : "Hacker"'
+    - 'AgentClass                          :    10000 : "Hacker"'
+
+- test: # There is no such a thing as Windows 9 --> Hacker
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '9.0'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Windows NT 9.0'
+      OperatingSystemNameVersionMajor      : 'Windows NT 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Trident 5.0'
+      LayoutEngineNameVersionMajor         : 'Trident 5'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Internet Explorer 9.0'
+      AgentNameVersionMajor                : 'Internet Explorer 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test: # There is no such a thing as Windows 9 --> Hacker
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows; Windows NT 9.0; en-US)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '9.0'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Windows NT 9.0'
+      OperatingSystemNameVersionMajor      : 'Windows NT 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Windows NT'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Windows NT 9.0'
+      AgentNameVersionMajor                : 'Windows NT 9'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
