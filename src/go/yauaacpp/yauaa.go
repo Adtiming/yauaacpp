@@ -50,39 +50,20 @@ int get_envirenment_browser(uainfo * info){
 import "C"
 
 import (
-	"sync"
 	"unsafe"
 )
 
-type Yauaa struct {
-	mu     sync.Mutex
-	uainfo *C.uainfo
+var uainfo *C.uainfo
+
+func init() {
+	cacheSize := 0
+	uainfo = new(C.uainfo)
+	uainfo.uaa = unsafe.Pointer(C.create_envirenment_browser_uaa(C.int(cacheSize)))
+	uainfo.ua = nil
 }
 
-func (y *Yauaa) WithCache(cacheSize int) {
-	if y.uainfo == nil {
-		y.mu.Lock()
-		if y.uainfo == nil {
-			y.uainfo = new(C.uainfo)
-			y.uainfo.uaa = unsafe.Pointer(C.create_envirenment_browser_uaa(C.int(cacheSize)))
-			y.uainfo.ua = nil
-		}
-		y.mu.Unlock()
-	}
-}
-
-func (y *Yauaa) GetEnvirenmentBrowser(ua string) (evironment, browser int) {
-	if y.uainfo == nil {
-		y.mu.Lock()
-		if y.uainfo == nil {
-			y.uainfo = new(C.uainfo)
-			y.uainfo.uaa = unsafe.Pointer(C.create_envirenment_browser_uaa(0))
-			y.uainfo.ua = nil
-		}
-		y.mu.Unlock()
-	}
-
-	y.uainfo.ua = C.CString(ua)
-	C.get_envirenment_browser(y.uainfo)
-	return int(y.uainfo.evironment), int(y.uainfo.browser)
+func GetEnvirenmentBrowser(ua string) (evironment, browser int) {
+	uainfo.ua = C.CString(ua)
+	C.get_envirenment_browser(uainfo)
+	return int(uainfo.evironment), int(uainfo.browser)
 }
