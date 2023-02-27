@@ -50,19 +50,30 @@ int get_envirenment_browser(uainfo * info){
 import "C"
 
 import (
+	"sync"
 	"unsafe"
 )
 
-var uainfo *C.uainfo
+var uaa unsafe.Pointer
+var lock sync.Mutex
 
 func init() {
 	cacheSize := 0
-	uainfo = new(C.uainfo)
-	uainfo.uaa = unsafe.Pointer(C.create_envirenment_browser_uaa(C.int(cacheSize)))
-	uainfo.ua = nil
+	uaa = unsafe.Pointer(C.create_envirenment_browser_uaa(C.int(cacheSize)))
 }
 
+// set cache size
+func CacheSize(cacheSize int) {
+	lock.Lock()
+	C.user_agent_analyser_free(C.USER_AGENT_ANALYSER(uaa))
+	uaa = unsafe.Pointer(C.create_envirenment_browser_uaa(C.int(cacheSize)))
+	lock.Unlock()
+}
+
+// get envrenment and browser from ua
 func GetEnvirenmentBrowser(ua string) (evironment, browser int) {
+	uainfo := new(C.uainfo)
+	uainfo.uaa = uaa
 	uainfo.ua = C.CString(ua)
 	C.get_envirenment_browser(uainfo)
 	return int(uainfo.evironment), int(uainfo.browser)

@@ -7,7 +7,7 @@
 #include "tool/tool.h"
 
 namespace ycpp {
-#define URL             "http://github.com/"
+#define URL             "https://github.com/Adtiming/yauaacpp"
 #define COPYRIGHT       "copy right"
 #define LICENSE         "license"
 
@@ -50,7 +50,7 @@ namespace ycpp {
 
     std::string YauaaVersion::getVersion() {
         //return getVersion(Version.getInstance());
-        return "//todo : no version";
+        return "Yauaa : 6.6";
     }
 
     void YauaaVersion::assertSameVersion(YauaaVersion::AbstractVersion *libraryVersion,
