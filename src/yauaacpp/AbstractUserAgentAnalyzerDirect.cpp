@@ -206,11 +206,14 @@ namespace ycpp {
     }
 
     void AbstractUserAgentAnalyzerDirect::initializeMatchers() {
+        if(matchersHaveBeenInitialized)
+            return;
         lock.lock();
         if (matchersHaveBeenInitialized) {
             lock.unlock();
             return;
         }
+        matchersHaveBeenInitialized = true;
 
         LOG::error( "Initializing Analyzer data structures");
 
@@ -227,7 +230,7 @@ namespace ycpp {
         }
         long stop = get_cur_msec();
 
-        matchersHaveBeenInitialized = true;
+
         LOG::error( "Built in %ld msec : Hashmap %zd, Ranges map:%zd\n",
                 (stop - start),
                 informMatcherActions.size(),
@@ -243,7 +246,6 @@ namespace ycpp {
         for (Matcher * matcher : allMatchers) {
             matcher->reset();
         }
-
         lock.unlock();
     }
 

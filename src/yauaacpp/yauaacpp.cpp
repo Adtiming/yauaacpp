@@ -11,7 +11,7 @@ typedef struct {
     std::recursive_mutex lock;
     std::shared_ptr<ycpp::AbstractUserAgentAnalyzerDirect> uaa;
     std::vector<std::string> fields;
-    std::map<int, std::vector<std::string>> result;
+    std::vector<std::string> result[YAUAA_C_MAX_THREAD_NUM];
 } USER_AGENT_ANALYSER_INNER;
 
 // with_fileds, DEVICE_CLASS,AGENT_NAME etc, NULL is end flag.
@@ -52,6 +52,8 @@ void user_agent_analyser_parse(USER_AGENT_ANALYSER uaa, const char * ua, const c
     if(threadidx == -1){
         g_ycpp_lock.lock();
         if(threadidx == -1){
+            if(g_rtbcore_thread_cnt >= YAUAA_C_MAX_THREAD_NUM)
+                perror("reach max thread for yauaa c module");
             threadidx = g_rtbcore_thread_cnt;
             g_rtbcore_thread_cnt ++;
         }
@@ -60,12 +62,9 @@ void user_agent_analyser_parse(USER_AGENT_ANALYSER uaa, const char * ua, const c
 
     USER_AGENT_ANALYSER_INNER * inner = (USER_AGENT_ANALYSER_INNER *) uaa;
 
-    inner->lock.lock();
-
     inner->result[threadidx].resize(inner->fields.size());
     std::shared_ptr<UserAgent> obj = inner->uaa->parse(std::string(ua));
 
-    inner->lock.unlock();
 
     int i = 0;
     for(const std::string & field : inner->fields){

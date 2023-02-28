@@ -95,6 +95,9 @@
 #define UNKNOWN_VERSION                      "??"
 #define UNKNOWN_NAME_VERSION                 "Unknown ??"
 
+
+#define YAUAA_C_MAX_THREAD_NUM               200
+
 #ifdef __cplusplus
 extern "C" {
 #endif
