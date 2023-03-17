@@ -334,7 +334,7 @@ if(YAUAA_CPP_BUILD_SHARED)
     set_target_properties(${SHARED_LIB} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
 endif()
 
-option(YAUAA_CPP_BUILD_TEST "Build tests for yauaacpp" OFF)
+option(YAUAA_CPP_BUILD_TEST "Build tests for yauaacpp" ON)
 message(STATUS "yauaa-cpp build test: ${YAUAA_CPP_BUILD_TEST}")
 
 if(YAUAA_CPP_BUILD_TEST)
