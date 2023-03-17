@@ -13,7 +13,6 @@
 #include <sstream>
 #include <iosfwd>
 #include <algorithm>
-#include "utf8.h"
 
 namespace ycpp {
 

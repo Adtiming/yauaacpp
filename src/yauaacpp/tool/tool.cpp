@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <time.h>
 #include <sys/time.h>
+#include <codecvt>
 
 namespace ycpp {
     void string_replace(std::string &s1, const std::string &from, const std::string &to) {
@@ -179,15 +180,13 @@ namespace ycpp {
     }
 
     std::string wstring_to_string(const std::wstring &s) {
-        std::string result;
-        utf8::utf32to8(s.begin(), s.end(), std::back_inserter(result));
-        return result;
+        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+        return converter.to_bytes(s);;
     }
 
     std::wstring string_to_wstring(const std::string &s) {
-        std::wstring result;
-        utf8::utf8to32(s.begin(), s.end(), std::back_inserter(result));
-        return result;
+        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+        return converter.from_bytes(s);
     }
 
     std::string string_format(const char * format, ...){
