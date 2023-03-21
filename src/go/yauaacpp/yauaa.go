@@ -4,7 +4,21 @@ package yauaacpp
 #cgo LDFLAGS: -L/usr/local/lib
 #cgo LDFLAGS: -lyauaacpp
 #include "string.h"
-#include "yauaacpp/yauaa_c.h"
+
+#define DEVICE_CLASS                         "DeviceClass"
+#define AGENT_NAME                           "AgentName"
+#define WEBVIEW_APP_NAME                     "WebviewAppName"
+
+    typedef void * USER_AGENT_ANALYSER;
+
+    // with_fileds, DEVICE_CLASS,AGENT_NAME etc, NULL is end flag
+    // cache_size, 0- no cache, other value is cache size
+    USER_AGENT_ANALYSER user_agent_analyser_create(char * with_fileds [], int cache_size);
+    void user_agent_analyser_free(USER_AGENT_ANALYSER uaa);
+
+    //result, value count is same to with_fileds, and NULL is end flag
+    void user_agent_analyser_parse(USER_AGENT_ANALYSER uaa, const char * ua, const char * result []);
+
 
 #define BROWSER_OTHER       0
 #define BROWSER_CHROME      1
