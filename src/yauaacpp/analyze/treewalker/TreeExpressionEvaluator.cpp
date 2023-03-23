@@ -10,9 +10,9 @@ namespace ycpp {
     class UserAgentTreeWalkerVisitorImp : public UserAgentTreeWalkerBaseVisitor {
     private:
 
-        antlrcpp::Any visitLookupsFailOnFixedString(antlr4::tree::ParseTree * matcherTree) {
-            antlrcpp::Any value = visit(matcherTree);
-            if (value.isNull()) {
+        std::any visitLookupsFailOnFixedString(antlr4::tree::ParseTree * matcherTree) {
+            std::any value = visit(matcherTree);
+            if (!value.has_value()) {
                 return value;
             }
             // Now we know this is a fixed value lookup ... JUST DON'T as it is needless.
@@ -20,41 +20,37 @@ namespace ycpp {
         }
 
     public:
-        bool shouldVisitNextChild(antlr4::tree::ParseTree * node, const antlrcpp::Any & currentResult) override {
-            return currentResult.isNull();
-        }
-
-        antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any & nextResult) override {
-            return nextResult.isNull() ? aggregate : nextResult;
+        bool shouldVisitNextChild(antlr4::tree::ParseTree * node, const std::any & currentResult) override {
+            return !currentResult.has_value();
         }
 
         // =================
         // Having a lookup that provides a fixed value yields an error as it complicates things needlessly
-        antlrcpp::Any visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext * ctx) override {
+        std::any visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext * ctx) override {
             return visitLookupsFailOnFixedString(ctx->matcher());
         }
 
-        antlrcpp::Any visitMatcherPathLookupContains(UserAgentTreeWalkerParser::MatcherPathLookupContainsContext * ctx) override {
+        std::any visitMatcherPathLookupContains(UserAgentTreeWalkerParser::MatcherPathLookupContainsContext * ctx) override {
             return visitLookupsFailOnFixedString(ctx->matcher());
         }
 
-        antlrcpp::Any visitMatcherPathLookupPrefix(UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext * ctx) override {
+        std::any visitMatcherPathLookupPrefix(UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext * ctx) override {
         return visitLookupsFailOnFixedString(ctx->matcher());
         }
 
-        antlrcpp::Any visitMatcherPathIsInLookup(UserAgentTreeWalkerParser::MatcherPathIsInLookupContext * ctx) override {
+        std::any visitMatcherPathIsInLookup(UserAgentTreeWalkerParser::MatcherPathIsInLookupContext * ctx) override {
             return visitLookupsFailOnFixedString(ctx->matcher());
         }
 
-        antlrcpp::Any visitMatcherPathIsInLookupContains(UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext * ctx) override {
+        std::any visitMatcherPathIsInLookupContains(UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext * ctx) override {
             return visitLookupsFailOnFixedString(ctx->matcher());
         }
 
-        antlrcpp::Any visitMatcherPathIsInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext * ctx) override {
+        std::any visitMatcherPathIsInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext * ctx) override {
             return visitLookupsFailOnFixedString(ctx->matcher());
         }
 
-        antlrcpp::Any visitMatcherPathIsNotInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext * ctx) override {
+        std::any visitMatcherPathIsNotInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext * ctx) override {
             return visitLookupsFailOnFixedString(ctx->matcher());
         }
 
@@ -62,7 +58,7 @@ namespace ycpp {
         // =================
 
 
-        antlrcpp::Any visitPathFixedValue(UserAgentTreeWalkerParser::PathFixedValueContext * ctx) override {
+        std::any visitPathFixedValue(UserAgentTreeWalkerParser::PathFixedValueContext * ctx) override {
             return std::make_shared<std::string>(ctx->value->getText());
         }
     };
@@ -70,9 +66,9 @@ namespace ycpp {
     std::string TreeExpressionEvaluator::calculateFixedValue(antlr4::ParserRuleContext * requiredPattern) {
         if(vistor) delete vistor;
         vistor = new UserAgentTreeWalkerVisitorImp();
-        antlrcpp::Any r = vistor->visit(requiredPattern);
-        if(!r.isNull())
-            return *r.as< std::shared_ptr<std::string> >();
+        std::any r = vistor->visit(requiredPattern);
+        if(r.has_value())
+            return *std::any_cast<std::shared_ptr<std::string>>(r);
         else
             return "";
     }

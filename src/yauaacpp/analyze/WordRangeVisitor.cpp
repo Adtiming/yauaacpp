@@ -8,11 +8,11 @@ namespace ycpp{
 
     WordRangeVisitor WordRangeVisitor::WORD_RANGE_VISITOR;
     std::shared_ptr<Range> WordRangeVisitor::getRange(UserAgentTreeWalkerParser::WordRangeContext *ctx) {
-        antlrcpp::Any any = WORD_RANGE_VISITOR.visit(ctx);
-        return any.as<std::shared_ptr<Range>>();
+        std::any any = WORD_RANGE_VISITOR.visit(ctx);
+        return std::any_cast<std::shared_ptr<Range>>(any);
     }
 
-    antlrcpp::Any WordRangeVisitor::visitWordRangeSingleWord(UserAgentTreeWalkerParser::WordRangeSingleWordContext *ctx) {
+    std::any WordRangeVisitor::visitWordRangeSingleWord(UserAgentTreeWalkerParser::WordRangeSingleWordContext *ctx) {
         int wordNumber = std::stoi(ctx->singleWord->getText());
         return std::make_shared<Range>(
                 wordNumber,

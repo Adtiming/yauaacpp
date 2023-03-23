@@ -1,5 +1,5 @@
 
-// Generated from UserAgentTreeWalker.g4 by ANTLR 4.7.2
+// Generated from UserAgentTreeWalker.g4 by ANTLR 4.12.0
 
 
 #include "UserAgentTreeWalkerListener.h"
@@ -10,14 +10,201 @@
 
 using namespace antlrcpp;
 using namespace ycpp;
+
 using namespace antlr4;
 
-UserAgentTreeWalkerParser::UserAgentTreeWalkerParser(TokenStream *input) : Parser(input) {
-  _interpreter = new atn::ParserATNSimulator(this, _atn, _decisionToDFA, _sharedContextCache);
+namespace {
+
+struct UserAgentTreeWalkerParserStaticData final {
+  UserAgentTreeWalkerParserStaticData(std::vector<std::string> ruleNames,
+                        std::vector<std::string> literalNames,
+                        std::vector<std::string> symbolicNames)
+      : ruleNames(std::move(ruleNames)), literalNames(std::move(literalNames)),
+        symbolicNames(std::move(symbolicNames)),
+        vocabulary(this->literalNames, this->symbolicNames) {}
+
+  UserAgentTreeWalkerParserStaticData(const UserAgentTreeWalkerParserStaticData&) = delete;
+  UserAgentTreeWalkerParserStaticData(UserAgentTreeWalkerParserStaticData&&) = delete;
+  UserAgentTreeWalkerParserStaticData& operator=(const UserAgentTreeWalkerParserStaticData&) = delete;
+  UserAgentTreeWalkerParserStaticData& operator=(UserAgentTreeWalkerParserStaticData&&) = delete;
+
+  std::vector<antlr4::dfa::DFA> decisionToDFA;
+  antlr4::atn::PredictionContextCache sharedContextCache;
+  const std::vector<std::string> ruleNames;
+  const std::vector<std::string> literalNames;
+  const std::vector<std::string> symbolicNames;
+  const antlr4::dfa::Vocabulary vocabulary;
+  antlr4::atn::SerializedATNView serializedATN;
+  std::unique_ptr<antlr4::atn::ATN> atn;
+};
+
+::antlr4::internal::OnceFlag useragenttreewalkerParserOnceFlag;
+UserAgentTreeWalkerParserStaticData *useragenttreewalkerParserStaticData = nullptr;
+
+void useragenttreewalkerParserInitialize() {
+  assert(useragenttreewalkerParserStaticData == nullptr);
+  auto staticData = std::make_unique<UserAgentTreeWalkerParserStaticData>(
+    std::vector<std::string>{
+      "matcherRequire", "matcherExtract", "matcherVariable", "matcher", 
+      "basePath", "path", "numberRange", "wordRange"
+    },
+    std::vector<std::string>{
+      "", "'__SyntaxError__'", "'IsNull'", "'Concat'", "'NormalizeBrand'", 
+      "'ExtractBrandFromUrl'", "'CleanVersion'", "'ReplaceString'", "'LookUp'", 
+      "'IsInLookUp'", "'LookUpContains'", "'IsInLookUpContains'", "'LookUpPrefix'", 
+      "'IsInLookUpPrefix'", "'IsNotInLookUpPrefix'", "'DefaultIfNull'", 
+      "'agent'", "", "", "", "'^'", "'>'", "'>>'", "'>>>'", "'>>>>'", "'<'", 
+      "'<<'", "'<<<'", "'<<<<'", "'.'", "'-'", "'*'", "'\\u003F'", "'\\u003F!'", 
+      "", "'['", "']'", "'('", "')'", "'\"'", "':'", "';'", "", "'!='", 
+      "'='", "'~'", "'!~'", "'{'", "'}'", "'@'"
+    },
+    std::vector<std::string>{
+      "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
+      "PATHTOKENNAME", "VALUENAME", "VALUE", "UP", "NEXT", "NEXT2", "NEXT3", 
+      "NEXT4", "PREV", "PREV2", "PREV3", "PREV4", "DOT", "MINUS", "STAR", 
+      "IN", "NOTIN", "NUMBER", "BLOCKOPEN", "BLOCKCLOSE", "BRACEOPEN", "BRACECLOSE", 
+      "DOUBLEQUOTE", "COLON", "SEMICOLON", "SPACE", "NOTEQUALS", "EQUALS", 
+      "CONTAINS", "NOTCONTAINS", "STARTSWITH", "ENDSWITH", "BACKTOFULL"
+    }
+  );
+  static const int32_t serializedATNSegment[] = {
+  	4,1,49,312,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+  	7,7,7,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,3,0,29,8,0,1,1,
+  	1,1,1,1,1,2,1,2,1,2,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,
+  	3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,
+  	1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,
+  	3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,93,8,3,1,3,1,3,1,3,1,3,1,3,1,3,
+  	1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,111,8,3,1,3,1,3,1,3,1,3,1,
+  	3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,129,8,3,1,3,1,3,1,3,
+  	1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,
+  	3,1,3,1,3,3,3,154,8,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,5,3,163,8,3,10,3,12,
+  	3,166,9,3,1,4,1,4,1,4,1,4,3,4,172,8,4,1,4,1,4,3,4,176,8,4,3,4,178,8,4,
+  	1,5,1,5,1,5,1,5,3,5,184,8,5,1,5,1,5,3,5,188,8,5,1,5,1,5,3,5,192,8,5,1,
+  	5,1,5,3,5,196,8,5,1,5,1,5,3,5,200,8,5,1,5,1,5,3,5,204,8,5,1,5,1,5,3,5,
+  	208,8,5,1,5,1,5,3,5,212,8,5,1,5,1,5,3,5,216,8,5,1,5,1,5,3,5,220,8,5,1,
+  	5,1,5,1,5,3,5,225,8,5,1,5,1,5,1,5,3,5,230,8,5,1,5,1,5,1,5,3,5,235,8,5,
+  	1,5,1,5,1,5,3,5,240,8,5,1,5,1,5,1,5,3,5,245,8,5,1,5,1,5,1,5,3,5,250,8,
+  	5,1,5,1,5,1,5,3,5,255,8,5,1,5,1,5,1,5,3,5,260,8,5,1,5,1,5,3,5,264,8,5,
+  	1,5,1,5,3,5,268,8,5,3,5,270,8,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,
+  	6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,3,6,292,8,6,1,7,1,7,1,7,1,7,
+  	1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,3,7,310,8,7,1,7,0,1,6,
+  	8,0,2,4,6,8,10,12,14,0,0,376,0,28,1,0,0,0,2,30,1,0,0,0,4,33,1,0,0,0,6,
+  	153,1,0,0,0,8,177,1,0,0,0,10,269,1,0,0,0,12,291,1,0,0,0,14,309,1,0,0,
+  	0,16,17,3,6,3,0,17,18,5,0,0,1,18,29,1,0,0,0,19,20,5,1,0,0,20,21,5,44,
+  	0,0,21,29,5,19,0,0,22,23,5,2,0,0,23,24,5,35,0,0,24,25,3,6,3,0,25,26,5,
+  	36,0,0,26,27,5,0,0,1,27,29,1,0,0,0,28,16,1,0,0,0,28,19,1,0,0,0,28,22,
+  	1,0,0,0,29,1,1,0,0,0,30,31,3,6,3,0,31,32,5,0,0,1,32,3,1,0,0,0,33,34,3,
+  	6,3,0,34,35,5,0,0,1,35,5,1,0,0,0,36,37,6,3,-1,0,37,154,3,8,4,0,38,39,
+  	5,3,0,0,39,40,5,35,0,0,40,41,5,19,0,0,41,42,5,41,0,0,42,43,3,6,3,0,43,
+  	44,5,41,0,0,44,45,5,19,0,0,45,46,5,36,0,0,46,154,1,0,0,0,47,48,5,3,0,
+  	0,48,49,5,35,0,0,49,50,5,19,0,0,50,51,5,41,0,0,51,52,3,6,3,0,52,53,5,
+  	36,0,0,53,154,1,0,0,0,54,55,5,3,0,0,55,56,5,35,0,0,56,57,3,6,3,0,57,58,
+  	5,41,0,0,58,59,5,19,0,0,59,60,5,36,0,0,60,154,1,0,0,0,61,62,5,4,0,0,62,
+  	63,5,35,0,0,63,64,3,6,3,0,64,65,5,36,0,0,65,154,1,0,0,0,66,67,5,5,0,0,
+  	67,68,5,35,0,0,68,69,3,6,3,0,69,70,5,36,0,0,70,154,1,0,0,0,71,72,5,6,
+  	0,0,72,73,5,35,0,0,73,74,3,6,3,0,74,75,5,36,0,0,75,154,1,0,0,0,76,77,
+  	5,7,0,0,77,78,5,35,0,0,78,79,3,6,3,0,79,80,5,41,0,0,80,81,5,19,0,0,81,
+  	82,5,41,0,0,82,83,5,19,0,0,83,84,5,36,0,0,84,154,1,0,0,0,85,86,5,8,0,
+  	0,86,87,5,35,0,0,87,88,5,18,0,0,88,89,5,41,0,0,89,92,3,6,3,0,90,91,5,
+  	41,0,0,91,93,5,19,0,0,92,90,1,0,0,0,92,93,1,0,0,0,93,94,1,0,0,0,94,95,
+  	5,36,0,0,95,154,1,0,0,0,96,97,5,9,0,0,97,98,5,35,0,0,98,99,5,18,0,0,99,
+  	100,5,41,0,0,100,101,3,6,3,0,101,102,5,36,0,0,102,154,1,0,0,0,103,104,
+  	5,10,0,0,104,105,5,35,0,0,105,106,5,18,0,0,106,107,5,41,0,0,107,110,3,
+  	6,3,0,108,109,5,41,0,0,109,111,5,19,0,0,110,108,1,0,0,0,110,111,1,0,0,
+  	0,111,112,1,0,0,0,112,113,5,36,0,0,113,154,1,0,0,0,114,115,5,11,0,0,115,
+  	116,5,35,0,0,116,117,5,18,0,0,117,118,5,41,0,0,118,119,3,6,3,0,119,120,
+  	5,36,0,0,120,154,1,0,0,0,121,122,5,12,0,0,122,123,5,35,0,0,123,124,5,
+  	18,0,0,124,125,5,41,0,0,125,128,3,6,3,0,126,127,5,41,0,0,127,129,5,19,
+  	0,0,128,126,1,0,0,0,128,129,1,0,0,0,129,130,1,0,0,0,130,131,5,36,0,0,
+  	131,154,1,0,0,0,132,133,5,13,0,0,133,134,5,35,0,0,134,135,5,18,0,0,135,
+  	136,5,41,0,0,136,137,3,6,3,0,137,138,5,36,0,0,138,154,1,0,0,0,139,140,
+  	5,14,0,0,140,141,5,35,0,0,141,142,5,18,0,0,142,143,5,41,0,0,143,144,3,
+  	6,3,0,144,145,5,36,0,0,145,154,1,0,0,0,146,147,5,15,0,0,147,148,5,35,
+  	0,0,148,149,3,6,3,0,149,150,5,41,0,0,150,151,5,19,0,0,151,152,5,36,0,
+  	0,152,154,1,0,0,0,153,36,1,0,0,0,153,38,1,0,0,0,153,47,1,0,0,0,153,54,
+  	1,0,0,0,153,61,1,0,0,0,153,66,1,0,0,0,153,71,1,0,0,0,153,76,1,0,0,0,153,
+  	85,1,0,0,0,153,96,1,0,0,0,153,103,1,0,0,0,153,114,1,0,0,0,153,121,1,0,
+  	0,0,153,132,1,0,0,0,153,139,1,0,0,0,153,146,1,0,0,0,154,164,1,0,0,0,155,
+  	156,10,2,0,0,156,163,3,14,7,0,157,158,10,1,0,0,158,159,5,35,0,0,159,160,
+  	3,14,7,0,160,161,5,36,0,0,161,163,1,0,0,0,162,155,1,0,0,0,162,157,1,0,
+  	0,0,163,166,1,0,0,0,164,162,1,0,0,0,164,165,1,0,0,0,165,7,1,0,0,0,166,
+  	164,1,0,0,0,167,178,5,19,0,0,168,169,5,49,0,0,169,171,5,18,0,0,170,172,
+  	3,10,5,0,171,170,1,0,0,0,171,172,1,0,0,0,172,178,1,0,0,0,173,175,5,16,
+  	0,0,174,176,3,10,5,0,175,174,1,0,0,0,175,176,1,0,0,0,176,178,1,0,0,0,
+  	177,167,1,0,0,0,177,168,1,0,0,0,177,173,1,0,0,0,178,9,1,0,0,0,179,180,
+  	5,29,0,0,180,181,3,12,6,0,181,183,5,17,0,0,182,184,3,10,5,0,183,182,1,
+  	0,0,0,183,184,1,0,0,0,184,270,1,0,0,0,185,187,5,20,0,0,186,188,3,10,5,
+  	0,187,186,1,0,0,0,187,188,1,0,0,0,188,270,1,0,0,0,189,191,5,21,0,0,190,
+  	192,3,10,5,0,191,190,1,0,0,0,191,192,1,0,0,0,192,270,1,0,0,0,193,195,
+  	5,22,0,0,194,196,3,10,5,0,195,194,1,0,0,0,195,196,1,0,0,0,196,270,1,0,
+  	0,0,197,199,5,23,0,0,198,200,3,10,5,0,199,198,1,0,0,0,199,200,1,0,0,0,
+  	200,270,1,0,0,0,201,203,5,24,0,0,202,204,3,10,5,0,203,202,1,0,0,0,203,
+  	204,1,0,0,0,204,270,1,0,0,0,205,207,5,25,0,0,206,208,3,10,5,0,207,206,
+  	1,0,0,0,207,208,1,0,0,0,208,270,1,0,0,0,209,211,5,26,0,0,210,212,3,10,
+  	5,0,211,210,1,0,0,0,211,212,1,0,0,0,212,270,1,0,0,0,213,215,5,27,0,0,
+  	214,216,3,10,5,0,215,214,1,0,0,0,215,216,1,0,0,0,216,270,1,0,0,0,217,
+  	219,5,28,0,0,218,220,3,10,5,0,219,218,1,0,0,0,219,220,1,0,0,0,220,270,
+  	1,0,0,0,221,222,5,44,0,0,222,224,5,19,0,0,223,225,3,10,5,0,224,223,1,
+  	0,0,0,224,225,1,0,0,0,225,270,1,0,0,0,226,227,5,43,0,0,227,229,5,19,0,
+  	0,228,230,3,10,5,0,229,228,1,0,0,0,229,230,1,0,0,0,230,270,1,0,0,0,231,
+  	232,5,47,0,0,232,234,5,19,0,0,233,235,3,10,5,0,234,233,1,0,0,0,234,235,
+  	1,0,0,0,235,270,1,0,0,0,236,237,5,48,0,0,237,239,5,19,0,0,238,240,3,10,
+  	5,0,239,238,1,0,0,0,239,240,1,0,0,0,240,270,1,0,0,0,241,242,5,45,0,0,
+  	242,244,5,19,0,0,243,245,3,10,5,0,244,243,1,0,0,0,244,245,1,0,0,0,245,
+  	270,1,0,0,0,246,247,5,46,0,0,247,249,5,19,0,0,248,250,3,10,5,0,249,248,
+  	1,0,0,0,249,250,1,0,0,0,250,270,1,0,0,0,251,252,5,32,0,0,252,254,5,18,
+  	0,0,253,255,3,10,5,0,254,253,1,0,0,0,254,255,1,0,0,0,255,270,1,0,0,0,
+  	256,257,5,33,0,0,257,259,5,18,0,0,258,260,3,10,5,0,259,258,1,0,0,0,259,
+  	260,1,0,0,0,260,270,1,0,0,0,261,263,3,14,7,0,262,264,3,10,5,0,263,262,
+  	1,0,0,0,263,264,1,0,0,0,264,270,1,0,0,0,265,267,5,49,0,0,266,268,3,10,
+  	5,0,267,266,1,0,0,0,267,268,1,0,0,0,268,270,1,0,0,0,269,179,1,0,0,0,269,
+  	185,1,0,0,0,269,189,1,0,0,0,269,193,1,0,0,0,269,197,1,0,0,0,269,201,1,
+  	0,0,0,269,205,1,0,0,0,269,209,1,0,0,0,269,213,1,0,0,0,269,217,1,0,0,0,
+  	269,221,1,0,0,0,269,226,1,0,0,0,269,231,1,0,0,0,269,236,1,0,0,0,269,241,
+  	1,0,0,0,269,246,1,0,0,0,269,251,1,0,0,0,269,256,1,0,0,0,269,261,1,0,0,
+  	0,269,265,1,0,0,0,270,11,1,0,0,0,271,272,5,37,0,0,272,273,5,34,0,0,273,
+  	274,5,30,0,0,274,275,5,34,0,0,275,292,5,38,0,0,276,277,5,37,0,0,277,278,
+  	5,30,0,0,278,279,5,34,0,0,279,292,5,38,0,0,280,281,5,37,0,0,281,282,5,
+  	34,0,0,282,283,5,30,0,0,283,292,5,38,0,0,284,285,5,37,0,0,285,286,5,34,
+  	0,0,286,292,5,38,0,0,287,288,5,37,0,0,288,289,5,31,0,0,289,292,5,38,0,
+  	0,290,292,1,0,0,0,291,271,1,0,0,0,291,276,1,0,0,0,291,280,1,0,0,0,291,
+  	284,1,0,0,0,291,287,1,0,0,0,291,290,1,0,0,0,292,13,1,0,0,0,293,294,5,
+  	35,0,0,294,295,5,34,0,0,295,296,5,30,0,0,296,297,5,34,0,0,297,310,5,36,
+  	0,0,298,299,5,35,0,0,299,300,5,30,0,0,300,301,5,34,0,0,301,310,5,36,0,
+  	0,302,303,5,35,0,0,303,304,5,34,0,0,304,305,5,30,0,0,305,310,5,36,0,0,
+  	306,307,5,35,0,0,307,308,5,34,0,0,308,310,5,36,0,0,309,293,1,0,0,0,309,
+  	298,1,0,0,0,309,302,1,0,0,0,309,306,1,0,0,0,310,15,1,0,0,0,33,28,92,110,
+  	128,153,162,164,171,175,177,183,187,191,195,199,203,207,211,215,219,224,
+  	229,234,239,244,249,254,259,263,267,269,291,309
+  };
+  staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
+
+  antlr4::atn::ATNDeserializer deserializer;
+  staticData->atn = deserializer.deserialize(staticData->serializedATN);
+
+  const size_t count = staticData->atn->getNumberOfDecisions();
+  staticData->decisionToDFA.reserve(count);
+  for (size_t i = 0; i < count; i++) { 
+    staticData->decisionToDFA.emplace_back(staticData->atn->getDecisionState(i), i);
+  }
+  useragenttreewalkerParserStaticData = staticData.release();
+}
+
+}
+
+UserAgentTreeWalkerParser::UserAgentTreeWalkerParser(TokenStream *input) : UserAgentTreeWalkerParser(input, antlr4::atn::ParserATNSimulatorOptions()) {}
+
+UserAgentTreeWalkerParser::UserAgentTreeWalkerParser(TokenStream *input, const antlr4::atn::ParserATNSimulatorOptions &options) : Parser(input) {
+  UserAgentTreeWalkerParser::initialize();
+  _interpreter = new atn::ParserATNSimulator(this, *useragenttreewalkerParserStaticData->atn, useragenttreewalkerParserStaticData->decisionToDFA, useragenttreewalkerParserStaticData->sharedContextCache, options);
 }
 
 UserAgentTreeWalkerParser::~UserAgentTreeWalkerParser() {
   delete _interpreter;
+}
+
+const atn::ATN& UserAgentTreeWalkerParser::getATN() const {
+  return *useragenttreewalkerParserStaticData->atn;
 }
 
 std::string UserAgentTreeWalkerParser::getGrammarFileName() const {
@@ -25,18 +212,22 @@ std::string UserAgentTreeWalkerParser::getGrammarFileName() const {
 }
 
 const std::vector<std::string>& UserAgentTreeWalkerParser::getRuleNames() const {
-  return _ruleNames;
+  return useragenttreewalkerParserStaticData->ruleNames;
 }
 
-dfa::Vocabulary& UserAgentTreeWalkerParser::getVocabulary() const {
-  return _vocabulary;
+const dfa::Vocabulary& UserAgentTreeWalkerParser::getVocabulary() const {
+  return useragenttreewalkerParserStaticData->vocabulary;
+}
+
+antlr4::atn::SerializedATNView UserAgentTreeWalkerParser::getSerializedATN() const {
+  return useragenttreewalkerParserStaticData->serializedATN;
 }
 
 
 //----------------- MatcherRequireContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::MatcherRequireContext::MatcherRequireContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 
@@ -45,7 +236,7 @@ size_t UserAgentTreeWalkerParser::MatcherRequireContext::getRuleIndex() const {
 }
 
 void UserAgentTreeWalkerParser::MatcherRequireContext::copyFrom(MatcherRequireContext *ctx) {
-  antlr4::ParserRuleContext::copyFrom(ctx);
+  ParserRuleContext::copyFrom(ctx);
 }
 
 //----------------- IsSyntaxErrorContext ------------------------------------------------------------------
@@ -71,7 +262,7 @@ void UserAgentTreeWalkerParser::IsSyntaxErrorContext::exitRule(tree::ParseTreeLi
     parserListener->exitIsSyntaxError(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::IsSyntaxErrorContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::IsSyntaxErrorContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitIsSyntaxError(this);
   else
@@ -100,7 +291,7 @@ void UserAgentTreeWalkerParser::MatcherBaseContext::exitRule(tree::ParseTreeList
     parserListener->exitMatcherBase(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherBaseContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherBaseContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherBase(this);
   else
@@ -137,7 +328,7 @@ void UserAgentTreeWalkerParser::MatcherPathIsNullContext::exitRule(tree::ParseTr
     parserListener->exitMatcherPathIsNull(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathIsNullContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathIsNullContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathIsNull(this);
   else
@@ -147,7 +338,11 @@ UserAgentTreeWalkerParser::MatcherRequireContext* UserAgentTreeWalkerParser::mat
   MatcherRequireContext *_localctx = _tracker.createInstance<MatcherRequireContext>(_ctx, getState());
   enterRule(_localctx, 0, UserAgentTreeWalkerParser::RuleMatcherRequire);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -170,7 +365,7 @@ UserAgentTreeWalkerParser::MatcherRequireContext* UserAgentTreeWalkerParser::mat
       case UserAgentTreeWalkerParser::T__15:
       case UserAgentTreeWalkerParser::VALUE:
       case UserAgentTreeWalkerParser::BACKTOFULL: {
-        _localctx = dynamic_cast<MatcherRequireContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::MatcherBaseContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::MatcherBaseContext>(_localctx);
         enterOuterAlt(_localctx, 1);
         setState(16);
         matcher(0);
@@ -180,19 +375,19 @@ UserAgentTreeWalkerParser::MatcherRequireContext* UserAgentTreeWalkerParser::mat
       }
 
       case UserAgentTreeWalkerParser::T__0: {
-        _localctx = dynamic_cast<MatcherRequireContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::IsSyntaxErrorContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::IsSyntaxErrorContext>(_localctx);
         enterOuterAlt(_localctx, 2);
         setState(19);
         match(UserAgentTreeWalkerParser::T__0);
         setState(20);
         match(UserAgentTreeWalkerParser::EQUALS);
         setState(21);
-        dynamic_cast<IsSyntaxErrorContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<IsSyntaxErrorContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         break;
       }
 
       case UserAgentTreeWalkerParser::T__1: {
-        _localctx = dynamic_cast<MatcherRequireContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::MatcherPathIsNullContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::MatcherPathIsNullContext>(_localctx);
         enterOuterAlt(_localctx, 3);
         setState(22);
         match(UserAgentTreeWalkerParser::T__1);
@@ -224,7 +419,7 @@ UserAgentTreeWalkerParser::MatcherRequireContext* UserAgentTreeWalkerParser::mat
 //----------------- MatcherExtractContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::MatcherExtractContext::MatcherExtractContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 tree::TerminalNode* UserAgentTreeWalkerParser::MatcherExtractContext::EOF() {
@@ -253,7 +448,7 @@ void UserAgentTreeWalkerParser::MatcherExtractContext::exitRule(tree::ParseTreeL
 }
 
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherExtractContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherExtractContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherExtract(this);
   else
@@ -264,13 +459,17 @@ UserAgentTreeWalkerParser::MatcherExtractContext* UserAgentTreeWalkerParser::mat
   MatcherExtractContext *_localctx = _tracker.createInstance<MatcherExtractContext>(_ctx, getState());
   enterRule(_localctx, 2, UserAgentTreeWalkerParser::RuleMatcherExtract);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
     setState(30);
-    dynamic_cast<MatcherExtractContext *>(_localctx)->expression = matcher(0);
+    antlrcpp::downCast<MatcherExtractContext *>(_localctx)->expression = matcher(0);
     setState(31);
     match(UserAgentTreeWalkerParser::EOF);
    
@@ -287,7 +486,7 @@ UserAgentTreeWalkerParser::MatcherExtractContext* UserAgentTreeWalkerParser::mat
 //----------------- MatcherVariableContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::MatcherVariableContext::MatcherVariableContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 tree::TerminalNode* UserAgentTreeWalkerParser::MatcherVariableContext::EOF() {
@@ -316,7 +515,7 @@ void UserAgentTreeWalkerParser::MatcherVariableContext::exitRule(tree::ParseTree
 }
 
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherVariableContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherVariableContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherVariable(this);
   else
@@ -327,13 +526,17 @@ UserAgentTreeWalkerParser::MatcherVariableContext* UserAgentTreeWalkerParser::ma
   MatcherVariableContext *_localctx = _tracker.createInstance<MatcherVariableContext>(_ctx, getState());
   enterRule(_localctx, 4, UserAgentTreeWalkerParser::RuleMatcherVariable);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
     setState(33);
-    dynamic_cast<MatcherVariableContext *>(_localctx)->expression = matcher(0);
+    antlrcpp::downCast<MatcherVariableContext *>(_localctx)->expression = matcher(0);
     setState(34);
     match(UserAgentTreeWalkerParser::EOF);
    
@@ -350,7 +553,7 @@ UserAgentTreeWalkerParser::MatcherVariableContext* UserAgentTreeWalkerParser::ma
 //----------------- MatcherContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::MatcherContext::MatcherContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 
@@ -359,7 +562,7 @@ size_t UserAgentTreeWalkerParser::MatcherContext::getRuleIndex() const {
 }
 
 void UserAgentTreeWalkerParser::MatcherContext::copyFrom(MatcherContext *ctx) {
-  antlr4::ParserRuleContext::copyFrom(ctx);
+  ParserRuleContext::copyFrom(ctx);
 }
 
 //----------------- MatcherCleanVersionContext ------------------------------------------------------------------
@@ -389,7 +592,7 @@ void UserAgentTreeWalkerParser::MatcherCleanVersionContext::exitRule(tree::Parse
     parserListener->exitMatcherCleanVersion(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherCleanVersionContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherCleanVersionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherCleanVersion(this);
   else
@@ -438,7 +641,7 @@ void UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext::exitRule(tree::P
     parserListener->exitMatcherPathLookupPrefix(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathLookupPrefix(this);
   else
@@ -487,7 +690,7 @@ void UserAgentTreeWalkerParser::MatcherPathLookupContainsContext::exitRule(tree:
     parserListener->exitMatcherPathLookupContains(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathLookupContainsContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathLookupContainsContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathLookupContains(this);
   else
@@ -528,7 +731,7 @@ void UserAgentTreeWalkerParser::MatcherConcatPrefixContext::exitRule(tree::Parse
     parserListener->exitMatcherConcatPrefix(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherConcatPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherConcatPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherConcatPrefix(this);
   else
@@ -569,7 +772,7 @@ void UserAgentTreeWalkerParser::MatcherPathIsInLookupContext::exitRule(tree::Par
     parserListener->exitMatcherPathIsInLookup(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathIsInLookupContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathIsInLookupContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathIsInLookup(this);
   else
@@ -598,7 +801,7 @@ void UserAgentTreeWalkerParser::MatcherWordRangeContext::exitRule(tree::ParseTre
     parserListener->exitMatcherWordRange(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherWordRangeContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherWordRangeContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherWordRange(this);
   else
@@ -635,7 +838,7 @@ void UserAgentTreeWalkerParser::MatcherSegmentRangeContext::exitRule(tree::Parse
     parserListener->exitMatcherSegmentRange(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherSegmentRangeContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherSegmentRangeContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherSegmentRange(this);
   else
@@ -668,7 +871,7 @@ void UserAgentTreeWalkerParser::MatcherNormalizeBrandContext::exitRule(tree::Par
     parserListener->exitMatcherNormalizeBrand(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherNormalizeBrandContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherNormalizeBrandContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherNormalizeBrand(this);
   else
@@ -717,7 +920,7 @@ void UserAgentTreeWalkerParser::MatcherConcatContext::exitRule(tree::ParseTreeLi
     parserListener->exitMatcherConcat(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherConcatContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherConcatContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherConcat(this);
   else
@@ -758,7 +961,7 @@ void UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext::exitRule(t
     parserListener->exitMatcherPathIsInLookupContains(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathIsInLookupContains(this);
   else
@@ -799,7 +1002,7 @@ void UserAgentTreeWalkerParser::MatcherDefaultIfNullContext::exitRule(tree::Pars
     parserListener->exitMatcherDefaultIfNull(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherDefaultIfNullContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherDefaultIfNullContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherDefaultIfNull(this);
   else
@@ -824,7 +1027,7 @@ void UserAgentTreeWalkerParser::MatcherPathContext::exitRule(tree::ParseTreeList
     parserListener->exitMatcherPath(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPath(this);
   else
@@ -865,7 +1068,7 @@ void UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext::exitRule(
     parserListener->exitMatcherPathIsNotInLookupPrefix(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathIsNotInLookupPrefix(this);
   else
@@ -914,7 +1117,7 @@ void UserAgentTreeWalkerParser::MatcherReplaceStringContext::exitRule(tree::Pars
     parserListener->exitMatcherReplaceString(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherReplaceStringContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherReplaceStringContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherReplaceString(this);
   else
@@ -963,7 +1166,7 @@ void UserAgentTreeWalkerParser::MatcherPathLookupContext::exitRule(tree::ParseTr
     parserListener->exitMatcherPathLookup(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathLookupContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathLookupContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathLookup(this);
   else
@@ -996,7 +1199,7 @@ void UserAgentTreeWalkerParser::MatcherExtractBrandFromUrlContext::exitRule(tree
     parserListener->exitMatcherExtractBrandFromUrl(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherExtractBrandFromUrlContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherExtractBrandFromUrlContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherExtractBrandFromUrl(this);
   else
@@ -1037,7 +1240,7 @@ void UserAgentTreeWalkerParser::MatcherConcatPostfixContext::exitRule(tree::Pars
     parserListener->exitMatcherConcatPostfix(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherConcatPostfixContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherConcatPostfixContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherConcatPostfix(this);
   else
@@ -1078,7 +1281,7 @@ void UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext::exitRule(tre
     parserListener->exitMatcherPathIsInLookupPrefix(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitMatcherPathIsInLookupPrefix(this);
   else
@@ -1090,7 +1293,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher() 
 }
 
 UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(int precedence) {
-  antlr4::ParserRuleContext *parentContext = _ctx;
+  ParserRuleContext *parentContext = _ctx;
   size_t parentState = getState();
   UserAgentTreeWalkerParser::MatcherContext *_localctx = _tracker.createInstance<MatcherContext>(_ctx, parentState);
   UserAgentTreeWalkerParser::MatcherContext *previousContext = _localctx;
@@ -1100,7 +1303,11 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
 
     size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     unrollRecursionContexts(parentContext);
   });
   try {
@@ -1128,7 +1335,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(39);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(40);
-      dynamic_cast<MatcherConcatContext *>(_localctx)->prefix = match(UserAgentTreeWalkerParser::VALUE);
+      antlrcpp::downCast<MatcherConcatContext *>(_localctx)->prefix = match(UserAgentTreeWalkerParser::VALUE);
       setState(41);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(42);
@@ -1136,7 +1343,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(43);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(44);
-      dynamic_cast<MatcherConcatContext *>(_localctx)->postfix = match(UserAgentTreeWalkerParser::VALUE);
+      antlrcpp::downCast<MatcherConcatContext *>(_localctx)->postfix = match(UserAgentTreeWalkerParser::VALUE);
       setState(45);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
       break;
@@ -1151,7 +1358,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(48);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(49);
-      dynamic_cast<MatcherConcatPrefixContext *>(_localctx)->prefix = match(UserAgentTreeWalkerParser::VALUE);
+      antlrcpp::downCast<MatcherConcatPrefixContext *>(_localctx)->prefix = match(UserAgentTreeWalkerParser::VALUE);
       setState(50);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(51);
@@ -1174,7 +1381,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(57);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(58);
-      dynamic_cast<MatcherConcatPostfixContext *>(_localctx)->postfix = match(UserAgentTreeWalkerParser::VALUE);
+      antlrcpp::downCast<MatcherConcatPostfixContext *>(_localctx)->postfix = match(UserAgentTreeWalkerParser::VALUE);
       setState(59);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
       break;
@@ -1238,11 +1445,11 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(79);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(80);
-      dynamic_cast<MatcherReplaceStringContext *>(_localctx)->search = match(UserAgentTreeWalkerParser::VALUE);
+      antlrcpp::downCast<MatcherReplaceStringContext *>(_localctx)->search = match(UserAgentTreeWalkerParser::VALUE);
       setState(81);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(82);
-      dynamic_cast<MatcherReplaceStringContext *>(_localctx)->replace = match(UserAgentTreeWalkerParser::VALUE);
+      antlrcpp::downCast<MatcherReplaceStringContext *>(_localctx)->replace = match(UserAgentTreeWalkerParser::VALUE);
       setState(83);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
       break;
@@ -1257,7 +1464,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(86);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(87);
-      dynamic_cast<MatcherPathLookupContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
+      antlrcpp::downCast<MatcherPathLookupContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
       setState(88);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(89);
@@ -1270,7 +1477,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
         setState(90);
         match(UserAgentTreeWalkerParser::SEMICOLON);
         setState(91);
-        dynamic_cast<MatcherPathLookupContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<MatcherPathLookupContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
       }
       setState(94);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
@@ -1286,7 +1493,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(97);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(98);
-      dynamic_cast<MatcherPathIsInLookupContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
+      antlrcpp::downCast<MatcherPathIsInLookupContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
       setState(99);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(100);
@@ -1305,7 +1512,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(104);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(105);
-      dynamic_cast<MatcherPathLookupContainsContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
+      antlrcpp::downCast<MatcherPathLookupContainsContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
       setState(106);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(107);
@@ -1318,7 +1525,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
         setState(108);
         match(UserAgentTreeWalkerParser::SEMICOLON);
         setState(109);
-        dynamic_cast<MatcherPathLookupContainsContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<MatcherPathLookupContainsContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
       }
       setState(112);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
@@ -1334,7 +1541,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(115);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(116);
-      dynamic_cast<MatcherPathIsInLookupContainsContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
+      antlrcpp::downCast<MatcherPathIsInLookupContainsContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
       setState(117);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(118);
@@ -1353,7 +1560,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(122);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(123);
-      dynamic_cast<MatcherPathLookupPrefixContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
+      antlrcpp::downCast<MatcherPathLookupPrefixContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
       setState(124);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(125);
@@ -1366,7 +1573,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
         setState(126);
         match(UserAgentTreeWalkerParser::SEMICOLON);
         setState(127);
-        dynamic_cast<MatcherPathLookupPrefixContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<MatcherPathLookupPrefixContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
       }
       setState(130);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
@@ -1382,7 +1589,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(133);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(134);
-      dynamic_cast<MatcherPathIsInLookupPrefixContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
+      antlrcpp::downCast<MatcherPathIsInLookupPrefixContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
       setState(135);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(136);
@@ -1401,7 +1608,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(140);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(141);
-      dynamic_cast<MatcherPathIsNotInLookupPrefixContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
+      antlrcpp::downCast<MatcherPathIsNotInLookupPrefixContext *>(_localctx)->lookup = match(UserAgentTreeWalkerParser::VALUENAME);
       setState(142);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(143);
@@ -1424,12 +1631,14 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
       setState(149);
       match(UserAgentTreeWalkerParser::SEMICOLON);
       setState(150);
-      dynamic_cast<MatcherDefaultIfNullContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
+      antlrcpp::downCast<MatcherDefaultIfNullContext *>(_localctx)->defaultValue = match(UserAgentTreeWalkerParser::VALUE);
       setState(151);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
       break;
     }
 
+    default:
+      break;
     }
     _ctx->stop = _input->LT(-1);
     setState(164);
@@ -1471,6 +1680,8 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(166);
@@ -1489,7 +1700,7 @@ UserAgentTreeWalkerParser::MatcherContext* UserAgentTreeWalkerParser::matcher(in
 //----------------- BasePathContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::BasePathContext::BasePathContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 
@@ -1498,7 +1709,7 @@ size_t UserAgentTreeWalkerParser::BasePathContext::getRuleIndex() const {
 }
 
 void UserAgentTreeWalkerParser::BasePathContext::copyFrom(BasePathContext *ctx) {
-  antlr4::ParserRuleContext::copyFrom(ctx);
+  ParserRuleContext::copyFrom(ctx);
 }
 
 //----------------- PathVariableContext ------------------------------------------------------------------
@@ -1528,7 +1739,7 @@ void UserAgentTreeWalkerParser::PathVariableContext::exitRule(tree::ParseTreeLis
     parserListener->exitPathVariable(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::PathVariableContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::PathVariableContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitPathVariable(this);
   else
@@ -1553,7 +1764,7 @@ void UserAgentTreeWalkerParser::PathWalkContext::exitRule(tree::ParseTreeListene
     parserListener->exitPathWalk(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::PathWalkContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::PathWalkContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitPathWalk(this);
   else
@@ -1578,7 +1789,7 @@ void UserAgentTreeWalkerParser::PathFixedValueContext::exitRule(tree::ParseTreeL
     parserListener->exitPathFixedValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::PathFixedValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::PathFixedValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitPathFixedValue(this);
   else
@@ -1588,7 +1799,11 @@ UserAgentTreeWalkerParser::BasePathContext* UserAgentTreeWalkerParser::basePath(
   BasePathContext *_localctx = _tracker.createInstance<BasePathContext>(_ctx, getState());
   enterRule(_localctx, 8, UserAgentTreeWalkerParser::RuleBasePath);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1596,36 +1811,38 @@ UserAgentTreeWalkerParser::BasePathContext* UserAgentTreeWalkerParser::basePath(
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case UserAgentTreeWalkerParser::VALUE: {
-        _localctx = dynamic_cast<BasePathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::PathFixedValueContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::PathFixedValueContext>(_localctx);
         enterOuterAlt(_localctx, 1);
         setState(167);
-        dynamic_cast<PathFixedValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<PathFixedValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         break;
       }
 
       case UserAgentTreeWalkerParser::BACKTOFULL: {
-        _localctx = dynamic_cast<BasePathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::PathVariableContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::PathVariableContext>(_localctx);
         enterOuterAlt(_localctx, 2);
         setState(168);
         match(UserAgentTreeWalkerParser::BACKTOFULL);
         setState(169);
-        dynamic_cast<PathVariableContext *>(_localctx)->variable = match(UserAgentTreeWalkerParser::VALUENAME);
+        antlrcpp::downCast<PathVariableContext *>(_localctx)->variable = match(UserAgentTreeWalkerParser::VALUENAME);
         setState(171);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 7, _ctx)) {
         case 1: {
           setState(170);
-          dynamic_cast<PathVariableContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<PathVariableContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::T__15: {
-        _localctx = dynamic_cast<BasePathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::PathWalkContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::PathWalkContext>(_localctx);
         enterOuterAlt(_localctx, 3);
         setState(173);
         match(UserAgentTreeWalkerParser::T__15);
@@ -1635,10 +1852,12 @@ UserAgentTreeWalkerParser::BasePathContext* UserAgentTreeWalkerParser::basePath(
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 8, _ctx)) {
         case 1: {
           setState(174);
-          dynamic_cast<PathWalkContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<PathWalkContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
@@ -1660,7 +1879,7 @@ UserAgentTreeWalkerParser::BasePathContext* UserAgentTreeWalkerParser::basePath(
 //----------------- PathContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::PathContext::PathContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 
@@ -1669,7 +1888,7 @@ size_t UserAgentTreeWalkerParser::PathContext::getRuleIndex() const {
 }
 
 void UserAgentTreeWalkerParser::PathContext::copyFrom(PathContext *ctx) {
-  antlr4::ParserRuleContext::copyFrom(ctx);
+  ParserRuleContext::copyFrom(ctx);
 }
 
 //----------------- StepNext4Context ------------------------------------------------------------------
@@ -1695,7 +1914,7 @@ void UserAgentTreeWalkerParser::StepNext4Context::exitRule(tree::ParseTreeListen
     parserListener->exitStepNext4(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepNext4Context::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepNext4Context::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepNext4(this);
   else
@@ -1728,7 +1947,7 @@ void UserAgentTreeWalkerParser::StepStartsWithValueContext::exitRule(tree::Parse
     parserListener->exitStepStartsWithValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepStartsWithValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepStartsWithValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepStartsWithValue(this);
   else
@@ -1757,7 +1976,7 @@ void UserAgentTreeWalkerParser::StepNext3Context::exitRule(tree::ParseTreeListen
     parserListener->exitStepNext3(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepNext3Context::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepNext3Context::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepNext3(this);
   else
@@ -1786,7 +2005,7 @@ void UserAgentTreeWalkerParser::StepPrev4Context::exitRule(tree::ParseTreeListen
     parserListener->exitStepPrev4(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepPrev4Context::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepPrev4Context::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepPrev4(this);
   else
@@ -1815,7 +2034,7 @@ void UserAgentTreeWalkerParser::StepPrev3Context::exitRule(tree::ParseTreeListen
     parserListener->exitStepPrev3(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepPrev3Context::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepPrev3Context::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepPrev3(this);
   else
@@ -1844,7 +2063,7 @@ void UserAgentTreeWalkerParser::StepPrev2Context::exitRule(tree::ParseTreeListen
     parserListener->exitStepPrev2(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepPrev2Context::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepPrev2Context::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepPrev2(this);
   else
@@ -1877,7 +2096,7 @@ void UserAgentTreeWalkerParser::StepIsInSetContext::exitRule(tree::ParseTreeList
     parserListener->exitStepIsInSet(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepIsInSetContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepIsInSetContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepIsInSet(this);
   else
@@ -1906,7 +2125,7 @@ void UserAgentTreeWalkerParser::StepNext2Context::exitRule(tree::ParseTreeListen
     parserListener->exitStepNext2(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepNext2Context::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepNext2Context::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepNext2(this);
   else
@@ -1935,7 +2154,7 @@ void UserAgentTreeWalkerParser::StepUpContext::exitRule(tree::ParseTreeListener 
     parserListener->exitStepUp(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepUpContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepUpContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepUp(this);
   else
@@ -1968,7 +2187,7 @@ void UserAgentTreeWalkerParser::StepEndsWithValueContext::exitRule(tree::ParseTr
     parserListener->exitStepEndsWithValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepEndsWithValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepEndsWithValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepEndsWithValue(this);
   else
@@ -2001,7 +2220,7 @@ void UserAgentTreeWalkerParser::StepIsNotInSetContext::exitRule(tree::ParseTreeL
     parserListener->exitStepIsNotInSet(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepIsNotInSetContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepIsNotInSetContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepIsNotInSet(this);
   else
@@ -2034,7 +2253,7 @@ void UserAgentTreeWalkerParser::StepEqualsValueContext::exitRule(tree::ParseTree
     parserListener->exitStepEqualsValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepEqualsValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepEqualsValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepEqualsValue(this);
   else
@@ -2071,7 +2290,7 @@ void UserAgentTreeWalkerParser::StepDownContext::exitRule(tree::ParseTreeListene
     parserListener->exitStepDown(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepDownContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepDownContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepDown(this);
   else
@@ -2100,7 +2319,7 @@ void UserAgentTreeWalkerParser::StepWordRangeContext::exitRule(tree::ParseTreeLi
     parserListener->exitStepWordRange(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepWordRangeContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepWordRangeContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepWordRange(this);
   else
@@ -2133,7 +2352,7 @@ void UserAgentTreeWalkerParser::StepNotEqualsValueContext::exitRule(tree::ParseT
     parserListener->exitStepNotEqualsValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepNotEqualsValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepNotEqualsValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepNotEqualsValue(this);
   else
@@ -2162,7 +2381,7 @@ void UserAgentTreeWalkerParser::StepBackToFullContext::exitRule(tree::ParseTreeL
     parserListener->exitStepBackToFull(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepBackToFullContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepBackToFullContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepBackToFull(this);
   else
@@ -2191,7 +2410,7 @@ void UserAgentTreeWalkerParser::StepPrevContext::exitRule(tree::ParseTreeListene
     parserListener->exitStepPrev(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepPrevContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepPrevContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepPrev(this);
   else
@@ -2220,7 +2439,7 @@ void UserAgentTreeWalkerParser::StepNextContext::exitRule(tree::ParseTreeListene
     parserListener->exitStepNext(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepNextContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepNextContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepNext(this);
   else
@@ -2253,7 +2472,7 @@ void UserAgentTreeWalkerParser::StepContainsValueContext::exitRule(tree::ParseTr
     parserListener->exitStepContainsValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepContainsValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepContainsValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepContainsValue(this);
   else
@@ -2286,7 +2505,7 @@ void UserAgentTreeWalkerParser::StepNotContainsValueContext::exitRule(tree::Pars
     parserListener->exitStepNotContainsValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::StepNotContainsValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::StepNotContainsValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitStepNotContainsValue(this);
   else
@@ -2296,7 +2515,11 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
   PathContext *_localctx = _tracker.createInstance<PathContext>(_ctx, getState());
   enterRule(_localctx, 10, UserAgentTreeWalkerParser::RulePath);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2304,30 +2527,32 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case UserAgentTreeWalkerParser::DOT: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepDownContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepDownContext>(_localctx);
         enterOuterAlt(_localctx, 1);
         setState(179);
         match(UserAgentTreeWalkerParser::DOT);
         setState(180);
         numberRange();
         setState(181);
-        dynamic_cast<StepDownContext *>(_localctx)->name = match(UserAgentTreeWalkerParser::PATHTOKENNAME);
+        antlrcpp::downCast<StepDownContext *>(_localctx)->name = match(UserAgentTreeWalkerParser::PATHTOKENNAME);
         setState(183);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 10, _ctx)) {
         case 1: {
           setState(182);
-          dynamic_cast<StepDownContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepDownContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::UP: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepUpContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepUpContext>(_localctx);
         enterOuterAlt(_localctx, 2);
         setState(185);
         match(UserAgentTreeWalkerParser::UP);
@@ -2337,16 +2562,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 11, _ctx)) {
         case 1: {
           setState(186);
-          dynamic_cast<StepUpContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepUpContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::NEXT: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepNextContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepNextContext>(_localctx);
         enterOuterAlt(_localctx, 3);
         setState(189);
         match(UserAgentTreeWalkerParser::NEXT);
@@ -2356,16 +2583,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 12, _ctx)) {
         case 1: {
           setState(190);
-          dynamic_cast<StepNextContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepNextContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::NEXT2: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepNext2Context>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepNext2Context>(_localctx);
         enterOuterAlt(_localctx, 4);
         setState(193);
         match(UserAgentTreeWalkerParser::NEXT2);
@@ -2375,16 +2604,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 13, _ctx)) {
         case 1: {
           setState(194);
-          dynamic_cast<StepNext2Context *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepNext2Context *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::NEXT3: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepNext3Context>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepNext3Context>(_localctx);
         enterOuterAlt(_localctx, 5);
         setState(197);
         match(UserAgentTreeWalkerParser::NEXT3);
@@ -2394,16 +2625,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 14, _ctx)) {
         case 1: {
           setState(198);
-          dynamic_cast<StepNext3Context *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepNext3Context *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::NEXT4: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepNext4Context>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepNext4Context>(_localctx);
         enterOuterAlt(_localctx, 6);
         setState(201);
         match(UserAgentTreeWalkerParser::NEXT4);
@@ -2413,16 +2646,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 15, _ctx)) {
         case 1: {
           setState(202);
-          dynamic_cast<StepNext4Context *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepNext4Context *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::PREV: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepPrevContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepPrevContext>(_localctx);
         enterOuterAlt(_localctx, 7);
         setState(205);
         match(UserAgentTreeWalkerParser::PREV);
@@ -2432,16 +2667,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 16, _ctx)) {
         case 1: {
           setState(206);
-          dynamic_cast<StepPrevContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepPrevContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::PREV2: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepPrev2Context>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepPrev2Context>(_localctx);
         enterOuterAlt(_localctx, 8);
         setState(209);
         match(UserAgentTreeWalkerParser::PREV2);
@@ -2451,16 +2688,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 17, _ctx)) {
         case 1: {
           setState(210);
-          dynamic_cast<StepPrev2Context *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepPrev2Context *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::PREV3: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepPrev3Context>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepPrev3Context>(_localctx);
         enterOuterAlt(_localctx, 9);
         setState(213);
         match(UserAgentTreeWalkerParser::PREV3);
@@ -2470,16 +2709,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 18, _ctx)) {
         case 1: {
           setState(214);
-          dynamic_cast<StepPrev3Context *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepPrev3Context *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::PREV4: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepPrev4Context>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepPrev4Context>(_localctx);
         enterOuterAlt(_localctx, 10);
         setState(217);
         match(UserAgentTreeWalkerParser::PREV4);
@@ -2489,184 +2730,202 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 19, _ctx)) {
         case 1: {
           setState(218);
-          dynamic_cast<StepPrev4Context *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepPrev4Context *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::EQUALS: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepEqualsValueContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepEqualsValueContext>(_localctx);
         enterOuterAlt(_localctx, 11);
         setState(221);
         match(UserAgentTreeWalkerParser::EQUALS);
         setState(222);
-        dynamic_cast<StepEqualsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<StepEqualsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         setState(224);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx)) {
         case 1: {
           setState(223);
-          dynamic_cast<StepEqualsValueContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepEqualsValueContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::NOTEQUALS: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepNotEqualsValueContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepNotEqualsValueContext>(_localctx);
         enterOuterAlt(_localctx, 12);
         setState(226);
         match(UserAgentTreeWalkerParser::NOTEQUALS);
         setState(227);
-        dynamic_cast<StepNotEqualsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<StepNotEqualsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         setState(229);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx)) {
         case 1: {
           setState(228);
-          dynamic_cast<StepNotEqualsValueContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepNotEqualsValueContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::STARTSWITH: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepStartsWithValueContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepStartsWithValueContext>(_localctx);
         enterOuterAlt(_localctx, 13);
         setState(231);
         match(UserAgentTreeWalkerParser::STARTSWITH);
         setState(232);
-        dynamic_cast<StepStartsWithValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<StepStartsWithValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         setState(234);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 22, _ctx)) {
         case 1: {
           setState(233);
-          dynamic_cast<StepStartsWithValueContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepStartsWithValueContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::ENDSWITH: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepEndsWithValueContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepEndsWithValueContext>(_localctx);
         enterOuterAlt(_localctx, 14);
         setState(236);
         match(UserAgentTreeWalkerParser::ENDSWITH);
         setState(237);
-        dynamic_cast<StepEndsWithValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<StepEndsWithValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         setState(239);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 23, _ctx)) {
         case 1: {
           setState(238);
-          dynamic_cast<StepEndsWithValueContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepEndsWithValueContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::CONTAINS: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepContainsValueContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepContainsValueContext>(_localctx);
         enterOuterAlt(_localctx, 15);
         setState(241);
         match(UserAgentTreeWalkerParser::CONTAINS);
         setState(242);
-        dynamic_cast<StepContainsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<StepContainsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         setState(244);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 24, _ctx)) {
         case 1: {
           setState(243);
-          dynamic_cast<StepContainsValueContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepContainsValueContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::NOTCONTAINS: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepNotContainsValueContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepNotContainsValueContext>(_localctx);
         enterOuterAlt(_localctx, 16);
         setState(246);
         match(UserAgentTreeWalkerParser::NOTCONTAINS);
         setState(247);
-        dynamic_cast<StepNotContainsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
+        antlrcpp::downCast<StepNotContainsValueContext *>(_localctx)->value = match(UserAgentTreeWalkerParser::VALUE);
         setState(249);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx)) {
         case 1: {
           setState(248);
-          dynamic_cast<StepNotContainsValueContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepNotContainsValueContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::IN: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepIsInSetContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepIsInSetContext>(_localctx);
         enterOuterAlt(_localctx, 17);
         setState(251);
         match(UserAgentTreeWalkerParser::IN);
         setState(252);
-        dynamic_cast<StepIsInSetContext *>(_localctx)->set = match(UserAgentTreeWalkerParser::VALUENAME);
+        antlrcpp::downCast<StepIsInSetContext *>(_localctx)->set = match(UserAgentTreeWalkerParser::VALUENAME);
         setState(254);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 26, _ctx)) {
         case 1: {
           setState(253);
-          dynamic_cast<StepIsInSetContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepIsInSetContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::NOTIN: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepIsNotInSetContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepIsNotInSetContext>(_localctx);
         enterOuterAlt(_localctx, 18);
         setState(256);
         match(UserAgentTreeWalkerParser::NOTIN);
         setState(257);
-        dynamic_cast<StepIsNotInSetContext *>(_localctx)->set = match(UserAgentTreeWalkerParser::VALUENAME);
+        antlrcpp::downCast<StepIsNotInSetContext *>(_localctx)->set = match(UserAgentTreeWalkerParser::VALUENAME);
         setState(259);
         _errHandler->sync(this);
 
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
         case 1: {
           setState(258);
-          dynamic_cast<StepIsNotInSetContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepIsNotInSetContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::BLOCKOPEN: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepWordRangeContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepWordRangeContext>(_localctx);
         enterOuterAlt(_localctx, 19);
         setState(261);
         wordRange();
@@ -2676,16 +2935,18 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 28, _ctx)) {
         case 1: {
           setState(262);
-          dynamic_cast<StepWordRangeContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepWordRangeContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
 
       case UserAgentTreeWalkerParser::BACKTOFULL: {
-        _localctx = dynamic_cast<PathContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::StepBackToFullContext>(_localctx));
+        _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::StepBackToFullContext>(_localctx);
         enterOuterAlt(_localctx, 20);
         setState(265);
         match(UserAgentTreeWalkerParser::BACKTOFULL);
@@ -2695,10 +2956,12 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 29, _ctx)) {
         case 1: {
           setState(266);
-          dynamic_cast<StepBackToFullContext *>(_localctx)->nextStep = path();
+          antlrcpp::downCast<StepBackToFullContext *>(_localctx)->nextStep = path();
           break;
         }
 
+        default:
+          break;
         }
         break;
       }
@@ -2720,7 +2983,7 @@ UserAgentTreeWalkerParser::PathContext* UserAgentTreeWalkerParser::path() {
 //----------------- NumberRangeContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::NumberRangeContext::NumberRangeContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 
@@ -2729,7 +2992,7 @@ size_t UserAgentTreeWalkerParser::NumberRangeContext::getRuleIndex() const {
 }
 
 void UserAgentTreeWalkerParser::NumberRangeContext::copyFrom(NumberRangeContext *ctx) {
-  antlr4::ParserRuleContext::copyFrom(ctx);
+  ParserRuleContext::copyFrom(ctx);
 }
 
 //----------------- NumberRangeAllContext ------------------------------------------------------------------
@@ -2759,7 +3022,7 @@ void UserAgentTreeWalkerParser::NumberRangeAllContext::exitRule(tree::ParseTreeL
     parserListener->exitNumberRangeAll(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::NumberRangeAllContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::NumberRangeAllContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitNumberRangeAll(this);
   else
@@ -2792,7 +3055,7 @@ void UserAgentTreeWalkerParser::NumberRangeSingleValueContext::exitRule(tree::Pa
     parserListener->exitNumberRangeSingleValue(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::NumberRangeSingleValueContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::NumberRangeSingleValueContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitNumberRangeSingleValue(this);
   else
@@ -2833,7 +3096,7 @@ void UserAgentTreeWalkerParser::NumberRangeStartToEndContext::exitRule(tree::Par
     parserListener->exitNumberRangeStartToEnd(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::NumberRangeStartToEndContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::NumberRangeStartToEndContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitNumberRangeStartToEnd(this);
   else
@@ -2854,7 +3117,7 @@ void UserAgentTreeWalkerParser::NumberRangeEmptyContext::exitRule(tree::ParseTre
     parserListener->exitNumberRangeEmpty(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::NumberRangeEmptyContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::NumberRangeEmptyContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitNumberRangeEmpty(this);
   else
@@ -2891,7 +3154,7 @@ void UserAgentTreeWalkerParser::NumberRangeOpenStartToEndContext::exitRule(tree:
     parserListener->exitNumberRangeOpenStartToEnd(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::NumberRangeOpenStartToEndContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::NumberRangeOpenStartToEndContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitNumberRangeOpenStartToEnd(this);
   else
@@ -2928,7 +3191,7 @@ void UserAgentTreeWalkerParser::NumberRangeStartToOpenEndContext::exitRule(tree:
     parserListener->exitNumberRangeStartToOpenEnd(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::NumberRangeStartToOpenEndContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::NumberRangeStartToOpenEndContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitNumberRangeStartToOpenEnd(this);
   else
@@ -2938,7 +3201,11 @@ UserAgentTreeWalkerParser::NumberRangeContext* UserAgentTreeWalkerParser::number
   NumberRangeContext *_localctx = _tracker.createInstance<NumberRangeContext>(_ctx, getState());
   enterRule(_localctx, 12, UserAgentTreeWalkerParser::RuleNumberRange);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2946,42 +3213,42 @@ UserAgentTreeWalkerParser::NumberRangeContext* UserAgentTreeWalkerParser::number
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx)) {
     case 1: {
-      _localctx = dynamic_cast<NumberRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeStartToEndContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeStartToEndContext>(_localctx);
       enterOuterAlt(_localctx, 1);
       setState(271);
       match(UserAgentTreeWalkerParser::BRACEOPEN);
       setState(272);
-      dynamic_cast<NumberRangeStartToEndContext *>(_localctx)->rangeStart = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<NumberRangeStartToEndContext *>(_localctx)->rangeStart = match(UserAgentTreeWalkerParser::NUMBER);
       setState(273);
       match(UserAgentTreeWalkerParser::MINUS);
       setState(274);
-      dynamic_cast<NumberRangeStartToEndContext *>(_localctx)->rangeEnd = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<NumberRangeStartToEndContext *>(_localctx)->rangeEnd = match(UserAgentTreeWalkerParser::NUMBER);
       setState(275);
       match(UserAgentTreeWalkerParser::BRACECLOSE);
       break;
     }
 
     case 2: {
-      _localctx = dynamic_cast<NumberRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeOpenStartToEndContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeOpenStartToEndContext>(_localctx);
       enterOuterAlt(_localctx, 2);
       setState(276);
       match(UserAgentTreeWalkerParser::BRACEOPEN);
       setState(277);
       match(UserAgentTreeWalkerParser::MINUS);
       setState(278);
-      dynamic_cast<NumberRangeOpenStartToEndContext *>(_localctx)->rangeEnd = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<NumberRangeOpenStartToEndContext *>(_localctx)->rangeEnd = match(UserAgentTreeWalkerParser::NUMBER);
       setState(279);
       match(UserAgentTreeWalkerParser::BRACECLOSE);
       break;
     }
 
     case 3: {
-      _localctx = dynamic_cast<NumberRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeStartToOpenEndContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeStartToOpenEndContext>(_localctx);
       enterOuterAlt(_localctx, 3);
       setState(280);
       match(UserAgentTreeWalkerParser::BRACEOPEN);
       setState(281);
-      dynamic_cast<NumberRangeStartToOpenEndContext *>(_localctx)->rangeStart = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<NumberRangeStartToOpenEndContext *>(_localctx)->rangeStart = match(UserAgentTreeWalkerParser::NUMBER);
       setState(282);
       match(UserAgentTreeWalkerParser::MINUS);
       setState(283);
@@ -2990,19 +3257,19 @@ UserAgentTreeWalkerParser::NumberRangeContext* UserAgentTreeWalkerParser::number
     }
 
     case 4: {
-      _localctx = dynamic_cast<NumberRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeSingleValueContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeSingleValueContext>(_localctx);
       enterOuterAlt(_localctx, 4);
       setState(284);
       match(UserAgentTreeWalkerParser::BRACEOPEN);
       setState(285);
-      dynamic_cast<NumberRangeSingleValueContext *>(_localctx)->count = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<NumberRangeSingleValueContext *>(_localctx)->count = match(UserAgentTreeWalkerParser::NUMBER);
       setState(286);
       match(UserAgentTreeWalkerParser::BRACECLOSE);
       break;
     }
 
     case 5: {
-      _localctx = dynamic_cast<NumberRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeAllContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeAllContext>(_localctx);
       enterOuterAlt(_localctx, 5);
       setState(287);
       match(UserAgentTreeWalkerParser::BRACEOPEN);
@@ -3014,12 +3281,14 @@ UserAgentTreeWalkerParser::NumberRangeContext* UserAgentTreeWalkerParser::number
     }
 
     case 6: {
-      _localctx = dynamic_cast<NumberRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeEmptyContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::NumberRangeEmptyContext>(_localctx);
       enterOuterAlt(_localctx, 6);
 
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -3035,7 +3304,7 @@ UserAgentTreeWalkerParser::NumberRangeContext* UserAgentTreeWalkerParser::number
 //----------------- WordRangeContext ------------------------------------------------------------------
 
 UserAgentTreeWalkerParser::WordRangeContext::WordRangeContext(ParserRuleContext *parent, size_t invokingState)
-  : antlr4::ParserRuleContext(parent, invokingState) {
+  : ParserRuleContext(parent, invokingState) {
 }
 
 
@@ -3044,7 +3313,7 @@ size_t UserAgentTreeWalkerParser::WordRangeContext::getRuleIndex() const {
 }
 
 void UserAgentTreeWalkerParser::WordRangeContext::copyFrom(WordRangeContext *ctx) {
-  antlr4::ParserRuleContext::copyFrom(ctx);
+  ParserRuleContext::copyFrom(ctx);
 }
 
 //----------------- WordRangeFirstWordsContext ------------------------------------------------------------------
@@ -3078,7 +3347,7 @@ void UserAgentTreeWalkerParser::WordRangeFirstWordsContext::exitRule(tree::Parse
     parserListener->exitWordRangeFirstWords(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::WordRangeFirstWordsContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::WordRangeFirstWordsContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitWordRangeFirstWords(this);
   else
@@ -3115,7 +3384,7 @@ void UserAgentTreeWalkerParser::WordRangeLastWordsContext::exitRule(tree::ParseT
     parserListener->exitWordRangeLastWords(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::WordRangeLastWordsContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::WordRangeLastWordsContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitWordRangeLastWords(this);
   else
@@ -3156,7 +3425,7 @@ void UserAgentTreeWalkerParser::WordRangeStartToEndContext::exitRule(tree::Parse
     parserListener->exitWordRangeStartToEnd(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::WordRangeStartToEndContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::WordRangeStartToEndContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitWordRangeStartToEnd(this);
   else
@@ -3189,7 +3458,7 @@ void UserAgentTreeWalkerParser::WordRangeSingleWordContext::exitRule(tree::Parse
     parserListener->exitWordRangeSingleWord(this);
 }
 
-antlrcpp::Any UserAgentTreeWalkerParser::WordRangeSingleWordContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any UserAgentTreeWalkerParser::WordRangeSingleWordContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<UserAgentTreeWalkerVisitor*>(visitor))
     return parserVisitor->visitWordRangeSingleWord(this);
   else
@@ -3199,7 +3468,11 @@ UserAgentTreeWalkerParser::WordRangeContext* UserAgentTreeWalkerParser::wordRang
   WordRangeContext *_localctx = _tracker.createInstance<WordRangeContext>(_ctx, getState());
   enterRule(_localctx, 14, UserAgentTreeWalkerParser::RuleWordRange);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3207,42 +3480,42 @@ UserAgentTreeWalkerParser::WordRangeContext* UserAgentTreeWalkerParser::wordRang
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 32, _ctx)) {
     case 1: {
-      _localctx = dynamic_cast<WordRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::WordRangeStartToEndContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::WordRangeStartToEndContext>(_localctx);
       enterOuterAlt(_localctx, 1);
       setState(293);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(294);
-      dynamic_cast<WordRangeStartToEndContext *>(_localctx)->firstWord = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<WordRangeStartToEndContext *>(_localctx)->firstWord = match(UserAgentTreeWalkerParser::NUMBER);
       setState(295);
       match(UserAgentTreeWalkerParser::MINUS);
       setState(296);
-      dynamic_cast<WordRangeStartToEndContext *>(_localctx)->lastWord = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<WordRangeStartToEndContext *>(_localctx)->lastWord = match(UserAgentTreeWalkerParser::NUMBER);
       setState(297);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
       break;
     }
 
     case 2: {
-      _localctx = dynamic_cast<WordRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::WordRangeFirstWordsContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::WordRangeFirstWordsContext>(_localctx);
       enterOuterAlt(_localctx, 2);
       setState(298);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(299);
       match(UserAgentTreeWalkerParser::MINUS);
       setState(300);
-      dynamic_cast<WordRangeFirstWordsContext *>(_localctx)->lastWord = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<WordRangeFirstWordsContext *>(_localctx)->lastWord = match(UserAgentTreeWalkerParser::NUMBER);
       setState(301);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
       break;
     }
 
     case 3: {
-      _localctx = dynamic_cast<WordRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::WordRangeLastWordsContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::WordRangeLastWordsContext>(_localctx);
       enterOuterAlt(_localctx, 3);
       setState(302);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(303);
-      dynamic_cast<WordRangeLastWordsContext *>(_localctx)->firstWord = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<WordRangeLastWordsContext *>(_localctx)->firstWord = match(UserAgentTreeWalkerParser::NUMBER);
       setState(304);
       match(UserAgentTreeWalkerParser::MINUS);
       setState(305);
@@ -3251,17 +3524,19 @@ UserAgentTreeWalkerParser::WordRangeContext* UserAgentTreeWalkerParser::wordRang
     }
 
     case 4: {
-      _localctx = dynamic_cast<WordRangeContext *>(_tracker.createInstance<UserAgentTreeWalkerParser::WordRangeSingleWordContext>(_localctx));
+      _localctx = _tracker.createInstance<UserAgentTreeWalkerParser::WordRangeSingleWordContext>(_localctx);
       enterOuterAlt(_localctx, 4);
       setState(306);
       match(UserAgentTreeWalkerParser::BLOCKOPEN);
       setState(307);
-      dynamic_cast<WordRangeSingleWordContext *>(_localctx)->singleWord = match(UserAgentTreeWalkerParser::NUMBER);
+      antlrcpp::downCast<WordRangeSingleWordContext *>(_localctx)->singleWord = match(UserAgentTreeWalkerParser::NUMBER);
       setState(308);
       match(UserAgentTreeWalkerParser::BLOCKCLOSE);
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -3276,7 +3551,7 @@ UserAgentTreeWalkerParser::WordRangeContext* UserAgentTreeWalkerParser::wordRang
 
 bool UserAgentTreeWalkerParser::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
   switch (ruleIndex) {
-    case 3: return matcherSempred(dynamic_cast<MatcherContext *>(context), predicateIndex);
+    case 3: return matcherSempred(antlrcpp::downCast<MatcherContext *>(context), predicateIndex);
 
   default:
     break;
@@ -3295,296 +3570,6 @@ bool UserAgentTreeWalkerParser::matcherSempred(MatcherContext *_localctx, size_t
   return true;
 }
 
-// Static vars and initialization.
-std::vector<dfa::DFA> UserAgentTreeWalkerParser::_decisionToDFA;
-atn::PredictionContextCache UserAgentTreeWalkerParser::_sharedContextCache;
-
-// We own the ATN which in turn owns the ATN states.
-atn::ATN UserAgentTreeWalkerParser::_atn;
-std::vector<uint16_t> UserAgentTreeWalkerParser::_serializedATN;
-
-std::vector<std::string> UserAgentTreeWalkerParser::_ruleNames = {
-  "matcherRequire", "matcherExtract", "matcherVariable", "matcher", "basePath", 
-  "path", "numberRange", "wordRange"
-};
-
-std::vector<std::string> UserAgentTreeWalkerParser::_literalNames = {
-  "", "'__SyntaxError__'", "'IsNull'", "'Concat'", "'NormalizeBrand'", "'ExtractBrandFromUrl'", 
-  "'CleanVersion'", "'ReplaceString'", "'LookUp'", "'IsInLookUp'", "'LookUpContains'", 
-  "'IsInLookUpContains'", "'LookUpPrefix'", "'IsInLookUpPrefix'", "'IsNotInLookUpPrefix'", 
-  "'DefaultIfNull'", "'agent'", "", "", "", "'^'", "'>'", "'>>'", "'>>>'", 
-  "'>>>>'", "'<'", "'<<'", "'<<<'", "'<<<<'", "'.'", "'-'", "'*'", "'?'", 
-  "'?!'", "", "'['", "']'", "'('", "')'", "'\"'", "':'", "';'", "", "'!='", 
-  "'='", "'~'", "'!~'", "'{'", "'}'", "'@'"
-};
-
-std::vector<std::string> UserAgentTreeWalkerParser::_symbolicNames = {
-  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "PATHTOKENNAME", 
-  "VALUENAME", "VALUE", "UP", "NEXT", "NEXT2", "NEXT3", "NEXT4", "PREV", 
-  "PREV2", "PREV3", "PREV4", "DOT", "MINUS", "STAR", "IN", "NOTIN", "NUMBER", 
-  "BLOCKOPEN", "BLOCKCLOSE", "BRACEOPEN", "BRACECLOSE", "DOUBLEQUOTE", "COLON", 
-  "SEMICOLON", "SPACE", "NOTEQUALS", "EQUALS", "CONTAINS", "NOTCONTAINS", 
-  "STARTSWITH", "ENDSWITH", "BACKTOFULL"
-};
-
-dfa::Vocabulary UserAgentTreeWalkerParser::_vocabulary(_literalNames, _symbolicNames);
-
-std::vector<std::string> UserAgentTreeWalkerParser::_tokenNames;
-
-UserAgentTreeWalkerParser::Initializer::Initializer() {
-	for (size_t i = 0; i < _symbolicNames.size(); ++i) {
-		std::string name = _vocabulary.getLiteralName(i);
-		if (name.empty()) {
-			name = _vocabulary.getSymbolicName(i);
-		}
-
-		if (name.empty()) {
-			_tokenNames.push_back("<INVALID>");
-		} else {
-      _tokenNames.push_back(name);
-    }
-	}
-
-  _serializedATN = {
-    0x3, 0x608b, 0xa72a, 0x8133, 0xb9ed, 0x417c, 0x3be7, 0x7786, 0x5964, 
-    0x3, 0x33, 0x13a, 0x4, 0x2, 0x9, 0x2, 0x4, 0x3, 0x9, 0x3, 0x4, 0x4, 
-    0x9, 0x4, 0x4, 0x5, 0x9, 0x5, 0x4, 0x6, 0x9, 0x6, 0x4, 0x7, 0x9, 0x7, 
-    0x4, 0x8, 0x9, 0x8, 0x4, 0x9, 0x9, 0x9, 0x3, 0x2, 0x3, 0x2, 0x3, 0x2, 
-    0x3, 0x2, 0x3, 0x2, 0x3, 0x2, 0x3, 0x2, 0x3, 0x2, 0x3, 0x2, 0x3, 0x2, 
-    0x3, 0x2, 0x3, 0x2, 0x5, 0x2, 0x1f, 0xa, 0x2, 0x3, 0x3, 0x3, 0x3, 0x3, 
-    0x3, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0x5f, 0xa, 0x5, 0x3, 0x5, 
-    0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 
-    0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 
-    0x3, 0x5, 0x5, 0x5, 0x71, 0xa, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0x83, 
-    0xa, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 
-    0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 
-    0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 
-    0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0x9c, 0xa, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x7, 0x5, 0xa5, 
-    0xa, 0x5, 0xc, 0x5, 0xe, 0x5, 0xa8, 0xb, 0x5, 0x3, 0x6, 0x3, 0x6, 0x3, 
-    0x6, 0x3, 0x6, 0x5, 0x6, 0xae, 0xa, 0x6, 0x3, 0x6, 0x3, 0x6, 0x5, 0x6, 
-    0xb2, 0xa, 0x6, 0x5, 0x6, 0xb4, 0xa, 0x6, 0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 
-    0x3, 0x7, 0x5, 0x7, 0xba, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xbe, 
-    0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xc2, 0xa, 0x7, 0x3, 0x7, 0x3, 
-    0x7, 0x5, 0x7, 0xc6, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xca, 0xa, 
-    0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xce, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 
-    0x5, 0x7, 0xd2, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xd6, 0xa, 0x7, 
-    0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xda, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 
-    0x7, 0xde, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xe3, 0xa, 
-    0x7, 0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xe8, 0xa, 0x7, 0x3, 0x7, 
-    0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xed, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x3, 
-    0x7, 0x5, 0x7, 0xf2, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 
-    0xf7, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0xfc, 0xa, 0x7, 
-    0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0x101, 0xa, 0x7, 0x3, 0x7, 0x3, 
-    0x7, 0x3, 0x7, 0x5, 0x7, 0x106, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 
-    0x10a, 0xa, 0x7, 0x3, 0x7, 0x3, 0x7, 0x5, 0x7, 0x10e, 0xa, 0x7, 0x5, 
-    0x7, 0x110, 0xa, 0x7, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 
-    0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 
-    0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 
-    0x3, 0x8, 0x5, 0x8, 0x126, 0xa, 0x8, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 
-    0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 
-    0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x5, 0x9, 0x138, 
-    0xa, 0x9, 0x3, 0x9, 0x2, 0x3, 0x8, 0xa, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 
-    0xe, 0x10, 0x2, 0x2, 0x2, 0x17a, 0x2, 0x1e, 0x3, 0x2, 0x2, 0x2, 0x4, 
-    0x20, 0x3, 0x2, 0x2, 0x2, 0x6, 0x23, 0x3, 0x2, 0x2, 0x2, 0x8, 0x9b, 
-    0x3, 0x2, 0x2, 0x2, 0xa, 0xb3, 0x3, 0x2, 0x2, 0x2, 0xc, 0x10f, 0x3, 
-    0x2, 0x2, 0x2, 0xe, 0x125, 0x3, 0x2, 0x2, 0x2, 0x10, 0x137, 0x3, 0x2, 
-    0x2, 0x2, 0x12, 0x13, 0x5, 0x8, 0x5, 0x2, 0x13, 0x14, 0x7, 0x2, 0x2, 
-    0x3, 0x14, 0x1f, 0x3, 0x2, 0x2, 0x2, 0x15, 0x16, 0x7, 0x3, 0x2, 0x2, 
-    0x16, 0x17, 0x7, 0x2e, 0x2, 0x2, 0x17, 0x1f, 0x7, 0x15, 0x2, 0x2, 0x18, 
-    0x19, 0x7, 0x4, 0x2, 0x2, 0x19, 0x1a, 0x7, 0x25, 0x2, 0x2, 0x1a, 0x1b, 
-    0x5, 0x8, 0x5, 0x2, 0x1b, 0x1c, 0x7, 0x26, 0x2, 0x2, 0x1c, 0x1d, 0x7, 
-    0x2, 0x2, 0x3, 0x1d, 0x1f, 0x3, 0x2, 0x2, 0x2, 0x1e, 0x12, 0x3, 0x2, 
-    0x2, 0x2, 0x1e, 0x15, 0x3, 0x2, 0x2, 0x2, 0x1e, 0x18, 0x3, 0x2, 0x2, 
-    0x2, 0x1f, 0x3, 0x3, 0x2, 0x2, 0x2, 0x20, 0x21, 0x5, 0x8, 0x5, 0x2, 
-    0x21, 0x22, 0x7, 0x2, 0x2, 0x3, 0x22, 0x5, 0x3, 0x2, 0x2, 0x2, 0x23, 
-    0x24, 0x5, 0x8, 0x5, 0x2, 0x24, 0x25, 0x7, 0x2, 0x2, 0x3, 0x25, 0x7, 
-    0x3, 0x2, 0x2, 0x2, 0x26, 0x27, 0x8, 0x5, 0x1, 0x2, 0x27, 0x9c, 0x5, 
-    0xa, 0x6, 0x2, 0x28, 0x29, 0x7, 0x5, 0x2, 0x2, 0x29, 0x2a, 0x7, 0x25, 
-    0x2, 0x2, 0x2a, 0x2b, 0x7, 0x15, 0x2, 0x2, 0x2b, 0x2c, 0x7, 0x2b, 0x2, 
-    0x2, 0x2c, 0x2d, 0x5, 0x8, 0x5, 0x2, 0x2d, 0x2e, 0x7, 0x2b, 0x2, 0x2, 
-    0x2e, 0x2f, 0x7, 0x15, 0x2, 0x2, 0x2f, 0x30, 0x7, 0x26, 0x2, 0x2, 0x30, 
-    0x9c, 0x3, 0x2, 0x2, 0x2, 0x31, 0x32, 0x7, 0x5, 0x2, 0x2, 0x32, 0x33, 
-    0x7, 0x25, 0x2, 0x2, 0x33, 0x34, 0x7, 0x15, 0x2, 0x2, 0x34, 0x35, 0x7, 
-    0x2b, 0x2, 0x2, 0x35, 0x36, 0x5, 0x8, 0x5, 0x2, 0x36, 0x37, 0x7, 0x26, 
-    0x2, 0x2, 0x37, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x38, 0x39, 0x7, 0x5, 0x2, 
-    0x2, 0x39, 0x3a, 0x7, 0x25, 0x2, 0x2, 0x3a, 0x3b, 0x5, 0x8, 0x5, 0x2, 
-    0x3b, 0x3c, 0x7, 0x2b, 0x2, 0x2, 0x3c, 0x3d, 0x7, 0x15, 0x2, 0x2, 0x3d, 
-    0x3e, 0x7, 0x26, 0x2, 0x2, 0x3e, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x3f, 0x40, 
-    0x7, 0x6, 0x2, 0x2, 0x40, 0x41, 0x7, 0x25, 0x2, 0x2, 0x41, 0x42, 0x5, 
-    0x8, 0x5, 0x2, 0x42, 0x43, 0x7, 0x26, 0x2, 0x2, 0x43, 0x9c, 0x3, 0x2, 
-    0x2, 0x2, 0x44, 0x45, 0x7, 0x7, 0x2, 0x2, 0x45, 0x46, 0x7, 0x25, 0x2, 
-    0x2, 0x46, 0x47, 0x5, 0x8, 0x5, 0x2, 0x47, 0x48, 0x7, 0x26, 0x2, 0x2, 
-    0x48, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x49, 0x4a, 0x7, 0x8, 0x2, 0x2, 0x4a, 
-    0x4b, 0x7, 0x25, 0x2, 0x2, 0x4b, 0x4c, 0x5, 0x8, 0x5, 0x2, 0x4c, 0x4d, 
-    0x7, 0x26, 0x2, 0x2, 0x4d, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x4e, 0x4f, 0x7, 
-    0x9, 0x2, 0x2, 0x4f, 0x50, 0x7, 0x25, 0x2, 0x2, 0x50, 0x51, 0x5, 0x8, 
-    0x5, 0x2, 0x51, 0x52, 0x7, 0x2b, 0x2, 0x2, 0x52, 0x53, 0x7, 0x15, 0x2, 
-    0x2, 0x53, 0x54, 0x7, 0x2b, 0x2, 0x2, 0x54, 0x55, 0x7, 0x15, 0x2, 0x2, 
-    0x55, 0x56, 0x7, 0x26, 0x2, 0x2, 0x56, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x57, 
-    0x58, 0x7, 0xa, 0x2, 0x2, 0x58, 0x59, 0x7, 0x25, 0x2, 0x2, 0x59, 0x5a, 
-    0x7, 0x14, 0x2, 0x2, 0x5a, 0x5b, 0x7, 0x2b, 0x2, 0x2, 0x5b, 0x5e, 0x5, 
-    0x8, 0x5, 0x2, 0x5c, 0x5d, 0x7, 0x2b, 0x2, 0x2, 0x5d, 0x5f, 0x7, 0x15, 
-    0x2, 0x2, 0x5e, 0x5c, 0x3, 0x2, 0x2, 0x2, 0x5e, 0x5f, 0x3, 0x2, 0x2, 
-    0x2, 0x5f, 0x60, 0x3, 0x2, 0x2, 0x2, 0x60, 0x61, 0x7, 0x26, 0x2, 0x2, 
-    0x61, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x62, 0x63, 0x7, 0xb, 0x2, 0x2, 0x63, 
-    0x64, 0x7, 0x25, 0x2, 0x2, 0x64, 0x65, 0x7, 0x14, 0x2, 0x2, 0x65, 0x66, 
-    0x7, 0x2b, 0x2, 0x2, 0x66, 0x67, 0x5, 0x8, 0x5, 0x2, 0x67, 0x68, 0x7, 
-    0x26, 0x2, 0x2, 0x68, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x69, 0x6a, 0x7, 0xc, 
-    0x2, 0x2, 0x6a, 0x6b, 0x7, 0x25, 0x2, 0x2, 0x6b, 0x6c, 0x7, 0x14, 0x2, 
-    0x2, 0x6c, 0x6d, 0x7, 0x2b, 0x2, 0x2, 0x6d, 0x70, 0x5, 0x8, 0x5, 0x2, 
-    0x6e, 0x6f, 0x7, 0x2b, 0x2, 0x2, 0x6f, 0x71, 0x7, 0x15, 0x2, 0x2, 0x70, 
-    0x6e, 0x3, 0x2, 0x2, 0x2, 0x70, 0x71, 0x3, 0x2, 0x2, 0x2, 0x71, 0x72, 
-    0x3, 0x2, 0x2, 0x2, 0x72, 0x73, 0x7, 0x26, 0x2, 0x2, 0x73, 0x9c, 0x3, 
-    0x2, 0x2, 0x2, 0x74, 0x75, 0x7, 0xd, 0x2, 0x2, 0x75, 0x76, 0x7, 0x25, 
-    0x2, 0x2, 0x76, 0x77, 0x7, 0x14, 0x2, 0x2, 0x77, 0x78, 0x7, 0x2b, 0x2, 
-    0x2, 0x78, 0x79, 0x5, 0x8, 0x5, 0x2, 0x79, 0x7a, 0x7, 0x26, 0x2, 0x2, 
-    0x7a, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x7b, 0x7c, 0x7, 0xe, 0x2, 0x2, 0x7c, 
-    0x7d, 0x7, 0x25, 0x2, 0x2, 0x7d, 0x7e, 0x7, 0x14, 0x2, 0x2, 0x7e, 0x7f, 
-    0x7, 0x2b, 0x2, 0x2, 0x7f, 0x82, 0x5, 0x8, 0x5, 0x2, 0x80, 0x81, 0x7, 
-    0x2b, 0x2, 0x2, 0x81, 0x83, 0x7, 0x15, 0x2, 0x2, 0x82, 0x80, 0x3, 0x2, 
-    0x2, 0x2, 0x82, 0x83, 0x3, 0x2, 0x2, 0x2, 0x83, 0x84, 0x3, 0x2, 0x2, 
-    0x2, 0x84, 0x85, 0x7, 0x26, 0x2, 0x2, 0x85, 0x9c, 0x3, 0x2, 0x2, 0x2, 
-    0x86, 0x87, 0x7, 0xf, 0x2, 0x2, 0x87, 0x88, 0x7, 0x25, 0x2, 0x2, 0x88, 
-    0x89, 0x7, 0x14, 0x2, 0x2, 0x89, 0x8a, 0x7, 0x2b, 0x2, 0x2, 0x8a, 0x8b, 
-    0x5, 0x8, 0x5, 0x2, 0x8b, 0x8c, 0x7, 0x26, 0x2, 0x2, 0x8c, 0x9c, 0x3, 
-    0x2, 0x2, 0x2, 0x8d, 0x8e, 0x7, 0x10, 0x2, 0x2, 0x8e, 0x8f, 0x7, 0x25, 
-    0x2, 0x2, 0x8f, 0x90, 0x7, 0x14, 0x2, 0x2, 0x90, 0x91, 0x7, 0x2b, 0x2, 
-    0x2, 0x91, 0x92, 0x5, 0x8, 0x5, 0x2, 0x92, 0x93, 0x7, 0x26, 0x2, 0x2, 
-    0x93, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x94, 0x95, 0x7, 0x11, 0x2, 0x2, 0x95, 
-    0x96, 0x7, 0x25, 0x2, 0x2, 0x96, 0x97, 0x5, 0x8, 0x5, 0x2, 0x97, 0x98, 
-    0x7, 0x2b, 0x2, 0x2, 0x98, 0x99, 0x7, 0x15, 0x2, 0x2, 0x99, 0x9a, 0x7, 
-    0x26, 0x2, 0x2, 0x9a, 0x9c, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x26, 0x3, 0x2, 
-    0x2, 0x2, 0x9b, 0x28, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x31, 0x3, 0x2, 0x2, 
-    0x2, 0x9b, 0x38, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x3f, 0x3, 0x2, 0x2, 0x2, 
-    0x9b, 0x44, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x49, 0x3, 0x2, 0x2, 0x2, 0x9b, 
-    0x4e, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x57, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x62, 
-    0x3, 0x2, 0x2, 0x2, 0x9b, 0x69, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x74, 0x3, 
-    0x2, 0x2, 0x2, 0x9b, 0x7b, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x86, 0x3, 0x2, 
-    0x2, 0x2, 0x9b, 0x8d, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x94, 0x3, 0x2, 0x2, 
-    0x2, 0x9c, 0xa6, 0x3, 0x2, 0x2, 0x2, 0x9d, 0x9e, 0xc, 0x4, 0x2, 0x2, 
-    0x9e, 0xa5, 0x5, 0x10, 0x9, 0x2, 0x9f, 0xa0, 0xc, 0x3, 0x2, 0x2, 0xa0, 
-    0xa1, 0x7, 0x25, 0x2, 0x2, 0xa1, 0xa2, 0x5, 0x10, 0x9, 0x2, 0xa2, 0xa3, 
-    0x7, 0x26, 0x2, 0x2, 0xa3, 0xa5, 0x3, 0x2, 0x2, 0x2, 0xa4, 0x9d, 0x3, 
-    0x2, 0x2, 0x2, 0xa4, 0x9f, 0x3, 0x2, 0x2, 0x2, 0xa5, 0xa8, 0x3, 0x2, 
-    0x2, 0x2, 0xa6, 0xa4, 0x3, 0x2, 0x2, 0x2, 0xa6, 0xa7, 0x3, 0x2, 0x2, 
-    0x2, 0xa7, 0x9, 0x3, 0x2, 0x2, 0x2, 0xa8, 0xa6, 0x3, 0x2, 0x2, 0x2, 
-    0xa9, 0xb4, 0x7, 0x15, 0x2, 0x2, 0xaa, 0xab, 0x7, 0x33, 0x2, 0x2, 0xab, 
-    0xad, 0x7, 0x14, 0x2, 0x2, 0xac, 0xae, 0x5, 0xc, 0x7, 0x2, 0xad, 0xac, 
-    0x3, 0x2, 0x2, 0x2, 0xad, 0xae, 0x3, 0x2, 0x2, 0x2, 0xae, 0xb4, 0x3, 
-    0x2, 0x2, 0x2, 0xaf, 0xb1, 0x7, 0x12, 0x2, 0x2, 0xb0, 0xb2, 0x5, 0xc, 
-    0x7, 0x2, 0xb1, 0xb0, 0x3, 0x2, 0x2, 0x2, 0xb1, 0xb2, 0x3, 0x2, 0x2, 
-    0x2, 0xb2, 0xb4, 0x3, 0x2, 0x2, 0x2, 0xb3, 0xa9, 0x3, 0x2, 0x2, 0x2, 
-    0xb3, 0xaa, 0x3, 0x2, 0x2, 0x2, 0xb3, 0xaf, 0x3, 0x2, 0x2, 0x2, 0xb4, 
-    0xb, 0x3, 0x2, 0x2, 0x2, 0xb5, 0xb6, 0x7, 0x1f, 0x2, 0x2, 0xb6, 0xb7, 
-    0x5, 0xe, 0x8, 0x2, 0xb7, 0xb9, 0x7, 0x13, 0x2, 0x2, 0xb8, 0xba, 0x5, 
-    0xc, 0x7, 0x2, 0xb9, 0xb8, 0x3, 0x2, 0x2, 0x2, 0xb9, 0xba, 0x3, 0x2, 
-    0x2, 0x2, 0xba, 0x110, 0x3, 0x2, 0x2, 0x2, 0xbb, 0xbd, 0x7, 0x16, 0x2, 
-    0x2, 0xbc, 0xbe, 0x5, 0xc, 0x7, 0x2, 0xbd, 0xbc, 0x3, 0x2, 0x2, 0x2, 
-    0xbd, 0xbe, 0x3, 0x2, 0x2, 0x2, 0xbe, 0x110, 0x3, 0x2, 0x2, 0x2, 0xbf, 
-    0xc1, 0x7, 0x17, 0x2, 0x2, 0xc0, 0xc2, 0x5, 0xc, 0x7, 0x2, 0xc1, 0xc0, 
-    0x3, 0x2, 0x2, 0x2, 0xc1, 0xc2, 0x3, 0x2, 0x2, 0x2, 0xc2, 0x110, 0x3, 
-    0x2, 0x2, 0x2, 0xc3, 0xc5, 0x7, 0x18, 0x2, 0x2, 0xc4, 0xc6, 0x5, 0xc, 
-    0x7, 0x2, 0xc5, 0xc4, 0x3, 0x2, 0x2, 0x2, 0xc5, 0xc6, 0x3, 0x2, 0x2, 
-    0x2, 0xc6, 0x110, 0x3, 0x2, 0x2, 0x2, 0xc7, 0xc9, 0x7, 0x19, 0x2, 0x2, 
-    0xc8, 0xca, 0x5, 0xc, 0x7, 0x2, 0xc9, 0xc8, 0x3, 0x2, 0x2, 0x2, 0xc9, 
-    0xca, 0x3, 0x2, 0x2, 0x2, 0xca, 0x110, 0x3, 0x2, 0x2, 0x2, 0xcb, 0xcd, 
-    0x7, 0x1a, 0x2, 0x2, 0xcc, 0xce, 0x5, 0xc, 0x7, 0x2, 0xcd, 0xcc, 0x3, 
-    0x2, 0x2, 0x2, 0xcd, 0xce, 0x3, 0x2, 0x2, 0x2, 0xce, 0x110, 0x3, 0x2, 
-    0x2, 0x2, 0xcf, 0xd1, 0x7, 0x1b, 0x2, 0x2, 0xd0, 0xd2, 0x5, 0xc, 0x7, 
-    0x2, 0xd1, 0xd0, 0x3, 0x2, 0x2, 0x2, 0xd1, 0xd2, 0x3, 0x2, 0x2, 0x2, 
-    0xd2, 0x110, 0x3, 0x2, 0x2, 0x2, 0xd3, 0xd5, 0x7, 0x1c, 0x2, 0x2, 0xd4, 
-    0xd6, 0x5, 0xc, 0x7, 0x2, 0xd5, 0xd4, 0x3, 0x2, 0x2, 0x2, 0xd5, 0xd6, 
-    0x3, 0x2, 0x2, 0x2, 0xd6, 0x110, 0x3, 0x2, 0x2, 0x2, 0xd7, 0xd9, 0x7, 
-    0x1d, 0x2, 0x2, 0xd8, 0xda, 0x5, 0xc, 0x7, 0x2, 0xd9, 0xd8, 0x3, 0x2, 
-    0x2, 0x2, 0xd9, 0xda, 0x3, 0x2, 0x2, 0x2, 0xda, 0x110, 0x3, 0x2, 0x2, 
-    0x2, 0xdb, 0xdd, 0x7, 0x1e, 0x2, 0x2, 0xdc, 0xde, 0x5, 0xc, 0x7, 0x2, 
-    0xdd, 0xdc, 0x3, 0x2, 0x2, 0x2, 0xdd, 0xde, 0x3, 0x2, 0x2, 0x2, 0xde, 
-    0x110, 0x3, 0x2, 0x2, 0x2, 0xdf, 0xe0, 0x7, 0x2e, 0x2, 0x2, 0xe0, 0xe2, 
-    0x7, 0x15, 0x2, 0x2, 0xe1, 0xe3, 0x5, 0xc, 0x7, 0x2, 0xe2, 0xe1, 0x3, 
-    0x2, 0x2, 0x2, 0xe2, 0xe3, 0x3, 0x2, 0x2, 0x2, 0xe3, 0x110, 0x3, 0x2, 
-    0x2, 0x2, 0xe4, 0xe5, 0x7, 0x2d, 0x2, 0x2, 0xe5, 0xe7, 0x7, 0x15, 0x2, 
-    0x2, 0xe6, 0xe8, 0x5, 0xc, 0x7, 0x2, 0xe7, 0xe6, 0x3, 0x2, 0x2, 0x2, 
-    0xe7, 0xe8, 0x3, 0x2, 0x2, 0x2, 0xe8, 0x110, 0x3, 0x2, 0x2, 0x2, 0xe9, 
-    0xea, 0x7, 0x31, 0x2, 0x2, 0xea, 0xec, 0x7, 0x15, 0x2, 0x2, 0xeb, 0xed, 
-    0x5, 0xc, 0x7, 0x2, 0xec, 0xeb, 0x3, 0x2, 0x2, 0x2, 0xec, 0xed, 0x3, 
-    0x2, 0x2, 0x2, 0xed, 0x110, 0x3, 0x2, 0x2, 0x2, 0xee, 0xef, 0x7, 0x32, 
-    0x2, 0x2, 0xef, 0xf1, 0x7, 0x15, 0x2, 0x2, 0xf0, 0xf2, 0x5, 0xc, 0x7, 
-    0x2, 0xf1, 0xf0, 0x3, 0x2, 0x2, 0x2, 0xf1, 0xf2, 0x3, 0x2, 0x2, 0x2, 
-    0xf2, 0x110, 0x3, 0x2, 0x2, 0x2, 0xf3, 0xf4, 0x7, 0x2f, 0x2, 0x2, 0xf4, 
-    0xf6, 0x7, 0x15, 0x2, 0x2, 0xf5, 0xf7, 0x5, 0xc, 0x7, 0x2, 0xf6, 0xf5, 
-    0x3, 0x2, 0x2, 0x2, 0xf6, 0xf7, 0x3, 0x2, 0x2, 0x2, 0xf7, 0x110, 0x3, 
-    0x2, 0x2, 0x2, 0xf8, 0xf9, 0x7, 0x30, 0x2, 0x2, 0xf9, 0xfb, 0x7, 0x15, 
-    0x2, 0x2, 0xfa, 0xfc, 0x5, 0xc, 0x7, 0x2, 0xfb, 0xfa, 0x3, 0x2, 0x2, 
-    0x2, 0xfb, 0xfc, 0x3, 0x2, 0x2, 0x2, 0xfc, 0x110, 0x3, 0x2, 0x2, 0x2, 
-    0xfd, 0xfe, 0x7, 0x22, 0x2, 0x2, 0xfe, 0x100, 0x7, 0x14, 0x2, 0x2, 0xff, 
-    0x101, 0x5, 0xc, 0x7, 0x2, 0x100, 0xff, 0x3, 0x2, 0x2, 0x2, 0x100, 0x101, 
-    0x3, 0x2, 0x2, 0x2, 0x101, 0x110, 0x3, 0x2, 0x2, 0x2, 0x102, 0x103, 
-    0x7, 0x23, 0x2, 0x2, 0x103, 0x105, 0x7, 0x14, 0x2, 0x2, 0x104, 0x106, 
-    0x5, 0xc, 0x7, 0x2, 0x105, 0x104, 0x3, 0x2, 0x2, 0x2, 0x105, 0x106, 
-    0x3, 0x2, 0x2, 0x2, 0x106, 0x110, 0x3, 0x2, 0x2, 0x2, 0x107, 0x109, 
-    0x5, 0x10, 0x9, 0x2, 0x108, 0x10a, 0x5, 0xc, 0x7, 0x2, 0x109, 0x108, 
-    0x3, 0x2, 0x2, 0x2, 0x109, 0x10a, 0x3, 0x2, 0x2, 0x2, 0x10a, 0x110, 
-    0x3, 0x2, 0x2, 0x2, 0x10b, 0x10d, 0x7, 0x33, 0x2, 0x2, 0x10c, 0x10e, 
-    0x5, 0xc, 0x7, 0x2, 0x10d, 0x10c, 0x3, 0x2, 0x2, 0x2, 0x10d, 0x10e, 
-    0x3, 0x2, 0x2, 0x2, 0x10e, 0x110, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xb5, 0x3, 
-    0x2, 0x2, 0x2, 0x10f, 0xbb, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xbf, 0x3, 0x2, 
-    0x2, 0x2, 0x10f, 0xc3, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xc7, 0x3, 0x2, 0x2, 
-    0x2, 0x10f, 0xcb, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xcf, 0x3, 0x2, 0x2, 0x2, 
-    0x10f, 0xd3, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xd7, 0x3, 0x2, 0x2, 0x2, 0x10f, 
-    0xdb, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xdf, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xe4, 
-    0x3, 0x2, 0x2, 0x2, 0x10f, 0xe9, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xee, 0x3, 
-    0x2, 0x2, 0x2, 0x10f, 0xf3, 0x3, 0x2, 0x2, 0x2, 0x10f, 0xf8, 0x3, 0x2, 
-    0x2, 0x2, 0x10f, 0xfd, 0x3, 0x2, 0x2, 0x2, 0x10f, 0x102, 0x3, 0x2, 0x2, 
-    0x2, 0x10f, 0x107, 0x3, 0x2, 0x2, 0x2, 0x10f, 0x10b, 0x3, 0x2, 0x2, 
-    0x2, 0x110, 0xd, 0x3, 0x2, 0x2, 0x2, 0x111, 0x112, 0x7, 0x27, 0x2, 0x2, 
-    0x112, 0x113, 0x7, 0x24, 0x2, 0x2, 0x113, 0x114, 0x7, 0x20, 0x2, 0x2, 
-    0x114, 0x115, 0x7, 0x24, 0x2, 0x2, 0x115, 0x126, 0x7, 0x28, 0x2, 0x2, 
-    0x116, 0x117, 0x7, 0x27, 0x2, 0x2, 0x117, 0x118, 0x7, 0x20, 0x2, 0x2, 
-    0x118, 0x119, 0x7, 0x24, 0x2, 0x2, 0x119, 0x126, 0x7, 0x28, 0x2, 0x2, 
-    0x11a, 0x11b, 0x7, 0x27, 0x2, 0x2, 0x11b, 0x11c, 0x7, 0x24, 0x2, 0x2, 
-    0x11c, 0x11d, 0x7, 0x20, 0x2, 0x2, 0x11d, 0x126, 0x7, 0x28, 0x2, 0x2, 
-    0x11e, 0x11f, 0x7, 0x27, 0x2, 0x2, 0x11f, 0x120, 0x7, 0x24, 0x2, 0x2, 
-    0x120, 0x126, 0x7, 0x28, 0x2, 0x2, 0x121, 0x122, 0x7, 0x27, 0x2, 0x2, 
-    0x122, 0x123, 0x7, 0x21, 0x2, 0x2, 0x123, 0x126, 0x7, 0x28, 0x2, 0x2, 
-    0x124, 0x126, 0x3, 0x2, 0x2, 0x2, 0x125, 0x111, 0x3, 0x2, 0x2, 0x2, 
-    0x125, 0x116, 0x3, 0x2, 0x2, 0x2, 0x125, 0x11a, 0x3, 0x2, 0x2, 0x2, 
-    0x125, 0x11e, 0x3, 0x2, 0x2, 0x2, 0x125, 0x121, 0x3, 0x2, 0x2, 0x2, 
-    0x125, 0x124, 0x3, 0x2, 0x2, 0x2, 0x126, 0xf, 0x3, 0x2, 0x2, 0x2, 0x127, 
-    0x128, 0x7, 0x25, 0x2, 0x2, 0x128, 0x129, 0x7, 0x24, 0x2, 0x2, 0x129, 
-    0x12a, 0x7, 0x20, 0x2, 0x2, 0x12a, 0x12b, 0x7, 0x24, 0x2, 0x2, 0x12b, 
-    0x138, 0x7, 0x26, 0x2, 0x2, 0x12c, 0x12d, 0x7, 0x25, 0x2, 0x2, 0x12d, 
-    0x12e, 0x7, 0x20, 0x2, 0x2, 0x12e, 0x12f, 0x7, 0x24, 0x2, 0x2, 0x12f, 
-    0x138, 0x7, 0x26, 0x2, 0x2, 0x130, 0x131, 0x7, 0x25, 0x2, 0x2, 0x131, 
-    0x132, 0x7, 0x24, 0x2, 0x2, 0x132, 0x133, 0x7, 0x20, 0x2, 0x2, 0x133, 
-    0x138, 0x7, 0x26, 0x2, 0x2, 0x134, 0x135, 0x7, 0x25, 0x2, 0x2, 0x135, 
-    0x136, 0x7, 0x24, 0x2, 0x2, 0x136, 0x138, 0x7, 0x26, 0x2, 0x2, 0x137, 
-    0x127, 0x3, 0x2, 0x2, 0x2, 0x137, 0x12c, 0x3, 0x2, 0x2, 0x2, 0x137, 
-    0x130, 0x3, 0x2, 0x2, 0x2, 0x137, 0x134, 0x3, 0x2, 0x2, 0x2, 0x138, 
-    0x11, 0x3, 0x2, 0x2, 0x2, 0x23, 0x1e, 0x5e, 0x70, 0x82, 0x9b, 0xa4, 
-    0xa6, 0xad, 0xb1, 0xb3, 0xb9, 0xbd, 0xc1, 0xc5, 0xc9, 0xcd, 0xd1, 0xd5, 
-    0xd9, 0xdd, 0xe2, 0xe7, 0xec, 0xf1, 0xf6, 0xfb, 0x100, 0x105, 0x109, 
-    0x10d, 0x10f, 0x125, 0x137, 
-  };
-
-  atn::ATNDeserializer deserializer;
-  _atn = deserializer.deserialize(_serializedATN);
-
-  size_t count = _atn.getNumberOfDecisions();
-  _decisionToDFA.reserve(count);
-  for (size_t i = 0; i < count; i++) { 
-    _decisionToDFA.emplace_back(_atn.getDecisionState(i), i);
-  }
+void UserAgentTreeWalkerParser::initialize() {
+  ::antlr4::internal::call_once(useragenttreewalkerParserOnceFlag, useragenttreewalkerParserInitialize);
 }
-
-UserAgentTreeWalkerParser::Initializer UserAgentTreeWalkerParser::_init;

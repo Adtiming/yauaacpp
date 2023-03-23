@@ -1,5 +1,5 @@
 
-// Generated from UserAgentTreeWalker.g4 by ANTLR 4.7.2
+// Generated from UserAgentTreeWalker.g4 by ANTLR 4.12.0
 
 #pragma once
 
@@ -30,14 +30,21 @@ public:
     RuleWordRange = 7
   };
 
-  UserAgentTreeWalkerParser(antlr4::TokenStream *input);
-  ~UserAgentTreeWalkerParser();
+  explicit UserAgentTreeWalkerParser(antlr4::TokenStream *input);
 
-  virtual std::string getGrammarFileName() const override;
-  virtual const antlr4::atn::ATN& getATN() const override { return _atn; };
-  virtual const std::vector<std::string>& getTokenNames() const override { return _tokenNames; }; // deprecated: use vocabulary instead.
-  virtual const std::vector<std::string>& getRuleNames() const override;
-  virtual antlr4::dfa::Vocabulary& getVocabulary() const override;
+  UserAgentTreeWalkerParser(antlr4::TokenStream *input, const antlr4::atn::ParserATNSimulatorOptions &options);
+
+  ~UserAgentTreeWalkerParser() override;
+
+  std::string getGrammarFileName() const override;
+
+  const antlr4::atn::ATN& getATN() const override;
+
+  const std::vector<std::string>& getRuleNames() const override;
+
+  const antlr4::dfa::Vocabulary& getVocabulary() const override;
+
+  antlr4::atn::SerializedATNView getSerializedATN() const override;
 
 
   class MatcherRequireContext;
@@ -72,7 +79,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherBaseContext : public MatcherRequireContext {
@@ -84,7 +91,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathIsNullContext : public MatcherRequireContext {
@@ -98,14 +105,14 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   MatcherRequireContext* matcherRequire();
 
   class  MatcherExtractContext : public antlr4::ParserRuleContext {
   public:
-    UserAgentTreeWalkerParser::MatcherContext *expression = nullptr;;
+    UserAgentTreeWalkerParser::MatcherContext *expression = nullptr;
     MatcherExtractContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *EOF();
@@ -114,7 +121,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -122,7 +129,7 @@ public:
 
   class  MatcherVariableContext : public antlr4::ParserRuleContext {
   public:
-    UserAgentTreeWalkerParser::MatcherContext *expression = nullptr;;
+    UserAgentTreeWalkerParser::MatcherContext *expression = nullptr;
     MatcherVariableContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *EOF();
@@ -131,7 +138,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
@@ -160,7 +167,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathLookupPrefixContext : public MatcherContext {
@@ -179,7 +186,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathLookupContainsContext : public MatcherContext {
@@ -198,7 +205,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherConcatPrefixContext : public MatcherContext {
@@ -214,7 +221,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathIsInLookupContext : public MatcherContext {
@@ -230,7 +237,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherWordRangeContext : public MatcherContext {
@@ -242,7 +249,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherSegmentRangeContext : public MatcherContext {
@@ -256,7 +263,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherNormalizeBrandContext : public MatcherContext {
@@ -269,7 +276,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherConcatContext : public MatcherContext {
@@ -288,7 +295,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathIsInLookupContainsContext : public MatcherContext {
@@ -304,7 +311,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherDefaultIfNullContext : public MatcherContext {
@@ -320,7 +327,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathContext : public MatcherContext {
@@ -331,7 +338,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathIsNotInLookupPrefixContext : public MatcherContext {
@@ -347,7 +354,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherReplaceStringContext : public MatcherContext {
@@ -366,7 +373,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathLookupContext : public MatcherContext {
@@ -385,7 +392,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherExtractBrandFromUrlContext : public MatcherContext {
@@ -398,7 +405,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherConcatPostfixContext : public MatcherContext {
@@ -414,7 +421,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  MatcherPathIsInLookupPrefixContext : public MatcherContext {
@@ -430,7 +437,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   MatcherContext* matcher();
@@ -460,7 +467,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  PathWalkContext : public BasePathContext {
@@ -472,7 +479,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  PathFixedValueContext : public BasePathContext {
@@ -484,7 +491,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   BasePathContext* basePath();
@@ -512,7 +519,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepStartsWithValueContext : public PathContext {
@@ -527,7 +534,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepNext3Context : public PathContext {
@@ -540,7 +547,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepPrev4Context : public PathContext {
@@ -553,7 +560,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepPrev3Context : public PathContext {
@@ -566,7 +573,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepPrev2Context : public PathContext {
@@ -579,7 +586,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepIsInSetContext : public PathContext {
@@ -594,7 +601,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepNext2Context : public PathContext {
@@ -607,7 +614,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepUpContext : public PathContext {
@@ -620,7 +627,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepEndsWithValueContext : public PathContext {
@@ -635,7 +642,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepIsNotInSetContext : public PathContext {
@@ -650,7 +657,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepEqualsValueContext : public PathContext {
@@ -665,7 +672,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepDownContext : public PathContext {
@@ -681,7 +688,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepWordRangeContext : public PathContext {
@@ -694,7 +701,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepNotEqualsValueContext : public PathContext {
@@ -709,7 +716,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepBackToFullContext : public PathContext {
@@ -722,7 +729,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepPrevContext : public PathContext {
@@ -735,7 +742,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepNextContext : public PathContext {
@@ -748,7 +755,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepContainsValueContext : public PathContext {
@@ -763,7 +770,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  StepNotContainsValueContext : public PathContext {
@@ -778,7 +785,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   PathContext* path();
@@ -806,7 +813,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  NumberRangeSingleValueContext : public NumberRangeContext {
@@ -820,7 +827,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  NumberRangeStartToEndContext : public NumberRangeContext {
@@ -837,7 +844,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  NumberRangeEmptyContext : public NumberRangeContext {
@@ -847,7 +854,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  NumberRangeOpenStartToEndContext : public NumberRangeContext {
@@ -862,7 +869,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  NumberRangeStartToOpenEndContext : public NumberRangeContext {
@@ -877,7 +884,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   NumberRangeContext* numberRange();
@@ -907,7 +914,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  WordRangeLastWordsContext : public WordRangeContext {
@@ -922,7 +929,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  WordRangeStartToEndContext : public WordRangeContext {
@@ -939,7 +946,7 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  WordRangeSingleWordContext : public WordRangeContext {
@@ -953,32 +960,22 @@ public:
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   WordRangeContext* wordRange();
 
 
-  virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
+  bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
+
   bool matcherSempred(MatcherContext *_localctx, size_t predicateIndex);
 
+  // By default the static state used to implement the parser is lazily initialized during the first
+  // call to the constructor. You can call this function if you wish to initialize the static state
+  // ahead of time.
+  static void initialize();
+
 private:
-  static std::vector<antlr4::dfa::DFA> _decisionToDFA;
-  static antlr4::atn::PredictionContextCache _sharedContextCache;
-  static std::vector<std::string> _ruleNames;
-  static std::vector<std::string> _tokenNames;
-
-  static std::vector<std::string> _literalNames;
-  static std::vector<std::string> _symbolicNames;
-  static antlr4::dfa::Vocabulary _vocabulary;
-  static antlr4::atn::ATN _atn;
-  static std::vector<uint16_t> _serializedATN;
-
-
-  struct Initializer {
-    Initializer();
-  };
-  static Initializer _init;
 };
 
 }  // namespace ycpp

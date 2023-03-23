@@ -33,8 +33,10 @@ namespace ycpp {
             return (split == 1) ? std::string(value) : "";
         }
 
-        std::vector<unsigned short> characters;
-        utf8::utf8to16(value.begin(),value.end(),std::back_inserter(characters));
+        std::u16string characters;
+        std::wstring_convert<
+                deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+        characters = conv16.from_bytes(value);
         int start = findSplitStart(characters, split);
         if (start == -1) {
             return "";
@@ -48,8 +50,10 @@ namespace ycpp {
             return (split == 1) ? std::string(value) : "";
         }
 
-        std::vector<unsigned short> characters;
-        utf8::utf8to16(value.begin(),value.end(),std::back_inserter(characters));
+        std::u16string characters;
+        std::wstring_convert<
+                deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+        characters = conv16.from_bytes(value);
         int start = findSplitStart(characters, split);
         if (start == -1) {
             return "";

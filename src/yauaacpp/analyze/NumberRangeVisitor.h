@@ -30,44 +30,44 @@ namespace ycpp {
     public:
         static NumberRangeVisitor NUMBER_RANGE_VISITOR;
 
-        static antlrcpp::Any getList(UserAgentTreeWalkerParser::NumberRangeContext * ctx) {
+        static std::any getList(UserAgentTreeWalkerParser::NumberRangeContext * ctx) {
             return NUMBER_RANGE_VISITOR.visit(ctx);
         }
 
 
-        antlrcpp::Any visitNumberRangeStartToEnd(UserAgentTreeWalkerParser::NumberRangeStartToEndContext * ctx) override {
+        std::any visitNumberRangeStartToEnd(UserAgentTreeWalkerParser::NumberRangeStartToEndContext * ctx) override {
             return std::make_shared<NumberRangeList>(
                     std::stoi(ctx->rangeStart->getText()),
                     std::stoi(ctx->rangeEnd->getText()));
         }
 
 
-        antlrcpp::Any visitNumberRangeOpenStartToEnd(UserAgentTreeWalkerParser::NumberRangeOpenStartToEndContext * ctx) override {
+        std::any visitNumberRangeOpenStartToEnd(UserAgentTreeWalkerParser::NumberRangeOpenStartToEndContext * ctx) override {
             return std::make_shared<NumberRangeList>(
                     1,
                     std::stoi(ctx->rangeEnd->getText()));
         }
 
 
-        antlrcpp::Any visitNumberRangeStartToOpenEnd(UserAgentTreeWalkerParser::NumberRangeStartToOpenEndContext * ctx) override {
+        std::any visitNumberRangeStartToOpenEnd(UserAgentTreeWalkerParser::NumberRangeStartToOpenEndContext * ctx) override {
             return std::make_shared<NumberRangeList>(
                     std::stoi(ctx->rangeStart->getText()),
                     getMaxRange(ctx));
         }
 
 
-        antlrcpp::Any visitNumberRangeSingleValue(UserAgentTreeWalkerParser::NumberRangeSingleValueContext * ctx) override {
+        std::any visitNumberRangeSingleValue(UserAgentTreeWalkerParser::NumberRangeSingleValueContext * ctx) override {
             int value = std::stoi(ctx->count->getText());
             return std::make_shared<NumberRangeList>(value, value);
         }
 
 
-        antlrcpp::Any visitNumberRangeAll(UserAgentTreeWalkerParser::NumberRangeAllContext * ctx) override {
+        std::any visitNumberRangeAll(UserAgentTreeWalkerParser::NumberRangeAllContext * ctx) override {
             return std::make_shared<NumberRangeList>(DEFAULT_MIN, getMaxRange(ctx));
         }
 
 
-        antlrcpp::Any visitNumberRangeEmpty(UserAgentTreeWalkerParser::NumberRangeEmptyContext * ctx) override {
+        std::any visitNumberRangeEmpty(UserAgentTreeWalkerParser::NumberRangeEmptyContext * ctx) override {
             return std::make_shared<NumberRangeList>(DEFAULT_MIN, getMaxRange(ctx));
         }
     };

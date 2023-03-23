@@ -24,28 +24,28 @@ namespace ycpp {
         static std::shared_ptr<Range> getRange(UserAgentTreeWalkerParser::WordRangeContext * ctx);
 
 
-        antlrcpp::Any visitWordRangeStartToEnd(UserAgentTreeWalkerParser::WordRangeStartToEndContext * ctx) override {
+        std::any visitWordRangeStartToEnd(UserAgentTreeWalkerParser::WordRangeStartToEndContext * ctx) override {
             return std::make_shared<Range>(
                     std::stoi(ctx->firstWord->getText()),
                     std::stoi(ctx->lastWord->getText()) );
         }
 
 
-        antlrcpp::Any visitWordRangeFirstWords(UserAgentTreeWalkerParser::WordRangeFirstWordsContext * ctx) override {
+        std::any visitWordRangeFirstWords(UserAgentTreeWalkerParser::WordRangeFirstWordsContext * ctx) override {
             return std::make_shared<Range>(
                     1,
                     std::stoi(ctx->lastWord->getText()));
         }
 
 
-        antlrcpp::Any visitWordRangeLastWords(UserAgentTreeWalkerParser::WordRangeLastWordsContext * ctx) override {
+        std::any visitWordRangeLastWords(UserAgentTreeWalkerParser::WordRangeLastWordsContext * ctx) override {
             return std::make_shared<Range>(
                     std::stoi(ctx->firstWord->getText()),
                     -1);
         }
 
 
-        antlrcpp::Any visitWordRangeSingleWord(UserAgentTreeWalkerParser::WordRangeSingleWordContext * ctx) override;
+        std::any visitWordRangeSingleWord(UserAgentTreeWalkerParser::WordRangeSingleWordContext * ctx) override;
     };
 
 

@@ -164,7 +164,7 @@ void funcua(std::shared_ptr<ycpp::AbstractUserAgentAnalyzerDirect> uaa, const st
 }
 
 void * proc(void * param){
-    std::ifstream f("/home/sunxg/tmp/base.txt",std::ios_base::in);
+    std::ifstream f("/work/base.txt",std::ios_base::in);
     for(int i=0; i<100000; i++){
         if(i<0)
             continue;

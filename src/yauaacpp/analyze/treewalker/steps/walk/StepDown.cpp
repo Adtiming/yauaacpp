@@ -24,11 +24,11 @@ namespace ycpp {
     }
 
     StepDown::StepDown(UserAgentTreeWalkerParser::NumberRangeContext * numberRange, const std::string & name) {
-        new (this) StepDown(*NumberRangeVisitor::getList(numberRange).as<std::shared_ptr<NumberRangeList>>(), name);
+        new (this) StepDown(*std::any_cast<std::shared_ptr<NumberRangeList>>(NumberRangeVisitor::getList(numberRange)), name);
     }
 
     std::shared_ptr<WalkResult>StepDown::walk(antlr4::tree::ParseTree *tree, const std::string &value) {
-        Iterator<antlr4::tree::ParseTree*> * children = userAgentGetChildrenVisitor->visit(tree).as<Iterator<antlr4::tree::ParseTree*> *>();
+        Iterator<antlr4::tree::ParseTree*> * children = std::any_cast<Iterator<antlr4::tree::ParseTree*> *>(userAgentGetChildrenVisitor->visit(tree));
         while (children->hasNext()) {
             antlr4::tree::ParseTree *  child       = children->next();
             std::shared_ptr<WalkResult> childResult = walkNextStep(child, "");

@@ -3,21 +3,30 @@
 //
 
 #include "Normalize.h"
-#include <utf8.h>
 #include "tool/tool.h"
 
 namespace ycpp {
+    template<class Facet>
+    struct deletable_facet : Facet
+    {
+        template<class ...Args>
+        deletable_facet(Args&& ...args) : Facet(std::forward<Args>(args)...) {}
+        ~deletable_facet() {}
+    };
+
     std::wregex Normalize::DEVICE_CLEANUP_PATTERN_1(L"- +");
     std::wregex Normalize::DEVICE_CLEANUP_PATTERN_2(L" +-");
     std::wregex Normalize::DEVICE_CLEANUP_PATTERN_3(L" +");
     std::wregex Normalize::DEVICE_CLEANUP_PATTERN_4(L"( -| )+");
 
     std::string charToString(uint16_t c){
-        std::vector<uint16_t> v;
+        std::u16string v;
         v.push_back(c);
         std::string s;
-        utf8::utf16to8(v.begin(),v.end(),std::back_inserter(s));
-        return s;
+        std::wstring_convert<
+        deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+
+        return conv16.to_bytes(v);
     }
 
     std::string Normalize::brand(const std::string &brand) {
@@ -29,11 +38,13 @@ namespace ycpp {
         }
 
 
-        std::wstring nameChars;
-        utf8::utf8to16(brand.begin(),brand.end(),std::back_inserter(nameChars));
+        std::u16string nameChars;
+        std::wstring_convert<
+                deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+        nameChars = conv16.from_bytes(brand);
 
         std::stringstream o;
-        std::vector<uint16_t> wordBuilder;
+        std::u16string wordBuilder;
         int lowerChars = 0;
         bool wordHasNumbers = false;
         for (size_t i = 0; i < nameChars.size(); i++) {
@@ -46,8 +57,7 @@ namespace ycpp {
                 if (wordBuilder.size() <= 3 || wordHasNumbers) {
                     std::transform(wordBuilder.begin(), wordBuilder.end(), wordBuilder.begin(), toupper);
                 }
-                std::string s;
-                utf8::utf16to8(wordBuilder.begin(),wordBuilder.end(),std::back_inserter(s));
+                std::string s=conv16.to_bytes(wordBuilder);
                 o << s.c_str();
                 wordBuilder.clear();
                 lowerChars = 0; // Next word
@@ -76,8 +86,7 @@ namespace ycpp {
                     if (wordBuilder.size() <= 3 || wordHasNumbers) {
                         std::transform(wordBuilder.begin(), wordBuilder.end(), wordBuilder.begin(), toupper);
                     }
-                    std::string s;
-                    utf8::utf16to8(wordBuilder.begin(),wordBuilder.end(),std::back_inserter(s));
+                    std::string s = conv16.to_bytes(wordBuilder);
                     o << s.c_str();
                     wordBuilder.clear();
                     lowerChars = 0; // Next word
@@ -93,8 +102,10 @@ namespace ycpp {
     std::string Normalize::cleanupDeviceBrandName(const std::string &_deviceBrand, const std::string &_deviceName) {
         std::wstring deviceName;
         std::wstring deviceBrand;
-        utf8::utf8to32(_deviceName.begin(),_deviceName.end(),std::back_inserter(deviceName));
-        utf8::utf8to32(_deviceBrand.begin(),_deviceBrand.end(),std::back_inserter(deviceBrand));
+        std::wstring_convert<
+                deletable_facet<std::codecvt<wchar_t, char, std::mbstate_t>>, wchar_t> conv32;
+        deviceName = conv32.from_bytes(_deviceName);
+        deviceBrand = conv32.from_bytes(_deviceBrand);
         replaceString(deviceName, L"'", L" ");
         replaceString(deviceName, L"_", L" ");
 
@@ -180,8 +191,10 @@ namespace ycpp {
     }
 
     std::string Normalize::email(const std::string &email) {
-        std::wstring cleaned;
-        utf8::utf8to32(email.begin(),email.end(),std::back_inserter(cleaned));
+        std::wstring_convert<
+                deletable_facet<std::codecvt<wchar_t, char, std::mbstate_t>>, wchar_t> conv32;
+        std::wstring cleaned = conv32.from_bytes(email);
+
         cleaned = replaceString(cleaned, L"[at]", L"@");
         cleaned = replaceString(cleaned, L"[\\xc3\\xa07]", L"@");
         cleaned = replaceString(cleaned, L"[dot]", L".");
@@ -190,8 +203,6 @@ namespace ycpp {
         cleaned = replaceString(cleaned, L"dot", L".");
         cleaned = replaceString(cleaned, L" dash ", L"-");
         cleaned = replaceString(cleaned, L" ", L"");
-        std::string s;
-        utf8::utf32to8(cleaned.begin(),cleaned.end(),std::back_inserter(s));
-        return s;
+        return conv32.to_bytes(cleaned);
     }
 }

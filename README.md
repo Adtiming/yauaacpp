@@ -1,4 +1,4 @@
-## Description
+## 1.Description
 The purpose of this program is to implement user agent analysis, which is the same as the result of using https://github.com/nielsbasjes/yauaa java library.
 
 The implementation is based on https://github.com/nielsbasjes/yauaa version 6.6(java)
@@ -19,34 +19,35 @@ The implementation is based on https://github.com/nielsbasjes/yauaa version 6.6(
         logger.info("device class = "+obj.getValue(UserAgent.DEVICE_CLASS));
         logger.info("agent name = " + obj.getValue(UserAgent.AGENT_NAME));
 
-## Dependency
+## 2.Dependency
 
-### antlr4 https://github.com/antlr/antlr4.git version 4.9.3
+### 2.1 antlr4-runtime 4.12.0
 
-##### get antlr 4.9.3
+#### 2.1.1 for linux
 
 git clone https://github.com/antlr/antlr4.git 
 
-git checkout 4.9.3
+git checkout 4.12.0
 
-
-##### Install antlr 4.9.3 in CentOS 7.6 environment
+1. ###### Install antlr 4.12.0 in CentOS 7.6 environment
 
 In CentOS 7.6 gcc version 4.8.5, there is incomplete support for regex, which needs to be upgraded to gcc 7.3.1
 
-1. Install gcc 7.3.1
+Install gcc 7.3.1
+
 ```
   sudo yum install centos-release-scl
 
   sudo yum install devtoolset-7-gcc*
 ```
-   
-2. Install antlr4 dependency
+
+Install antlr4 dependency
+
 ```
  sudo yum install  libuuid-devel
-``` 
+```
 
-3. compile alntr4
+compile alntr4
 
 ```
 cd antlr4/runtime/Cpp
@@ -60,26 +61,12 @@ cmake ..
 make     
 ```
 
-In case of error CPPUtils.cpp:54:24: missing binary operator before token "("
-
-​             if __has_cpp_attribute(clang::fallthrough)
-
-__*has_cpp_attribute* is introduced in the c++20 standard, directly comment out the following code:
-
-```c++
-#ifndef _MSC_VER
-#if __has_cpp_attribute(clang::fallthrough)
-          [[clang::fallthrough]];
-#endif
-#endif
-```
-
 After successful compilation, install:
 ```
     sudo make install
 ```
 
-##### Install antlr 4.9.3 in ubuntu 20.0.4 environment
+###### Install antlr 4.12.0 in ubuntu 20.0.4 environment
 
 1) Install antlr4 dependency
 
@@ -98,6 +85,14 @@ After successful compilation, install:
 `make`
 
 `make install`
+
+#### 2.1.2 for macos
+
+```
+brew install antlr4-cpp-runtime
+```
+
+
 
 ### yaml-cpp
 

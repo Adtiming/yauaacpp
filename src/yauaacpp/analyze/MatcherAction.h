@@ -25,93 +25,93 @@ namespace ycpp {
         void unQuoteToken(antlr4::Token *token);
 
     public:
-        antlrcpp::Any visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext* ctx) override {
+        std::any visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext* ctx) override {
             unQuoteToken(ctx->defaultValue);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherPathLookup(ctx);
         }
 
 
-        antlrcpp::Any visitMatcherPathLookupContains(UserAgentTreeWalkerParser::MatcherPathLookupContainsContext* ctx) override {
+        std::any visitMatcherPathLookupContains(UserAgentTreeWalkerParser::MatcherPathLookupContainsContext* ctx) override {
             unQuoteToken(ctx->defaultValue);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherPathLookupContains(ctx);
         }
 
 
-        antlrcpp::Any visitMatcherPathLookupPrefix(UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext* ctx) override {
+        std::any visitMatcherPathLookupPrefix(UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext* ctx) override {
             unQuoteToken(ctx->defaultValue);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherPathLookupPrefix(ctx);
         }
 
 
-        antlrcpp::Any visitMatcherDefaultIfNull(UserAgentTreeWalkerParser::MatcherDefaultIfNullContext* ctx) override {
+        std::any visitMatcherDefaultIfNull(UserAgentTreeWalkerParser::MatcherDefaultIfNullContext* ctx) override {
             unQuoteToken(ctx->defaultValue);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherDefaultIfNull(ctx);
         }
 
 
-        antlrcpp::Any visitPathFixedValue(UserAgentTreeWalkerParser::PathFixedValueContext* ctx) override {
+        std::any visitPathFixedValue(UserAgentTreeWalkerParser::PathFixedValueContext* ctx) override {
             unQuoteToken(ctx->value);
             return UserAgentTreeWalkerBaseVisitor::visitPathFixedValue(ctx);
         }
 
 
-        antlrcpp::Any visitMatcherConcat(UserAgentTreeWalkerParser::MatcherConcatContext* ctx) override {
+        std::any visitMatcherConcat(UserAgentTreeWalkerParser::MatcherConcatContext* ctx) override {
             unQuoteToken(ctx->prefix);
             unQuoteToken(ctx->postfix);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherConcat(ctx);
         }
 
 
-        antlrcpp::Any visitMatcherConcatPrefix(UserAgentTreeWalkerParser::MatcherConcatPrefixContext* ctx) override {
+        std::any visitMatcherConcatPrefix(UserAgentTreeWalkerParser::MatcherConcatPrefixContext* ctx) override {
             unQuoteToken(ctx->prefix);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherConcatPrefix(ctx);
         }
 
 
-        antlrcpp::Any visitMatcherConcatPostfix(UserAgentTreeWalkerParser::MatcherConcatPostfixContext* ctx) override {
+        std::any visitMatcherConcatPostfix(UserAgentTreeWalkerParser::MatcherConcatPostfixContext* ctx) override {
             unQuoteToken(ctx->postfix);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherConcatPostfix(ctx);
         }
 
 
-        antlrcpp::Any visitMatcherReplaceString(UserAgentTreeWalkerParser::MatcherReplaceStringContext* ctx) override {
+        std::any visitMatcherReplaceString(UserAgentTreeWalkerParser::MatcherReplaceStringContext* ctx) override {
             unQuoteToken(ctx->search);
             unQuoteToken(ctx->replace);
             return UserAgentTreeWalkerBaseVisitor::visitMatcherReplaceString(ctx);
         }
 
 
-        antlrcpp::Any visitStepEqualsValue(UserAgentTreeWalkerParser::StepEqualsValueContext* ctx) override {
+        std::any visitStepEqualsValue(UserAgentTreeWalkerParser::StepEqualsValueContext* ctx) override {
             unQuoteToken(ctx->value);
             return UserAgentTreeWalkerBaseVisitor::visitStepEqualsValue(ctx);
         }
 
 
-        antlrcpp::Any visitStepNotEqualsValue(UserAgentTreeWalkerParser::StepNotEqualsValueContext* ctx) override {
+        std::any visitStepNotEqualsValue(UserAgentTreeWalkerParser::StepNotEqualsValueContext* ctx) override {
             unQuoteToken(ctx->value);
             return UserAgentTreeWalkerBaseVisitor::visitStepNotEqualsValue(ctx);
         }
 
 
-        antlrcpp::Any visitStepStartsWithValue(UserAgentTreeWalkerParser::StepStartsWithValueContext* ctx) override {
+        std::any visitStepStartsWithValue(UserAgentTreeWalkerParser::StepStartsWithValueContext* ctx) override {
             unQuoteToken(ctx->value);
             return UserAgentTreeWalkerBaseVisitor::visitStepStartsWithValue(ctx);
         }
 
 
-        antlrcpp::Any visitStepEndsWithValue(UserAgentTreeWalkerParser::StepEndsWithValueContext* ctx) override {
+        std::any visitStepEndsWithValue(UserAgentTreeWalkerParser::StepEndsWithValueContext* ctx) override {
             unQuoteToken(ctx->value);
             return UserAgentTreeWalkerBaseVisitor::visitStepEndsWithValue(ctx);
         }
 
 
-        antlrcpp::Any visitStepContainsValue(UserAgentTreeWalkerParser::StepContainsValueContext* ctx) override {
+        std::any visitStepContainsValue(UserAgentTreeWalkerParser::StepContainsValueContext* ctx) override {
             unQuoteToken(ctx->value);
             return UserAgentTreeWalkerBaseVisitor::visitStepContainsValue(ctx);
         }
 
 
-        antlrcpp::Any visitStepNotContainsValue(UserAgentTreeWalkerParser::StepNotContainsValueContext* ctx) override {
+        std::any visitStepNotContainsValue(UserAgentTreeWalkerParser::StepNotContainsValueContext* ctx) override {
             unQuoteToken(ctx->value);
             return UserAgentTreeWalkerBaseVisitor::visitStepNotContainsValue(ctx);
         }

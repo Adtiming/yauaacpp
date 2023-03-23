@@ -169,18 +169,18 @@ namespace ycpp {
         return it->second;
     }
 
-    antlrcpp::Any WalkListBuilder::doStepNextN(UserAgentTreeWalkerParser::PathContext *nextStep, int nextSteps) {
+    std::any WalkListBuilder::doStepNextN(UserAgentTreeWalkerParser::PathContext *nextStep, int nextSteps) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepNextN(nextSteps)));
         visitNext(nextStep);
-        return nullptr; // antlrcpp::Any
+        return nullptr; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::doStepPrevN(UserAgentTreeWalkerParser::PathContext *nextStep, int prevSteps) {
+    std::any WalkListBuilder::doStepPrevN(UserAgentTreeWalkerParser::PathContext *nextStep, int prevSteps) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepPrevN(prevSteps)));
         visitNext(nextStep);
-        return nullptr; // antlrcpp::Any
+        return nullptr; // std::any
     }
 
     STRSET_SP WalkListBuilder::getLookupSet(const std::string &lookupSetName) {
@@ -199,7 +199,7 @@ namespace ycpp {
         return lookupSet;
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext * ctx) {
+    std::any WalkListBuilder::visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext * ctx) {
         visit(ctx->matcher());
 
         fromHereItCannotBeInHashMapAnymore();
@@ -208,10 +208,10 @@ namespace ycpp {
         const STRMAP_SP lookup = getLookup(lookupName);
 
         add(std::shared_ptr<Step>(new StepLookup(lookupName, lookup, extractText(ctx->defaultValue))));
-        return nullptr; // antlrcpp::Any
+        return nullptr; // std::any
     }
 
-    antlrcpp::Any
+    std::any
     WalkListBuilder::visitMatcherPathIsInLookup(UserAgentTreeWalkerParser::MatcherPathIsInLookupContext * ctx) {
         visit(ctx->matcher());
 
@@ -224,10 +224,10 @@ namespace ycpp {
         STRSET_SP t = std::make_shared<std::set<std::string>>();
         for(auto pair:*lookup) t->insert(pair.first);
         add(std::shared_ptr<Step>(new StepIsInSet(lookupName, t)));
-        return nullptr; // antlrcpp::Any
+        return nullptr; // std::any
     }
 
-    antlrcpp::Any
+    std::any
     WalkListBuilder::visitMatcherPathLookupContains(UserAgentTreeWalkerParser::MatcherPathLookupContainsContext * ctx) {
         visit(ctx->matcher());
 
@@ -237,10 +237,10 @@ namespace ycpp {
         STRMAP_SP lookup = getLookup(lookupName);
 
         add(std::shared_ptr<Step>(new StepLookupContains(lookupName, lookup, extractText(ctx->defaultValue))));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any
+    std::any
     WalkListBuilder::visitMatcherPathLookupPrefix(UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext * ctx) {
         visit(ctx->matcher());
 
@@ -250,10 +250,10 @@ namespace ycpp {
         STRMAP_SP lookup = getLookup(lookupName);
 
         add(std::shared_ptr<Step>(new StepLookupPrefix(lookupName, lookup, extractText(ctx->defaultValue))));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherPathIsInLookupContains(
+    std::any WalkListBuilder::visitMatcherPathIsInLookupContains(
             UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext * ctx) {
         visit(ctx->matcher());
 
@@ -263,10 +263,10 @@ namespace ycpp {
         STRMAP_SP lookup = getLookup(lookupName);
 
         add(std::shared_ptr<Step>(new StepIsInLookupContains(lookupName, lookup)));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any
+    std::any
     WalkListBuilder::visitMatcherPathIsInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext * ctx) {
         visit(ctx->matcher());
 
@@ -276,10 +276,10 @@ namespace ycpp {
         STRMAP_SP lookup = getLookup(lookupName);
 
         add(std::shared_ptr<Step>(new StepIsInLookupPrefix(lookupName, lookup)));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherPathIsNotInLookupPrefix(
+    std::any WalkListBuilder::visitMatcherPathIsNotInLookupPrefix(
             UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext * ctx) {
         visit(ctx->matcher());
 
@@ -298,181 +298,181 @@ namespace ycpp {
             }
         }
 
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherDefaultIfNull(UserAgentTreeWalkerParser::MatcherDefaultIfNullContext * ctx) {
+    std::any WalkListBuilder::visitMatcherDefaultIfNull(UserAgentTreeWalkerParser::MatcherDefaultIfNullContext * ctx) {
         // Always add this one, it's special
         walkList->steps.push_back(std::shared_ptr<Step>(new StepDefaultIfNull(ctx->defaultValue->getText())));
         visit(ctx->matcher());
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherCleanVersion(UserAgentTreeWalkerParser::MatcherCleanVersionContext * ctx) {
+    std::any WalkListBuilder::visitMatcherCleanVersion(UserAgentTreeWalkerParser::MatcherCleanVersionContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepCleanVersion()));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherReplaceString(UserAgentTreeWalkerParser::MatcherReplaceStringContext * ctx) {
+    std::any WalkListBuilder::visitMatcherReplaceString(UserAgentTreeWalkerParser::MatcherReplaceStringContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepReplaceString(ctx->search->getText(), ctx->replace->getText())));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any
+    std::any
     WalkListBuilder::visitMatcherNormalizeBrand(UserAgentTreeWalkerParser::MatcherNormalizeBrandContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepNormalizeBrand()));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any
+    std::any
     WalkListBuilder::visitMatcherExtractBrandFromUrl(UserAgentTreeWalkerParser::MatcherExtractBrandFromUrlContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepExtractBrandFromUrl()));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherConcat(UserAgentTreeWalkerParser::MatcherConcatContext * ctx) {
+    std::any WalkListBuilder::visitMatcherConcat(UserAgentTreeWalkerParser::MatcherConcatContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepConcat(ctx->prefix->getText(), ctx->postfix->getText())));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherConcatPrefix(UserAgentTreeWalkerParser::MatcherConcatPrefixContext * ctx) {
+    std::any WalkListBuilder::visitMatcherConcatPrefix(UserAgentTreeWalkerParser::MatcherConcatPrefixContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepConcatPrefix(ctx->prefix->getText())));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherConcatPostfix(UserAgentTreeWalkerParser::MatcherConcatPostfixContext * ctx) {
+    std::any WalkListBuilder::visitMatcherConcatPostfix(UserAgentTreeWalkerParser::MatcherConcatPostfixContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepConcatPostfix(ctx->postfix->getText())));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherWordRange(UserAgentTreeWalkerParser::MatcherWordRangeContext * ctx) {
+    std::any WalkListBuilder::visitMatcherWordRange(UserAgentTreeWalkerParser::MatcherWordRangeContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepWordRange(*WordRangeVisitor::getRange(ctx->wordRange()))));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherSegmentRange(UserAgentTreeWalkerParser::MatcherSegmentRangeContext * ctx) {
+    std::any WalkListBuilder::visitMatcherSegmentRange(UserAgentTreeWalkerParser::MatcherSegmentRangeContext * ctx) {
         visit(ctx->matcher());
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepSegmentRange(*WordRangeVisitor::getRange(ctx->wordRange()))));
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitMatcherPathIsNull(UserAgentTreeWalkerParser::MatcherPathIsNullContext * ctx) {
+    std::any WalkListBuilder::visitMatcherPathIsNull(UserAgentTreeWalkerParser::MatcherPathIsNullContext * ctx) {
         // Always add this one, it's special
         walkList->steps.push_back(std::shared_ptr<Step>(new StepIsNull()));
         visit(ctx->matcher());
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitPathVariable(UserAgentTreeWalkerParser::PathVariableContext * ctx) {
+    std::any WalkListBuilder::visitPathVariable(UserAgentTreeWalkerParser::PathVariableContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitPathWalk(UserAgentTreeWalkerParser::PathWalkContext * ctx) {
+    std::any WalkListBuilder::visitPathWalk(UserAgentTreeWalkerParser::PathWalkContext * ctx) {
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepDown(UserAgentTreeWalkerParser::StepDownContext * ctx) {
+    std::any WalkListBuilder::visitStepDown(UserAgentTreeWalkerParser::StepDownContext * ctx) {
         add(std::shared_ptr<Step>(new StepDown(ctx->numberRange(), ctx->name->getText())));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepUp(UserAgentTreeWalkerParser::StepUpContext * ctx) {
+    std::any WalkListBuilder::visitStepUp(UserAgentTreeWalkerParser::StepUpContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepUp()));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepNext(UserAgentTreeWalkerParser::StepNextContext * ctx) {
+    std::any WalkListBuilder::visitStepNext(UserAgentTreeWalkerParser::StepNextContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepNext()));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepNext2(UserAgentTreeWalkerParser::StepNext2Context * ctx) {
+    std::any WalkListBuilder::visitStepNext2(UserAgentTreeWalkerParser::StepNext2Context * ctx) {
         return doStepNextN(ctx->nextStep, 2);
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepNext3(UserAgentTreeWalkerParser::StepNext3Context * ctx) {
+    std::any WalkListBuilder::visitStepNext3(UserAgentTreeWalkerParser::StepNext3Context * ctx) {
         return doStepNextN(ctx->nextStep, 3);
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepNext4(UserAgentTreeWalkerParser::StepNext4Context * ctx) {
+    std::any WalkListBuilder::visitStepNext4(UserAgentTreeWalkerParser::StepNext4Context * ctx) {
         return doStepNextN(ctx->nextStep, 4);
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepPrev(UserAgentTreeWalkerParser::StepPrevContext * ctx) {
+    std::any WalkListBuilder::visitStepPrev(UserAgentTreeWalkerParser::StepPrevContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepPrev()));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepPrev2(UserAgentTreeWalkerParser::StepPrev2Context * ctx) {
+    std::any WalkListBuilder::visitStepPrev2(UserAgentTreeWalkerParser::StepPrev2Context * ctx) {
         return doStepPrevN(ctx->nextStep, 2);
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepPrev3(UserAgentTreeWalkerParser::StepPrev3Context * ctx) {
+    std::any WalkListBuilder::visitStepPrev3(UserAgentTreeWalkerParser::StepPrev3Context * ctx) {
         return doStepPrevN(ctx->nextStep, 3);
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepPrev4(UserAgentTreeWalkerParser::StepPrev4Context * ctx) {
+    std::any WalkListBuilder::visitStepPrev4(UserAgentTreeWalkerParser::StepPrev4Context * ctx) {
         return doStepPrevN(ctx->nextStep, 4);
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepEqualsValue(UserAgentTreeWalkerParser::StepEqualsValueContext * ctx) {
+    std::any WalkListBuilder::visitStepEqualsValue(UserAgentTreeWalkerParser::StepEqualsValueContext * ctx) {
         add(std::shared_ptr<Step>(new StepEquals(ctx->value->getText())));
         fromHereItCannotBeInHashMapAnymore();
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepNotEqualsValue(UserAgentTreeWalkerParser::StepNotEqualsValueContext * ctx) {
+    std::any WalkListBuilder::visitStepNotEqualsValue(UserAgentTreeWalkerParser::StepNotEqualsValueContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepNotEquals(ctx->value->getText())));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepIsInSet(UserAgentTreeWalkerParser::StepIsInSetContext * ctx) {
+    std::any WalkListBuilder::visitStepIsInSet(UserAgentTreeWalkerParser::StepIsInSetContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         std::string      lookupSetName = ctx->set->getText();
         add(std::shared_ptr<Step>(new StepIsInSet(lookupSetName, getLookupSet(lookupSetName))));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepIsNotInSet(UserAgentTreeWalkerParser::StepIsNotInSetContext * ctx) {
+    std::any WalkListBuilder::visitStepIsNotInSet(UserAgentTreeWalkerParser::StepIsNotInSetContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         std::string      lookupSetName = ctx->set->getText();
         add(std::shared_ptr<Step>(new StepIsNotInSet(lookupSetName, getLookupSet(lookupSetName))));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepStartsWithValue(UserAgentTreeWalkerParser::StepStartsWithValueContext * ctx) {
+    std::any WalkListBuilder::visitStepStartsWithValue(UserAgentTreeWalkerParser::StepStartsWithValueContext * ctx) {
         bool skipIfShortEnough = stillGoingToHashMap();
         fromHereItCannotBeInHashMapAnymore();
         std::string value = ctx->value->getText();
@@ -490,39 +490,39 @@ namespace ycpp {
             add(std::shared_ptr<Step>(new StepStartsWith(value)));
         }
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepEndsWithValue(UserAgentTreeWalkerParser::StepEndsWithValueContext * ctx) {
+    std::any WalkListBuilder::visitStepEndsWithValue(UserAgentTreeWalkerParser::StepEndsWithValueContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepEndsWith(ctx->value->getText())));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepContainsValue(UserAgentTreeWalkerParser::StepContainsValueContext * ctx) {
+    std::any WalkListBuilder::visitStepContainsValue(UserAgentTreeWalkerParser::StepContainsValueContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepContains(ctx->value->getText())));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepNotContainsValue(UserAgentTreeWalkerParser::StepNotContainsValueContext * ctx) {
+    std::any WalkListBuilder::visitStepNotContainsValue(UserAgentTreeWalkerParser::StepNotContainsValueContext * ctx) {
         fromHereItCannotBeInHashMapAnymore();
         add(std::shared_ptr<Step>(new StepNotContains(ctx->value->getText())));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepWordRange(UserAgentTreeWalkerParser::StepWordRangeContext * ctx) {
+    std::any WalkListBuilder::visitStepWordRange(UserAgentTreeWalkerParser::StepWordRangeContext * ctx) {
         add(std::shared_ptr<Step>(new StepWordRange(*WordRangeVisitor::getRange(ctx->wordRange()))));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 
-    antlrcpp::Any WalkListBuilder::visitStepBackToFull(UserAgentTreeWalkerParser::StepBackToFullContext * ctx) {
+    std::any WalkListBuilder::visitStepBackToFull(UserAgentTreeWalkerParser::StepBackToFullContext * ctx) {
         add(std::shared_ptr<Step>(new StepBackToFull()));
         visitNext(ctx->nextStep);
-        return nullptr;; // antlrcpp::Any
+        return nullptr;; // std::any
     }
 }

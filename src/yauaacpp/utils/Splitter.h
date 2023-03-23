@@ -6,10 +6,19 @@
 #define YAUAACPP_SPLITTER_H
 
 #include "yauaacpp_def.h"
-#include <utf8.h>
 #include "analyze/WordRangeVisitor.h"
+#include <codecvt>
+#include <locale>
 
 namespace ycpp {
+
+    template<class Facet>
+    struct deletable_facet : Facet
+    {
+        template<class ...Args>
+        deletable_facet(Args&& ...args) : Facet(std::forward<Args>(args)...) {}
+        ~deletable_facet() {}
+    };
 
     class Splitter {
     protected:
@@ -26,7 +35,7 @@ namespace ycpp {
          * @param offset The start offset from where to seek
          * @return The offset of the next split
          */
-        int findNextSplitStart(const std::vector<unsigned short> & chars, int offset) {
+        int findNextSplitStart(const std::u16string & chars, int offset) {
             for (size_t charNr = offset; charNr<chars.size(); charNr++) {
                 unsigned short theChar = chars[charNr];
                 if (isEndOfStringSeparator(theChar)) {
@@ -46,7 +55,7 @@ namespace ycpp {
          * @param offset The start offset from where to seek
          * @return The offset of the last character of the last split.
          */
-        int findEndOfString(const std::vector<unsigned short> & chars, int offset) {
+        int findEndOfString(const std::u16string & chars, int offset) {
             for (size_t charNr = offset; charNr<chars.size(); charNr++) {
                 char theChar = chars[charNr];
                 if (isEndOfStringSeparator(theChar)) {
@@ -63,7 +72,7 @@ namespace ycpp {
          * @param split  The split number for which we are looking for the start
          * @return The offset or -1 if it does not exist
          */
-        int findSplitStart(const std::vector<unsigned short> & chars, int split) {
+        int findSplitStart(const std::u16string & chars, int split) {
             if (split <= 0) {
                 return -1;
             }
@@ -95,7 +104,7 @@ namespace ycpp {
             return -1;
         }
 
-        int findSplitEnd(const std::vector<unsigned short> & chars, int startOffset) {
+        int findSplitEnd(const std::u16string & chars, int startOffset) {
             size_t i = startOffset;
             while (i < chars.size()) {
                 if (isSeparator(chars[i])) {
@@ -107,8 +116,10 @@ namespace ycpp {
         }
 
         std::string getSingleSplit(const std::string & value, int split) {
-            std::vector<unsigned short> characters;
-            utf8::utf8to16(value.begin(), value.end(), std::back_inserter(characters));
+            std::u16string characters;
+            std::wstring_convert<
+                    deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+            characters = conv16.from_bytes(value);
             int start = findSplitStart(characters, split);
             if (start == -1) {
                 return "";
@@ -118,8 +129,10 @@ namespace ycpp {
         }
 
         std::string getFirstSplits(const std::string & value, int split) {
-            std::vector<unsigned short> characters;
-            utf8::utf8to16(value.begin(), value.end(), std::back_inserter(characters));
+            std::u16string characters;
+            std::wstring_convert<
+                    deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+            characters = conv16.from_bytes(value);
             int start = findSplitStart(characters, split);
             if (start == -1) {
                 return "";
@@ -132,8 +145,10 @@ namespace ycpp {
             if (value == "" || (lastSplit > 0 && lastSplit < firstSplit)) {
                 return "";
             }
-            std::vector<unsigned short> characters ;
-            utf8::utf8to16(value.begin(), value.end(), std::back_inserter(characters));
+            std::u16string characters;
+            std::wstring_convert<
+                    deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+            characters = conv16.from_bytes(value);
             int firstCharOfFirstSplit = findSplitStart(characters, firstSplit);
             if (firstCharOfFirstSplit == -1) {
                 return "";
@@ -182,12 +197,14 @@ namespace ycpp {
         }
 
         std::vector<std::pair<int, int>> createSplitList(const std::string & characters) {
-            std::vector<unsigned short> cs;
-            utf8::utf8to16(characters.begin(),characters.end(),std::back_inserter(cs));
+            std::u16string cs;
+            std::wstring_convert<
+                    deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>, char16_t> conv16;
+            cs = conv16.from_bytes(characters);
             return createSplitList(cs);
         }
 
-        std::vector<std::pair<int, int>> createSplitList(const std::vector<unsigned short> & characters){
+        std::vector<std::pair<int, int>> createSplitList(const std::u16string & characters){
             std::vector<std::pair<int, int>> result;
 
             int offset = findSplitStart(characters, 1);

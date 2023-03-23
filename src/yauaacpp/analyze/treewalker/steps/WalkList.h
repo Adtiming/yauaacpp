@@ -5,9 +5,9 @@
 #ifndef YAUAACPP_WALKLIST_H
 #define YAUAACPP_WALKLIST_H
 
+#include "yauaacpp_def.h"
 #include <analyze/InvalidParserConfigurationException.h>
 #include <AbstractUserAgentAnalyzerDirect.h>
-#include "yauaacpp_def.h"
 #include "UserAgentTreeWalkerBaseVisitor.h"
 
 
@@ -136,150 +136,150 @@ namespace ycpp {
         }
         STRMAP_SP getLookup(const std::string & lookupName);
 
-        antlrcpp::Any doStepNextN(UserAgentTreeWalkerParser::PathContext * nextStep, int nextSteps);
-        antlrcpp::Any doStepPrevN(UserAgentTreeWalkerParser::PathContext * nextStep, int prevSteps);
+        std::any doStepNextN(UserAgentTreeWalkerParser::PathContext * nextStep, int nextSteps);
+        std::any doStepPrevN(UserAgentTreeWalkerParser::PathContext * nextStep, int prevSteps);
         STRSET_SP getLookupSet(const std::string & lookupSetName);
         // Because we are jumping in 'mid way' we need to skip creating steps until that point.
         bool foundHashEntryPoint = false;
 
     public:
         explicit WalkListBuilder(WalkList * walkList);
-        antlrcpp::Any visitMatcherPath(UserAgentTreeWalkerParser::MatcherPathContext * ctx) override {
+        std::any visitMatcherPath(UserAgentTreeWalkerParser::MatcherPathContext * ctx) override {
             visit(ctx->basePath());
-            return nullptr; // antlrcpp::Any
+            return nullptr; // std::any
         }
 
 
 
-        antlrcpp::Any visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext * ctx) override;
+        std::any visitMatcherPathLookup(UserAgentTreeWalkerParser::MatcherPathLookupContext * ctx) override;
 
 
-        antlrcpp::Any visitMatcherPathIsInLookup(UserAgentTreeWalkerParser::MatcherPathIsInLookupContext * ctx) override;
+        std::any visitMatcherPathIsInLookup(UserAgentTreeWalkerParser::MatcherPathIsInLookupContext * ctx) override;
 
 
-        antlrcpp::Any visitMatcherPathLookupContains(UserAgentTreeWalkerParser::MatcherPathLookupContainsContext * ctx) override;
+        std::any visitMatcherPathLookupContains(UserAgentTreeWalkerParser::MatcherPathLookupContainsContext * ctx) override;
 
 
-        antlrcpp::Any visitMatcherPathLookupPrefix(UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext * ctx) override;
-
-
-
-        antlrcpp::Any visitMatcherPathIsInLookupContains(UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext * ctx) override;
+        std::any visitMatcherPathLookupPrefix(UserAgentTreeWalkerParser::MatcherPathLookupPrefixContext * ctx) override;
 
 
 
-        antlrcpp::Any visitMatcherPathIsInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherPathIsNotInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherDefaultIfNull(UserAgentTreeWalkerParser::MatcherDefaultIfNullContext * ctx) override;
+        std::any visitMatcherPathIsInLookupContains(UserAgentTreeWalkerParser::MatcherPathIsInLookupContainsContext * ctx) override;
 
 
 
-
-        antlrcpp::Any visitMatcherCleanVersion(UserAgentTreeWalkerParser::MatcherCleanVersionContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherReplaceString(UserAgentTreeWalkerParser::MatcherReplaceStringContext * ctx) override;
+        std::any visitMatcherPathIsInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsInLookupPrefixContext * ctx) override;
 
 
-        antlrcpp::Any visitMatcherNormalizeBrand(UserAgentTreeWalkerParser::MatcherNormalizeBrandContext * ctx) override;
+        std::any visitMatcherPathIsNotInLookupPrefix(UserAgentTreeWalkerParser::MatcherPathIsNotInLookupPrefixContext * ctx) override;
 
 
-        antlrcpp::Any visitMatcherExtractBrandFromUrl(UserAgentTreeWalkerParser::MatcherExtractBrandFromUrlContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherConcat(UserAgentTreeWalkerParser::MatcherConcatContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherConcatPrefix(UserAgentTreeWalkerParser::MatcherConcatPrefixContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherConcatPostfix(UserAgentTreeWalkerParser::MatcherConcatPostfixContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherWordRange(UserAgentTreeWalkerParser::MatcherWordRangeContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherSegmentRange(UserAgentTreeWalkerParser::MatcherSegmentRangeContext * ctx) override;
-
-
-        antlrcpp::Any visitMatcherPathIsNull(UserAgentTreeWalkerParser::MatcherPathIsNullContext * ctx) override;
-
-
-        antlrcpp::Any visitPathVariable(UserAgentTreeWalkerParser::PathVariableContext * ctx) override;
-
-
-        antlrcpp::Any visitPathWalk(UserAgentTreeWalkerParser::PathWalkContext * ctx) override;
-
-
-        antlrcpp::Any visitStepDown(UserAgentTreeWalkerParser::StepDownContext * ctx) override;
-
-
-        antlrcpp::Any visitStepUp(UserAgentTreeWalkerParser::StepUpContext * ctx) override;
-
-        //----
-
-        antlrcpp::Any visitStepNext(UserAgentTreeWalkerParser::StepNextContext * ctx) override;
+        std::any visitMatcherDefaultIfNull(UserAgentTreeWalkerParser::MatcherDefaultIfNullContext * ctx) override;
 
 
 
-        antlrcpp::Any visitStepNext2(UserAgentTreeWalkerParser::StepNext2Context * ctx) override;
+
+        std::any visitMatcherCleanVersion(UserAgentTreeWalkerParser::MatcherCleanVersionContext * ctx) override;
 
 
-        antlrcpp::Any visitStepNext3(UserAgentTreeWalkerParser::StepNext3Context * ctx) override;
+        std::any visitMatcherReplaceString(UserAgentTreeWalkerParser::MatcherReplaceStringContext * ctx) override;
 
 
-        antlrcpp::Any visitStepNext4(UserAgentTreeWalkerParser::StepNext4Context * ctx) override;
+        std::any visitMatcherNormalizeBrand(UserAgentTreeWalkerParser::MatcherNormalizeBrandContext * ctx) override;
+
+
+        std::any visitMatcherExtractBrandFromUrl(UserAgentTreeWalkerParser::MatcherExtractBrandFromUrlContext * ctx) override;
+
+
+        std::any visitMatcherConcat(UserAgentTreeWalkerParser::MatcherConcatContext * ctx) override;
+
+
+        std::any visitMatcherConcatPrefix(UserAgentTreeWalkerParser::MatcherConcatPrefixContext * ctx) override;
+
+
+        std::any visitMatcherConcatPostfix(UserAgentTreeWalkerParser::MatcherConcatPostfixContext * ctx) override;
+
+
+        std::any visitMatcherWordRange(UserAgentTreeWalkerParser::MatcherWordRangeContext * ctx) override;
+
+
+        std::any visitMatcherSegmentRange(UserAgentTreeWalkerParser::MatcherSegmentRangeContext * ctx) override;
+
+
+        std::any visitMatcherPathIsNull(UserAgentTreeWalkerParser::MatcherPathIsNullContext * ctx) override;
+
+
+        std::any visitPathVariable(UserAgentTreeWalkerParser::PathVariableContext * ctx) override;
+
+
+        std::any visitPathWalk(UserAgentTreeWalkerParser::PathWalkContext * ctx) override;
+
+
+        std::any visitStepDown(UserAgentTreeWalkerParser::StepDownContext * ctx) override;
+
+
+        std::any visitStepUp(UserAgentTreeWalkerParser::StepUpContext * ctx) override;
 
         //----
 
-        antlrcpp::Any visitStepPrev(UserAgentTreeWalkerParser::StepPrevContext * ctx) override;
+        std::any visitStepNext(UserAgentTreeWalkerParser::StepNextContext * ctx) override;
 
 
 
-        antlrcpp::Any visitStepPrev2(UserAgentTreeWalkerParser::StepPrev2Context * ctx) override;
+        std::any visitStepNext2(UserAgentTreeWalkerParser::StepNext2Context * ctx) override;
 
 
-        antlrcpp::Any visitStepPrev3(UserAgentTreeWalkerParser::StepPrev3Context * ctx) override;
+        std::any visitStepNext3(UserAgentTreeWalkerParser::StepNext3Context * ctx) override;
 
 
-        antlrcpp::Any visitStepPrev4(UserAgentTreeWalkerParser::StepPrev4Context * ctx) override;
+        std::any visitStepNext4(UserAgentTreeWalkerParser::StepNext4Context * ctx) override;
 
         //----
 
-        antlrcpp::Any visitStepEqualsValue(UserAgentTreeWalkerParser::StepEqualsValueContext * ctx) override;
-
-
-        antlrcpp::Any visitStepNotEqualsValue(UserAgentTreeWalkerParser::StepNotEqualsValueContext * ctx) override;
-
-
-        antlrcpp::Any visitStepIsInSet(UserAgentTreeWalkerParser::StepIsInSetContext * ctx) override;
-
-
-        antlrcpp::Any visitStepIsNotInSet(UserAgentTreeWalkerParser::StepIsNotInSetContext * ctx) override;
+        std::any visitStepPrev(UserAgentTreeWalkerParser::StepPrevContext * ctx) override;
 
 
 
-
-        antlrcpp::Any visitStepStartsWithValue(UserAgentTreeWalkerParser::StepStartsWithValueContext * ctx) override;
-
-
-        antlrcpp::Any visitStepEndsWithValue(UserAgentTreeWalkerParser::StepEndsWithValueContext * ctx) override;
+        std::any visitStepPrev2(UserAgentTreeWalkerParser::StepPrev2Context * ctx) override;
 
 
-        antlrcpp::Any visitStepContainsValue(UserAgentTreeWalkerParser::StepContainsValueContext * ctx) override;
+        std::any visitStepPrev3(UserAgentTreeWalkerParser::StepPrev3Context * ctx) override;
 
 
-        antlrcpp::Any visitStepNotContainsValue(UserAgentTreeWalkerParser::StepNotContainsValueContext * ctx) override;
+        std::any visitStepPrev4(UserAgentTreeWalkerParser::StepPrev4Context * ctx) override;
+
+        //----
+
+        std::any visitStepEqualsValue(UserAgentTreeWalkerParser::StepEqualsValueContext * ctx) override;
 
 
-        antlrcpp::Any visitStepWordRange(UserAgentTreeWalkerParser::StepWordRangeContext * ctx) override;
+        std::any visitStepNotEqualsValue(UserAgentTreeWalkerParser::StepNotEqualsValueContext * ctx) override;
 
 
-        antlrcpp::Any visitStepBackToFull(UserAgentTreeWalkerParser::StepBackToFullContext * ctx) override;
+        std::any visitStepIsInSet(UserAgentTreeWalkerParser::StepIsInSetContext * ctx) override;
+
+
+        std::any visitStepIsNotInSet(UserAgentTreeWalkerParser::StepIsNotInSetContext * ctx) override;
+
+
+
+
+        std::any visitStepStartsWithValue(UserAgentTreeWalkerParser::StepStartsWithValueContext * ctx) override;
+
+
+        std::any visitStepEndsWithValue(UserAgentTreeWalkerParser::StepEndsWithValueContext * ctx) override;
+
+
+        std::any visitStepContainsValue(UserAgentTreeWalkerParser::StepContainsValueContext * ctx) override;
+
+
+        std::any visitStepNotContainsValue(UserAgentTreeWalkerParser::StepNotContainsValueContext * ctx) override;
+
+
+        std::any visitStepWordRange(UserAgentTreeWalkerParser::StepWordRangeContext * ctx) override;
+
+
+        std::any visitStepBackToFull(UserAgentTreeWalkerParser::StepBackToFullContext * ctx) override;
 
     };
 }

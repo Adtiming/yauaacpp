@@ -1,5 +1,5 @@
 
-// Generated from UserAgent.g4 by ANTLR 4.7.2
+// Generated from UserAgent.g4 by ANTLR 4.12.0
 
 #pragma once
 
@@ -20,73 +20,73 @@ public:
   /**
    * Visit parse trees produced by UserAgentParser.
    */
-    virtual antlrcpp::Any visitUserAgent(UserAgentParser::UserAgentContext *context) = 0;
+    virtual std::any visitUserAgent(UserAgentParser::UserAgentContext *context) = 0;
 
-    virtual antlrcpp::Any visitRootElements(UserAgentParser::RootElementsContext *context) = 0;
+    virtual std::any visitRootElements(UserAgentParser::RootElementsContext *context) = 0;
 
-    virtual antlrcpp::Any visitRootText(UserAgentParser::RootTextContext *context) = 0;
+    virtual std::any visitRootText(UserAgentParser::RootTextContext *context) = 0;
 
-    virtual antlrcpp::Any visitProduct(UserAgentParser::ProductContext *context) = 0;
+    virtual std::any visitProduct(UserAgentParser::ProductContext *context) = 0;
 
-    virtual antlrcpp::Any visitCommentProduct(UserAgentParser::CommentProductContext *context) = 0;
+    virtual std::any visitCommentProduct(UserAgentParser::CommentProductContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductVersionWords(UserAgentParser::ProductVersionWordsContext *context) = 0;
+    virtual std::any visitProductVersionWords(UserAgentParser::ProductVersionWordsContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductName(UserAgentParser::ProductNameContext *context) = 0;
+    virtual std::any visitProductName(UserAgentParser::ProductNameContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductNameWords(UserAgentParser::ProductNameWordsContext *context) = 0;
+    virtual std::any visitProductNameWords(UserAgentParser::ProductNameWordsContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductVersion(UserAgentParser::ProductVersionContext *context) = 0;
+    virtual std::any visitProductVersion(UserAgentParser::ProductVersionContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductVersionWithCommas(UserAgentParser::ProductVersionWithCommasContext *context) = 0;
+    virtual std::any visitProductVersionWithCommas(UserAgentParser::ProductVersionWithCommasContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductVersionSingleWord(UserAgentParser::ProductVersionSingleWordContext *context) = 0;
+    virtual std::any visitProductVersionSingleWord(UserAgentParser::ProductVersionSingleWordContext *context) = 0;
 
-    virtual antlrcpp::Any visitSingleVersion(UserAgentParser::SingleVersionContext *context) = 0;
+    virtual std::any visitSingleVersion(UserAgentParser::SingleVersionContext *context) = 0;
 
-    virtual antlrcpp::Any visitSingleVersionWithCommas(UserAgentParser::SingleVersionWithCommasContext *context) = 0;
+    virtual std::any visitSingleVersionWithCommas(UserAgentParser::SingleVersionWithCommasContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductNameVersion(UserAgentParser::ProductNameVersionContext *context) = 0;
+    virtual std::any visitProductNameVersion(UserAgentParser::ProductNameVersionContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductNameEmail(UserAgentParser::ProductNameEmailContext *context) = 0;
+    virtual std::any visitProductNameEmail(UserAgentParser::ProductNameEmailContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductNameUrl(UserAgentParser::ProductNameUrlContext *context) = 0;
+    virtual std::any visitProductNameUrl(UserAgentParser::ProductNameUrlContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductNameUuid(UserAgentParser::ProductNameUuidContext *context) = 0;
+    virtual std::any visitProductNameUuid(UserAgentParser::ProductNameUuidContext *context) = 0;
 
-    virtual antlrcpp::Any visitUuId(UserAgentParser::UuIdContext *context) = 0;
+    virtual std::any visitUuId(UserAgentParser::UuIdContext *context) = 0;
 
-    virtual antlrcpp::Any visitEmailAddress(UserAgentParser::EmailAddressContext *context) = 0;
+    virtual std::any visitEmailAddress(UserAgentParser::EmailAddressContext *context) = 0;
 
-    virtual antlrcpp::Any visitSiteUrl(UserAgentParser::SiteUrlContext *context) = 0;
+    virtual std::any visitSiteUrl(UserAgentParser::SiteUrlContext *context) = 0;
 
-    virtual antlrcpp::Any visitBase64(UserAgentParser::Base64Context *context) = 0;
+    virtual std::any visitBase64(UserAgentParser::Base64Context *context) = 0;
 
-    virtual antlrcpp::Any visitCommentSeparator(UserAgentParser::CommentSeparatorContext *context) = 0;
+    virtual std::any visitCommentSeparator(UserAgentParser::CommentSeparatorContext *context) = 0;
 
-    virtual antlrcpp::Any visitCommentBlock(UserAgentParser::CommentBlockContext *context) = 0;
+    virtual std::any visitCommentBlock(UserAgentParser::CommentBlockContext *context) = 0;
 
-    virtual antlrcpp::Any visitCommentEntry(UserAgentParser::CommentEntryContext *context) = 0;
+    virtual std::any visitCommentEntry(UserAgentParser::CommentEntryContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductNameKeyValue(UserAgentParser::ProductNameKeyValueContext *context) = 0;
+    virtual std::any visitProductNameKeyValue(UserAgentParser::ProductNameKeyValueContext *context) = 0;
 
-    virtual antlrcpp::Any visitProductNameNoVersion(UserAgentParser::ProductNameNoVersionContext *context) = 0;
+    virtual std::any visitProductNameNoVersion(UserAgentParser::ProductNameNoVersionContext *context) = 0;
 
-    virtual antlrcpp::Any visitKeyValueProductVersionName(UserAgentParser::KeyValueProductVersionNameContext *context) = 0;
+    virtual std::any visitKeyValueProductVersionName(UserAgentParser::KeyValueProductVersionNameContext *context) = 0;
 
-    virtual antlrcpp::Any visitKeyValue(UserAgentParser::KeyValueContext *context) = 0;
+    virtual std::any visitKeyValue(UserAgentParser::KeyValueContext *context) = 0;
 
-    virtual antlrcpp::Any visitKeyWithoutValue(UserAgentParser::KeyWithoutValueContext *context) = 0;
+    virtual std::any visitKeyWithoutValue(UserAgentParser::KeyWithoutValueContext *context) = 0;
 
-    virtual antlrcpp::Any visitKeyValueVersionName(UserAgentParser::KeyValueVersionNameContext *context) = 0;
+    virtual std::any visitKeyValueVersionName(UserAgentParser::KeyValueVersionNameContext *context) = 0;
 
-    virtual antlrcpp::Any visitKeyName(UserAgentParser::KeyNameContext *context) = 0;
+    virtual std::any visitKeyName(UserAgentParser::KeyNameContext *context) = 0;
 
-    virtual antlrcpp::Any visitEmptyWord(UserAgentParser::EmptyWordContext *context) = 0;
+    virtual std::any visitEmptyWord(UserAgentParser::EmptyWordContext *context) = 0;
 
-    virtual antlrcpp::Any visitMultipleWords(UserAgentParser::MultipleWordsContext *context) = 0;
+    virtual std::any visitMultipleWords(UserAgentParser::MultipleWordsContext *context) = 0;
 
-    virtual antlrcpp::Any visitVersionWords(UserAgentParser::VersionWordsContext *context) = 0;
+    virtual std::any visitVersionWords(UserAgentParser::VersionWordsContext *context) = 0;
 
 
 };

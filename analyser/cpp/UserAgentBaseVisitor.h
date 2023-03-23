@@ -1,5 +1,5 @@
 
-// Generated from UserAgent.g4 by ANTLR 4.7.2
+// Generated from UserAgent.g4 by ANTLR 4.12.0
 
 #pragma once
 
@@ -17,139 +17,139 @@ namespace ycpp {
 class  UserAgentBaseVisitor : public UserAgentVisitor {
 public:
 
-  virtual antlrcpp::Any visitUserAgent(UserAgentParser::UserAgentContext *ctx) override {
+  virtual std::any visitUserAgent(UserAgentParser::UserAgentContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitRootElements(UserAgentParser::RootElementsContext *ctx) override {
+  virtual std::any visitRootElements(UserAgentParser::RootElementsContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitRootText(UserAgentParser::RootTextContext *ctx) override {
+  virtual std::any visitRootText(UserAgentParser::RootTextContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProduct(UserAgentParser::ProductContext *ctx) override {
+  virtual std::any visitProduct(UserAgentParser::ProductContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitCommentProduct(UserAgentParser::CommentProductContext *ctx) override {
+  virtual std::any visitCommentProduct(UserAgentParser::CommentProductContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductVersionWords(UserAgentParser::ProductVersionWordsContext *ctx) override {
+  virtual std::any visitProductVersionWords(UserAgentParser::ProductVersionWordsContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductName(UserAgentParser::ProductNameContext *ctx) override {
+  virtual std::any visitProductName(UserAgentParser::ProductNameContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductNameWords(UserAgentParser::ProductNameWordsContext *ctx) override {
+  virtual std::any visitProductNameWords(UserAgentParser::ProductNameWordsContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductVersion(UserAgentParser::ProductVersionContext *ctx) override {
+  virtual std::any visitProductVersion(UserAgentParser::ProductVersionContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductVersionWithCommas(UserAgentParser::ProductVersionWithCommasContext *ctx) override {
+  virtual std::any visitProductVersionWithCommas(UserAgentParser::ProductVersionWithCommasContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductVersionSingleWord(UserAgentParser::ProductVersionSingleWordContext *ctx) override {
+  virtual std::any visitProductVersionSingleWord(UserAgentParser::ProductVersionSingleWordContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitSingleVersion(UserAgentParser::SingleVersionContext *ctx) override {
+  virtual std::any visitSingleVersion(UserAgentParser::SingleVersionContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitSingleVersionWithCommas(UserAgentParser::SingleVersionWithCommasContext *ctx) override {
+  virtual std::any visitSingleVersionWithCommas(UserAgentParser::SingleVersionWithCommasContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductNameVersion(UserAgentParser::ProductNameVersionContext *ctx) override {
+  virtual std::any visitProductNameVersion(UserAgentParser::ProductNameVersionContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductNameEmail(UserAgentParser::ProductNameEmailContext *ctx) override {
+  virtual std::any visitProductNameEmail(UserAgentParser::ProductNameEmailContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductNameUrl(UserAgentParser::ProductNameUrlContext *ctx) override {
+  virtual std::any visitProductNameUrl(UserAgentParser::ProductNameUrlContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductNameUuid(UserAgentParser::ProductNameUuidContext *ctx) override {
+  virtual std::any visitProductNameUuid(UserAgentParser::ProductNameUuidContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitUuId(UserAgentParser::UuIdContext *ctx) override {
+  virtual std::any visitUuId(UserAgentParser::UuIdContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEmailAddress(UserAgentParser::EmailAddressContext *ctx) override {
+  virtual std::any visitEmailAddress(UserAgentParser::EmailAddressContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitSiteUrl(UserAgentParser::SiteUrlContext *ctx) override {
+  virtual std::any visitSiteUrl(UserAgentParser::SiteUrlContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitBase64(UserAgentParser::Base64Context *ctx) override {
+  virtual std::any visitBase64(UserAgentParser::Base64Context *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitCommentSeparator(UserAgentParser::CommentSeparatorContext *ctx) override {
+  virtual std::any visitCommentSeparator(UserAgentParser::CommentSeparatorContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitCommentBlock(UserAgentParser::CommentBlockContext *ctx) override {
+  virtual std::any visitCommentBlock(UserAgentParser::CommentBlockContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitCommentEntry(UserAgentParser::CommentEntryContext *ctx) override {
+  virtual std::any visitCommentEntry(UserAgentParser::CommentEntryContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductNameKeyValue(UserAgentParser::ProductNameKeyValueContext *ctx) override {
+  virtual std::any visitProductNameKeyValue(UserAgentParser::ProductNameKeyValueContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitProductNameNoVersion(UserAgentParser::ProductNameNoVersionContext *ctx) override {
+  virtual std::any visitProductNameNoVersion(UserAgentParser::ProductNameNoVersionContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitKeyValueProductVersionName(UserAgentParser::KeyValueProductVersionNameContext *ctx) override {
+  virtual std::any visitKeyValueProductVersionName(UserAgentParser::KeyValueProductVersionNameContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitKeyValue(UserAgentParser::KeyValueContext *ctx) override {
+  virtual std::any visitKeyValue(UserAgentParser::KeyValueContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitKeyWithoutValue(UserAgentParser::KeyWithoutValueContext *ctx) override {
+  virtual std::any visitKeyWithoutValue(UserAgentParser::KeyWithoutValueContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitKeyValueVersionName(UserAgentParser::KeyValueVersionNameContext *ctx) override {
+  virtual std::any visitKeyValueVersionName(UserAgentParser::KeyValueVersionNameContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitKeyName(UserAgentParser::KeyNameContext *ctx) override {
+  virtual std::any visitKeyName(UserAgentParser::KeyNameContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEmptyWord(UserAgentParser::EmptyWordContext *ctx) override {
+  virtual std::any visitEmptyWord(UserAgentParser::EmptyWordContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitMultipleWords(UserAgentParser::MultipleWordsContext *ctx) override {
+  virtual std::any visitMultipleWords(UserAgentParser::MultipleWordsContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVersionWords(UserAgentParser::VersionWordsContext *ctx) override {
+  virtual std::any visitVersionWords(UserAgentParser::VersionWordsContext *ctx) override {
     return visitChildren(ctx);
   }
 

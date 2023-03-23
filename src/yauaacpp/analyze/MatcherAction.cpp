@@ -185,7 +185,7 @@ namespace ycpp {
         t[typeid(UserAgentTreeWalkerParser::StepDownContext).name()] = [](MatcherAction * action, const std::string & treeName, antlr4::ParserRuleContext * tree)->int{
             UserAgentTreeWalkerParser::StepDownContext * thisTree = ((UserAgentTreeWalkerParser::StepDownContext*) tree);
             int informs = 0;
-            std::shared_ptr<NumberRangeList> l = NumberRangeVisitor::NUMBER_RANGE_VISITOR.visit(thisTree->numberRange()).as<std::shared_ptr<NumberRangeList>>();
+            std::shared_ptr<NumberRangeList> l = std::any_cast<std::shared_ptr<NumberRangeList>>(NumberRangeVisitor::NUMBER_RANGE_VISITOR.visit(thisTree->numberRange()));
             for (const int number : *l) {
                 informs += calculateInformPath(action, treeName + '.' + "(" + itos(number) + ")" + thisTree->name->getText(), thisTree->nextStep);
             }

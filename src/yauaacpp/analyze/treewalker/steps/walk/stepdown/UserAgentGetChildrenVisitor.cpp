@@ -109,19 +109,19 @@ namespace ycpp {
         delete childIterable;
     }
 
-    antlrcpp::Any UserAgentGetChildrenVisitor::getChildrenByName(antlr4::ParserRuleContext *ctx) {
+    std::any UserAgentGetChildrenVisitor::getChildrenByName(antlr4::ParserRuleContext *ctx) {
         return childIterable->iterator(ctx);
     }
 
-    antlrcpp::Any UserAgentGetChildrenVisitor::visitUserAgent(UserAgentParser::UserAgentContext *ctx) {
-        Iterator<antlr4::tree::ParseTree *> *  children = getChildrenByName(ctx).as< Iterator<antlr4::tree::ParseTree *> * >();
+    std::any UserAgentGetChildrenVisitor::visitUserAgent(UserAgentParser::UserAgentContext *ctx) {
+        Iterator<antlr4::tree::ParseTree *> *  children = std::any_cast<Iterator<antlr4::tree::ParseTree *> *>(getChildrenByName(ctx));
         if (children->hasNext()) {
             return children;
         }
         return visitChildren(ctx);
     }
 
-    antlrcpp::Any UserAgentGetChildrenVisitor::visitProductNameKeyValue(UserAgentParser::ProductNameKeyValueContext *ctx) {
+    std::any UserAgentGetChildrenVisitor::visitProductNameKeyValue(UserAgentParser::ProductNameKeyValueContext *ctx) {
         if(name == "key") {
             auto * pv = new std::vector<antlr4::ParserRuleContext*>();
             pv->push_back(dynamic_cast<antlr4::ParserRuleContext*>(ctx->key));

@@ -18,6 +18,7 @@
 #ifndef YAUAACPP_IMMUTABLEUSERAGENT_H
 #define YAUAACPP_IMMUTABLEUSERAGENT_H
 
+#include <stdarg.h>
 #include "UserAgent.h"
 #include "ImmutableUserAgent.h"
 #include <UserAgentBaseListener.h>

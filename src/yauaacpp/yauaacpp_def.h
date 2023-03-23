@@ -28,6 +28,8 @@
 #include "antlr4-runtime.h"
 
 #include <string>
+#include <list>
+#include <any>
 
 typedef std::shared_ptr< std::map<std::string, std::string> >STRMAP_SP;
 typedef std::map<std::string, STRMAP_SP> MAPMAPS;

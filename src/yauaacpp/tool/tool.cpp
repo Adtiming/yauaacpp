@@ -195,9 +195,10 @@ namespace ycpp {
         va_start(vap, format);
         int nLength = vprintf(format, vap);
         nLength += 1;  //上面返回的长度是包含\0，这里加上
-        std::vector<char> vectorChars(nLength);
-        vsnprintf(vectorChars.data(), nLength, format, vap);
-        s.assign(vectorChars.data());
+        char * ps = new char[nLength];
+        vsnprintf(ps, nLength, format, vap);
+        s.assign(ps);
+        delete []ps;
         va_end(vap);
         return s;
     }
