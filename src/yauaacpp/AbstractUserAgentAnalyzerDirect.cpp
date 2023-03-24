@@ -702,7 +702,9 @@ namespace ycpp {
 
         int yamlRuleCount = 1;
         for (const std::string & yamlRule : yamlRules) {
-            configLoader.addYaml(yamlRule, "Manually Inserted Rules " + yamlRuleCount++);
+            char buf[100];
+            sprintf(buf,"Manually Inserted Rules %d", yamlRuleCount++);
+            configLoader.addYaml(yamlRule, buf);
         }
 
         uaa->addAnalyzerConfig(*configLoader.load());

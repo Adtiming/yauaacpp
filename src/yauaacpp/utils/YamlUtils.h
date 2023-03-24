@@ -49,8 +49,9 @@ namespace ycpp {
 
         static std::string getValueAsString(YAML::Node::iterator & tuple, const std::string & filename) {
             YAML::Node & valueNode = tuple->second;
-            requireNodeInstanceOf(YAML::NodeType::Scalar, valueNode, filename,
-                    "The value should be a string but it is a " + valueNode.Type());
+            char buf[100];
+            sprintf(buf,"The value should be a string but it is a %d", valueNode.Type());
+            requireNodeInstanceOf(YAML::NodeType::Scalar, valueNode, filename,buf);
             return valueNode.as<std::string>();
         }
 

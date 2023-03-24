@@ -86,47 +86,47 @@ namespace ycpp {
             std::string targetJREVersion         = "<undefined>";
 
         public:
-            std::string getGitCommitId() {
+            std::string getGitCommitId() const {
                 return gitCommitId;
             }
 
 
-            std::string getGitCommitIdDescribeShort() {
+            std::string getGitCommitIdDescribeShort() const {
                 return gitCommitIdDescribeShort;
             }
 
 
-            std::string getBuildTimeStamp() {
+            std::string getBuildTimeStamp() const {
                 return buildTimeStamp;
             }
 
 
-            std::string getProjectVersion() {
+            std::string getProjectVersion() const {
                 return projectVersion;
             }
 
 
-            std::string getCopyright() {
+            std::string getCopyright() const {
                 return copyright;
             }
 
 
-            std::string getLicense() {
+            std::string getLicense() const {
                 return license;
             }
 
 
-            std::string getUrl() {
+            std::string getUrl() const {
                 return url;
             }
 
 
-            std::string getBuildJDKVersion() {
+            std::string getBuildJDKVersion() const {
                 return buildJDKVersion;
             }
 
 
-            std::string getTargetJREVersion() {
+            std::string getTargetJREVersion() const {
                 return targetJREVersion;
             }
 

@@ -7,7 +7,6 @@ project(yauaacpp LANGUAGES CXX VERSION ${YAUAA_CPP_VERSION})
 
 EXEC_PROGRAM(gcc ARGS --version OUTPUT_VARIABLE CMAKE_C_COMPILER_VERSION)
 IF(CMAKE_C_COMPILER_VERSION MATCHES ".*4\\.[0-9].*")
-    message("gcc is version 4")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_UTF8_INSTEAD_OF_CODECVT")
 ENDIF(CMAKE_C_COMPILER_VERSION MATCHES ".*4\\.[0-9].*")
 
@@ -31,8 +30,10 @@ if(NOT YAUAA_CPP_CXX_STANDARD)
 endif()
 message(STATUS "yauaa-cpp build with CXX standard: c++${YAUAA_CPP_CXX_STANDARD}")
 
-if(NOT WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++${YAUAA_CPP_CXX_STANDARD} -Wno-unused-parameter -Werror=format-truncation")
+if(APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++${YAUAA_CPP_CXX_STANDARD} ")
+elseif(NOT WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++${YAUAA_CPP_CXX_STANDARD} -Werror=format-truncation")
 else()
     if(MSVC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++${YAUAA_CPP_CXX_STANDARD}")
@@ -277,7 +278,7 @@ if(YAUAA_CPP_BUILD_STATIC)
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${CXX_UTILS_DIR}>
             $<INSTALL_INTERFACE:include>)
 
-    target_link_libraries(${STATIC_LIB} PUBLIC ${YAUAA_CPP_YAML_CPP_LIBS} antlr4-runtime)
+    target_link_libraries(${STATIC_LIB} PUBLIC ${YAUAA_CPP_YAML_CPP_LIBS} libantlr4-runtime.a)
 
 
     if (WIN32)
@@ -285,7 +286,7 @@ if(YAUAA_CPP_BUILD_STATIC)
         set_target_properties(${STATIC_LIB} PROPERTIES CXX_STANDARD ${YAUAA_CPP_CXX_STANDARD})
         set_target_properties(${STATIC_LIB} PROPERTIES OUTPUT_NAME yauaacpp_static)
     else()
-        target_compile_options(${STATIC_LIB} PRIVATE "-Wall" "-W" "-Werror")
+        target_compile_options(${STATIC_LIB} PRIVATE "-Wall" "-W" "-Werror" "-Wno-unused-parameter" "-Wno-inconsistent-missing-override" "-Wno-deprecated-declarations" "-Wno-unused-const-variable")
         set_target_properties(${STATIC_LIB} PROPERTIES OUTPUT_NAME yauaacpp)
     endif()
 
@@ -306,7 +307,6 @@ message(STATUS "yauaa-cpp build shared library: ${YAUAA_CPP_BUILD_SHARED}")
 
 if(YAUAA_CPP_BUILD_SHARED)
     set(SHARED_LIB yauaacpp)
-
     add_library(${SHARED_LIB} SHARED ${YAUAA_CPP_SOURCES} ${YAUAA_GENERATED_SOURCE})
     add_library(yauaacpp::${SHARED_LIB} ALIAS ${SHARED_LIB})
     
@@ -317,14 +317,20 @@ if(YAUAA_CPP_BUILD_SHARED)
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${TLS_SUB_DIR}>
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${CXX_UTILS_DIR}>
             $<INSTALL_INTERFACE:include>)
-    target_link_libraries(${SHARED_LIB} PUBLIC ${YAUAA_CPP_YAML_CPP_LIBS}  antlr4-runtime)
+
+    if(APPLE)
+        target_link_directories(${SHARED_LIB} PUBLIC /usr/local/lib)
+	target_link_libraries(${SHARED_LIB} PUBLIC ${YAUAA_CPP_YAML_CPP_LIBS}  libantlr4-runtime.dylib)
+    else()
+        target_link_libraries(${SHARED_LIB} PUBLIC ${YAUAA_CPP_YAML_CPP_LIBS}  libantlr4-runtime.so)
+    endif()
 
     if(WIN32)
         target_compile_definitions(${SHARED_LIB} PRIVATE NOMINMAX)
         set_target_properties(${SHARED_LIB} PROPERTIES CXX_STANDARD ${YAUAA_CPP_CXX_STANDARD})
         set_target_properties(${SHARED_LIB} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
     else()
-        target_compile_options(${SHARED_LIB} PRIVATE "-Wall" "-W" "-Werror")
+        target_compile_options(${SHARED_LIB} PRIVATE "-Wall" "-W" "-Werror" "-Wno-unused-parameter" "-Wno-inconsistent-missing-override" "-Wno-deprecated-declarations" "-Wno-unused-const-variable" )
     endif()
 
     set_target_properties(${SHARED_LIB} PROPERTIES OUTPUT_NAME yauaacpp)

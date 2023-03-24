@@ -17,7 +17,7 @@ namespace ycpp {
     struct Match {
         std::string key;
         std::string value;
-        antlr4::tree::ParseTree * result{};
+        antlr4::tree::ParseTree * result;
 
         Match() {
             result = nullptr;
@@ -57,7 +57,7 @@ namespace ycpp {
 
         }
         void add(const std::string & key, const std::string & value, antlr4::tree::ParseTree *result) {
-            push_back(std::move(Match(key, value, result)));
+            push_back(Match(key, value, result));
         }
 
         std::list<std::string> toStrings() {
