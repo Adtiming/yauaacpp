@@ -232,7 +232,7 @@ namespace ycpp {
                         // FIXME: Nasty String manipulation code: Cleanup
                         std::string failIfFoundConfig = requireConfig;
                         failIfFoundConfig = std::regex_replace(failIfFoundConfig,std::regex("^IsNull\\["),std::string(""));
-                        failIfFoundConfig = std::regex_replace(failIfFoundConfig,std::regex("]$"),std::string(""));
+                        failIfFoundConfig = std::regex_replace(failIfFoundConfig,std::regex("\\]$"),std::string(""));
                         configLines.emplace_back(ConfigLine(ConfigLine::FAIL_IF_FOUND, "", -1, failIfFoundConfig));
                     } else {
                         configLines.emplace_back(ConfigLine(ConfigLine::REQUIRE, "", -1, requireConfig));
