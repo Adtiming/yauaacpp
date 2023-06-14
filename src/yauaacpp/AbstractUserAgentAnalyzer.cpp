@@ -78,6 +78,7 @@ namespace ycpp{
 
     struct M : public CacheCopy {
         std::map<std::string, std::shared_ptr<UserAgent>> m;
+        size_t size() override {return m.size();}
     };
 
     std::shared_ptr<CacheCopy> AbstractUserAgentAnalyzer::copyCache() {
@@ -92,7 +93,7 @@ namespace ycpp{
             return nullptr;
     }
 
-    bool AbstractUserAgentAnalyzer::saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> cacheCopy) const {
+    bool AbstractUserAgentAnalyzer::saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> & cacheCopy) const {
         if(parseCache == nullptr)
             return false;
         if(!cacheCopy)

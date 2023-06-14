@@ -34,7 +34,8 @@ namespace ycpp {
     class TestCase;
 
     struct CacheCopy {
-        virtual ~CacheCopy(){}
+        virtual ~CacheCopy() = default;
+        virtual size_t size() = 0;
     };
 
     class Analyzer {
@@ -42,7 +43,7 @@ namespace ycpp {
         typedef void * CACHE_COPY_HANDLE;
         Analyzer() = default;
 
-        virtual ~Analyzer(){}
+        virtual ~Analyzer() = default;
         /**
          * Parses and analyzes the provided useragent string
          * @param userAgentString The User-Agent std::string that is to be parsed and analyzed
@@ -54,7 +55,7 @@ namespace ycpp {
 
         virtual std::shared_ptr<CacheCopy> copyCache() {return nullptr;}
 
-        virtual bool saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> cacheCopy) const {return false;}
+        virtual bool saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> & cacheCopy) const {return false;}
 
         virtual bool loadCache(const std::string & fileName) {return false;}
 

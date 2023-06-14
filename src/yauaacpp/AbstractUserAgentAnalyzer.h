@@ -66,7 +66,7 @@ namespace ycpp {
 
         std::shared_ptr<CacheCopy> copyCache() override ;
 
-        bool saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> cacheCopy) const override ;
+        bool saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> & cacheCopy) const override ;
 
         bool loadCache(const std::string & fileName) override ;
 

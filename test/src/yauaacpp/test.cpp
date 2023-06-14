@@ -167,7 +167,7 @@ void * proc(void * param){
     }
     auto cacheCopy = uaa->copyCache();
     if(uaa->saveCache("/home/sunxg/tmp/cache.dat",cacheCopy))
-        std::cout << "save cache ok" << std::endl;
+        std::cout << "save cache ok, size = " << cacheCopy->size() << std::endl;
     else
         std::cerr << "save cache failure" << std::endl;
     return nullptr;
