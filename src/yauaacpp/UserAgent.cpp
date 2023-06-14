@@ -107,6 +107,8 @@ namespace ycpp {
             SYNTAX_ERROR
     };
 
+    bool save_string(FILE * fout, const std::string & s);
+    bool load_string(FILE * fin, std::string & s);
 
     size_t PRE_SORTED_FIELDS_LIST_SIZE = sizeof(PRE_SORTED_FIELDS_LIST)/sizeof(const char *);
 
@@ -378,6 +380,71 @@ namespace ycpp {
         if(it == allFields.end())
             return -1L;
         return it->second->getConfidence();
+    }
+
+    bool ImmutableUserAgent::save(FILE * fout) const {
+        save_string(fout, userAgentString);
+        fwrite(&_hasSyntaxError,sizeof(_hasSyntaxError),1,fout);
+        fwrite(&_hasAmbiguity,sizeof(_hasAmbiguity),1,fout);
+        fwrite(&ambiguityCount,sizeof(ambiguityCount),1,fout);
+
+        // allFields
+        size_t allFileldsSize = allFields.size();
+        fwrite(&allFileldsSize,sizeof(size_t),1,fout);
+        for(auto it = allFields.begin(); it!=allFields.end(); it++){
+            save_string(fout,it->first); // fieldName
+            it->second->save(fout);
+        }
+
+        // availableFieldNamesSorted
+        size_t availableFieldNamesSortedSize = availableFieldNamesSorted.size();
+        fwrite(&availableFieldNamesSortedSize,sizeof(size_t),1,fout);
+        for(const std::string & fName : availableFieldNamesSorted){
+            save_string(fout, fName);
+        }
+
+        return true;
+    }
+
+    bool ImmutableUserAgent::load(FILE * fin) {
+        if(!load_string(fin,userAgentString)) return false;
+        if(1!=fread(&_hasSyntaxError,sizeof(_hasSyntaxError),1,fin)) return false;
+        if(1!=fread(&_hasAmbiguity,sizeof(_hasAmbiguity),1,fin)) return false;
+        if(1!=fread(&ambiguityCount,sizeof(ambiguityCount),1,fin)) return false;
+        userAgentStringField = std::make_shared<ImmutableAgentField>(userAgentString, 0L, false, userAgentString);
+
+        // allFields
+        size_t allFileldsSize;
+        if(1!=fread(&allFileldsSize,sizeof(allFileldsSize),1,fin)) return false;
+
+        //预防代码
+        for(auto it = allFields.begin(); it!=allFields.end(); it++)
+            delete it->second;
+        allFields.clear();
+
+        for(size_t i=0; i<allFileldsSize; i++){
+            std::string fName;
+            if(!load_string(fin,fName)) return false;
+            auto * v = new ImmutableAgentField();
+            if(!v->load(fin)){
+                delete v;
+                return false;
+            }
+            allFields[fName] = v;
+        }
+
+        //availableFieldNamesSorted
+        availableFieldNamesSorted.clear();
+
+        size_t availableFieldNamesSortedSize;
+        if(1!=fread(&availableFieldNamesSortedSize,sizeof(availableFieldNamesSortedSize),1,fin)) return false;
+        for(size_t i=0; i<availableFieldNamesSortedSize; i++){
+            std::string fieldName;
+            if(!load_string(fin,fieldName))
+                return false;
+            availableFieldNamesSorted.push_back(fieldName);
+        }
+        return true;
     }
 
     std::string UserAgent::escapeYaml(const std::string &input) const {

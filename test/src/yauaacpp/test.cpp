@@ -85,9 +85,7 @@ bool skip(const std::string & browser_result, const std::string & browser){
     return false;
 }
 
-void funcua(std::shared_ptr<ycpp::AbstractUserAgentAnalyzerDirect> uaa, const std::string &ua_txt, const std::string & browser_result,int deep){
-    if(deep >= 2)
-        return ;
+void funcua(std::shared_ptr<ycpp::AbstractUserAgentAnalyzerDirect> uaa, const std::string &ua_txt){
     lock.lock();
     std::shared_ptr<UserAgent> obj = uaa->parse(std::string(ua_txt));
     lock.unlock();
@@ -152,40 +150,26 @@ void funcua(std::shared_ptr<ycpp::AbstractUserAgentAnalyzerDirect> uaa, const st
             browser = BROWSER_WEBVIEW_SNAPCHAT;
     }
 
-
-    if(browser_result == browser)
-        std::cout << "ok" << std::endl;
-    else {
-        if (!skip(browser_result,browser)) {
-            std::cout << browser << " should be " << browser_result << "," << ua_txt << std::endl;
-            funcua(uaa, ua_txt, browser_result, deep + 1);
-        }
-    }
+    std::cout << browser << "," << evironment<< std::endl;
 }
 
 void * proc(void * param){
-    std::ifstream f("/home/sunxg/tmp/base.txt",std::ios_base::in);
-    for(int i=0; i<100000; i++){
-        if(i<0)
-            continue;
+    std::ifstream f("/home/sunxg/tmp/ua_web.txt",std::ios_base::in);
+    for(int i=0; i<500000; i++){
         std::string line;
         if(std::getline(f,line)) {
-            const char * ps = line.c_str();
-            int browser_result = atoi(ps);
-            ps = strchr(ps,',');
-            ps ++;
-            ps = strchr(ps,',');
-            ps ++;
-            std::string ua = ps;
-            char result_str[100];
-            sprintf(result_str,"%d",browser_result);
-            funcua(uaa, ua, result_str,0);
+            funcua(uaa, line);
         }
         else {
             std::cerr << "ua.txt read failure, line " << i << std::endl;
             break;
         }
     }
+    auto cacheCopy = uaa->copyCache();
+    if(uaa->saveCache("/home/sunxg/tmp/cache.dat",cacheCopy))
+        std::cout << "save cache ok" << std::endl;
+    else
+        std::cerr << "save cache failure" << std::endl;
     return nullptr;
 }
 
@@ -199,6 +183,11 @@ int main(int argc, char **argv) {
             .withCache(10000)
             .build();
 
+    time_t beginLoad = time(nullptr);
+    if(uaa->loadCache("/home/sunxg/tmp/cache.dat"))
+        std::cout << "load cache ok, cost " << (time(nullptr) - beginLoad) << " seconds" << std::endl;
+    else
+        std::cerr << "load cache failure" << std::endl;
 
     int THREAD_CNT = 1;
 

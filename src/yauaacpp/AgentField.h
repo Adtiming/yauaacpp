@@ -124,14 +124,18 @@ namespace ycpp{
         bool _isDefaultValue;
         std::string defaultValue;
 
-        ImmutableAgentField(const std::string & value, long confidence, bool isDefaultValue, const std::string & defaultValue) {
+        explicit ImmutableAgentField(){
+            confidence = 0;
+            _isDefaultValue = false;
+        }
+        explicit ImmutableAgentField(const std::string & value, long confidence, bool isDefaultValue, const std::string & defaultValue) {
             this->value = value;
             this->confidence = confidence;
             this->_isDefaultValue = isDefaultValue;
             this->defaultValue = defaultValue;
         }
 
-        ImmutableAgentField(const MutableAgentField & agentField) {
+        explicit ImmutableAgentField(const MutableAgentField & agentField) {
             value = agentField.getValue();
             confidence = agentField.getConfidence();
             _isDefaultValue = agentField.isDefaultValue();
@@ -161,6 +165,9 @@ namespace ycpp{
         std::string toString() const {
             return afToString();
         }
+
+        bool save(FILE * fout);
+        bool load(FILE * fin);
     };
 } // namespace ycpp
 

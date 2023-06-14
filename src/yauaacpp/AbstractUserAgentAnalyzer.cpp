@@ -54,6 +54,102 @@ namespace ycpp{
         return cachedValue;
     }
 
+    bool save_string(FILE * fout, const std::string & s){
+        size_t len = s.size();
+        fwrite(&len,sizeof(size_t),1,fout);
+        fwrite(s.c_str(),len,1,fout);
+        return true;
+    }
+
+    bool load_string(FILE * fin, std::string & s){
+        size_t len = 0;
+        if(1!=fread(&len,sizeof(size_t),1,fin))
+            return false;
+        char * p = new char[len+1];
+        if(1!=fread(p,len,1,fin)){
+            delete []p;
+            return false;
+        }
+        p[len] = 0;
+        s = p;
+        delete []p;
+        return true;
+    }
+
+    struct M : public CacheCopy {
+        std::map<std::string, std::shared_ptr<UserAgent>> m;
+    };
+
+    std::shared_ptr<CacheCopy> AbstractUserAgentAnalyzer::copyCache() {
+
+        if(parseCache){
+            auto * result = new M();
+
+            result->m.merge(*parseCache);
+
+            return std::shared_ptr<CacheCopy>(result);
+        } else
+            return nullptr;
+    }
+
+    bool AbstractUserAgentAnalyzer::saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> cacheCopy) const {
+        if(parseCache == nullptr)
+            return false;
+        if(!cacheCopy)
+            return false;
+
+        M * pCache = dynamic_cast<M*>(cacheCopy.get());
+
+        FILE * fout = fopen(fileName.c_str(), "wb");
+        if(fout == nullptr)
+            return false;
+
+        // write total
+        size_t total = pCache->m.size();
+        fwrite(&total,sizeof(size_t),1,fout);
+
+        auto it = pCache->m.begin();
+        while(it != pCache->m.end()){
+            std::shared_ptr<UserAgent> v = it->second;
+            auto * obj = dynamic_cast<ImmutableUserAgent*>(v.get());
+            if(obj == nullptr){
+                printf("is not ImmutableUserAgent");
+            }else{
+                obj->save(fout);
+            }
+            it ++;
+        }
+
+        fclose(fout);
+        return true;
+    }
+
+    bool AbstractUserAgentAnalyzer::loadCache(const std::string & fileName) {
+        if(parseCache == nullptr)
+            return false;
+        FILE * fin = fopen(fileName.c_str(),"rb");
+        if(fin == nullptr)
+            return false;
+        size_t total;
+        if(1!=fread(&total,sizeof(total),1,fin)) {
+            fclose(fin);
+            return false;
+        }
+
+        for(size_t i=0; i<total; i++) {
+            auto obj = new ImmutableUserAgent();
+            if(!obj->load(fin)){
+                delete obj;
+                fclose(fin);
+                return false;
+            }
+            (*parseCache)[obj->getUserAgentString()] = std::shared_ptr<UserAgent>(obj);
+        }
+
+        fclose(fin);
+        return true;
+    }
+
     std::string AbstractUserAgentAnalyzer::toString() {
         std::ostringstream o;
         o << "UserAgentAnalyzer{" <<

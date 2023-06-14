@@ -33,8 +33,13 @@ namespace ycpp {
     class Matcher;
     class TestCase;
 
+    struct CacheCopy {
+        virtual ~CacheCopy(){}
+    };
+
     class Analyzer {
     public:
+        typedef void * CACHE_COPY_HANDLE;
         Analyzer() = default;
 
         virtual ~Analyzer(){}
@@ -46,6 +51,12 @@ namespace ycpp {
         virtual std::shared_ptr<UserAgent> parse(const std::string &userAgentString){
             return nullptr;
         };
+
+        virtual std::shared_ptr<CacheCopy> copyCache() {return nullptr;}
+
+        virtual bool saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> cacheCopy) const {return false;}
+
+        virtual bool loadCache(const std::string & fileName) {return false;}
 
         virtual void inform(const std::string & path, const std::string & value, antlr4::tree::ParseTree * ctx)= 0;
 

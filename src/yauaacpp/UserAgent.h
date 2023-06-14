@@ -55,6 +55,9 @@ namespace ycpp{
         virtual bool hasAmbiguity() const = 0;
         virtual int getAmbiguityCount() const = 0;
 
+        virtual bool save(FILE * fout) const = 0;
+        virtual bool load(FILE * fin) = 0;
+
         virtual std::list<std::string> getAvailableFieldNamesSorted() const = 0;
 
 

@@ -39,12 +39,14 @@ In CentOS 7.6 gcc version 4.8.5, there is incomplete support for regex, which ne
   sudo yum install centos-release-scl
 
   sudo yum install devtoolset-7-gcc*
+  
+  source /opt/rh/devtoolset-7/enable
 ```
-   
+
 2. Install antlr4 dependency
 ```
  sudo yum install  libuuid-devel
-``` 
+```
 
 3. compile alntr4
 

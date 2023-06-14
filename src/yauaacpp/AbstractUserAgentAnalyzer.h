@@ -64,10 +64,15 @@ namespace ycpp {
             return cacheSize;
         }
 
+        std::shared_ptr<CacheCopy> copyCache() override ;
 
-        virtual std::shared_ptr<UserAgent> parsePtr(std::shared_ptr<MutableUserAgent> userAgent) override;
+        bool saveCache(const std::string & fileName,std::shared_ptr<CacheCopy> cacheCopy) const override ;
 
-        std::string toString();
+        bool loadCache(const std::string & fileName) override ;
+
+        std::shared_ptr<UserAgent> parsePtr(std::shared_ptr<MutableUserAgent> userAgent) override;
+
+        std::string toString() override;
 
     };
 

@@ -173,6 +173,10 @@ namespace ycpp{
             va_end(vap);
             return r;
         }
+
+        bool save(FILE * fout) const override {return false;}
+
+        bool load(FILE * fin) override { return false;}
     };
 
 
@@ -187,13 +191,15 @@ namespace ycpp{
         bool                           _hasAmbiguity;
         int                               ambiguityCount;
 
-        ImmutableUserAgent(){
+
+
+    public:
+        explicit ImmutableUserAgent(){
             _hasSyntaxError = false;
             _hasAmbiguity = false;
             ambiguityCount = 0;
             userAgentStringField = nullptr;
         }
-    public:
         explicit ImmutableUserAgent(MutableUserAgent & userAgent);
 
         ~ImmutableUserAgent() override;
@@ -240,6 +246,10 @@ namespace ycpp{
         std::string toString() {
             return UserAgent::toString(getAvailableFieldNamesSorted());
         }
+
+        bool save(FILE * fout) const override;
+
+        bool load(FILE * fin) override;
 
     };
 }

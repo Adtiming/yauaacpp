@@ -3,6 +3,8 @@
 #include "ImmutableUserAgent.h"
 
 namespace ycpp {
+    bool save_string(FILE * fout, const std::string & s);
+    bool load_string(FILE * fin, std::string & s);
 
     std::string MutableAgentField::getDefaultValue() const {
         return defaultValue;
@@ -50,5 +52,21 @@ namespace ycpp {
                 getValue() == agentField.getValue() &&
                 getDefaultValue() == agentField.getDefaultValue() &&
                 isDefaultValue() == agentField.isDefaultValue();
+    }
+
+    bool ImmutableAgentField::save(FILE * fout){
+        save_string(fout,value);
+        fwrite(&confidence,sizeof(confidence),1,fout);
+        fwrite(&_isDefaultValue,sizeof(_isDefaultValue),1,fout);
+        save_string(fout,defaultValue);
+        return true;
+    }
+
+    bool ImmutableAgentField::load(FILE * fin){
+        load_string(fin,value);
+        if(1!=fread(&confidence,sizeof(confidence),1,fin)) return false;
+        if(1!=fread(&_isDefaultValue,sizeof(_isDefaultValue),1,fin)) return false;
+        if(!load_string(fin,defaultValue)) return false;
+        return true;
     }
 } // namespace ycpp

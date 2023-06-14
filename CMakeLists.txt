@@ -24,7 +24,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 message(STATUS "yauaa-cpp build type: ${CMAKE_BUILD_TYPE}")
 
-set(YAUAA_CPP_DEFAULT_CXX_STANDARD 11)
+set(YAUAA_CPP_DEFAULT_CXX_STANDARD 17)
 if(NOT YAUAA_CPP_CXX_STANDARD)
     set(YAUAA_CPP_CXX_STANDARD ${YAUAA_CPP_DEFAULT_CXX_STANDARD} CACHE STRING "Set CXX standard" FORCE)
     set_property(CACHE YAUAA_CPP_CXX_STANDARD PROPERTY STRINGS "11" "14" "17" "20")
@@ -250,12 +250,21 @@ if(YAUAA_CPP_SHAREDPTR_BOOST)
     add_definitions(-DYAUAA_CPP_SHAREDPTR_BOOST)
 endif()
 
-# hiredis dependency
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
+find_package(antlr4-cpp-runtime)
+if(antlr4-cpp-runtime_FOUND)
+    message(STATUS "antlr4-cpp-runtime_LIBRARY " ${antlr4-cpp-runtime_LIBRARY})
+    message(STATUS "antlr4-cpp-runtime_FILE_4_12_0 " ${antlr4-cpp-runtime_FILE_4_12_0})
+    list(APPEND YAUAA_CPP_ANTLR4_CPP_LIBS antlr4-runtime)
+else()
+    message(FATAL_ERROR "antlr4-cpp-runtime library not found")
+endif()
+
 find_package(yaml-cpp)
 if(yaml-cpp_FOUND)
     list(APPEND YAUAA_CPP_YAML_CPP_LIBS yaml-cpp)
 else()
-    message(FATAL_ERROR "ADD library not found")
+    message(FATAL_ERROR "yaml-cpp library not found")
 endif()
 
 
@@ -277,7 +286,7 @@ if(YAUAA_CPP_BUILD_STATIC)
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${CXX_UTILS_DIR}>
             $<INSTALL_INTERFACE:include>)
 
-    target_link_libraries(${STATIC_LIB} PUBLIC ${YAUAA_CPP_YAML_CPP_LIBS} antlr4-runtime)
+    target_link_libraries(${STATIC_LIB} PUBLIC ${YAUAA_CPP_YAML_CPP_LIBS} ${YAUAA_CPP_ANTLR4_CPP_LIBS})
 
 
     if (WIN32)
