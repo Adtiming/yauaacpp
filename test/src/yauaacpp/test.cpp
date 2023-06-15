@@ -150,7 +150,7 @@ void funcua(std::shared_ptr<ycpp::AbstractUserAgentAnalyzerDirect> uaa, const st
             browser = BROWSER_WEBVIEW_SNAPCHAT;
     }
 
-    std::cout << browser << "," << evironment<< std::endl;
+//    std::cout << browser << "," << evironment<< std::endl;
 }
 
 void * proc(void * param){
@@ -163,6 +163,11 @@ void * proc(void * param){
         else {
             std::cerr << "ua.txt read failure, line " << i << std::endl;
             break;
+        }
+        if(i%10000 == 0)
+        {
+            auto cacheCopy = uaa->copyCache();
+            std::cout << "cache size = " << cacheCopy->size() << std::endl;
         }
     }
     auto cacheCopy = uaa->copyCache();
@@ -180,7 +185,7 @@ int main(int argc, char **argv) {
             ->withField(DEVICE_CLASS)
             .withField(AGENT_NAME)
             .withField(WEBVIEW_APP_NAME)
-            .withCache(10000)
+            .withCache(1000000)
             .build();
 
     time_t beginLoad = time(nullptr);
@@ -188,6 +193,10 @@ int main(int argc, char **argv) {
         std::cout << "load cache ok, cost " << (time(nullptr) - beginLoad) << " seconds" << std::endl;
     else
         std::cerr << "load cache failure" << std::endl;
+
+    auto cacheCopy = uaa->copyCache();
+    if(cacheCopy)
+        std::cout << "cache item now is " << cacheCopy->size() << std::endl;
 
     int THREAD_CNT = 1;
 

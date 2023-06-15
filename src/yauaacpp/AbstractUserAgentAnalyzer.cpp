@@ -86,7 +86,7 @@ namespace ycpp{
         if(parseCache){
             auto * result = new M();
 
-            result->m.merge(*parseCache);
+            result->m.insert(parseCache->begin(),parseCache->end());
 
             return std::shared_ptr<CacheCopy>(result);
         } else
