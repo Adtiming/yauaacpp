@@ -19,6 +19,8 @@ The implementation is based on https://github.com/nielsbasjes/yauaa version 6.6(
         logger.info("device class = "+obj.getValue(UserAgent.DEVICE_CLASS));
         logger.info("agent name = " + obj.getValue(UserAgent.AGENT_NAME));
 
+**c++ UserAgentAnalyzer object does not support multi-threading, please lock it when using multi-threading**
+
 ## Dependency
 
 ### antlr4 https://github.com/antlr/antlr4.git version 4.9.3

@@ -33,7 +33,6 @@ namespace ycpp {
 
     std::set<std::string> AbstractUserAgentAnalyzerDirect::getAllPossibleFieldNames() {
         if (allPossibleFieldNamesCache.empty()) {
-            lock.lock();
             if (allPossibleFieldNamesCache.empty()) {
                 std::set<std::string> names(HARD_CODED_GENERATED_FIELDS.begin(),HARD_CODED_GENERATED_FIELDS.end());
                 for (Matcher * matcher : allMatchers) {
@@ -42,14 +41,12 @@ namespace ycpp {
                 }
                 allPossibleFieldNamesCache = names;
             }
-            lock.unlock();
         }
         return allPossibleFieldNamesCache;
     }
 
     std::list<std::string> AbstractUserAgentAnalyzerDirect::getAllPossibleFieldNamesSorted() {
         if (allPossibleFieldNamesSortedCache.empty()) {
-            lock.lock();
             if (allPossibleFieldNamesSortedCache.empty()) {
                 auto t = getAllPossibleFieldNames();
                 std::vector<std::string> fieldNames(t.begin(),t.end());
@@ -70,7 +67,6 @@ namespace ycpp {
                 names.insert(names.end(),fieldNames.begin(),fieldNames.end());
                 allPossibleFieldNamesSortedCache = names;
             }
-            lock.unlock();
         }
         return allPossibleFieldNamesSortedCache;
     }
@@ -98,7 +94,6 @@ namespace ycpp {
     }
 
     void AbstractUserAgentAnalyzerDirect::destroy() {
-        lock.lock();
 
         for(Matcher * matcher : zeroInputMatchers) matcher->destroy();
         zeroInputMatchers.clear();
@@ -124,7 +119,6 @@ namespace ycpp {
         for(Matcher * mather:allMatchers){
             delete mather;
         }
-        lock.unlock();
     }
 
     void AbstractUserAgentAnalyzerDirect::loadResources(const DirExt * resourceString, bool showLoadMessages,
@@ -208,9 +202,7 @@ namespace ycpp {
     void AbstractUserAgentAnalyzerDirect::initializeMatchers() {
         if(matchersHaveBeenInitialized)
             return;
-        lock.lock();
         if (matchersHaveBeenInitialized) {
-            lock.unlock();
             return;
         }
         matchersHaveBeenInitialized = true;
@@ -218,7 +210,6 @@ namespace ycpp {
         LOG::error( "Initializing Analyzer data structures");
 
         if (allMatchers.empty()) {
-            lock.unlock();
             throw InvalidParserConfigurationException("No matchers were loaded at all.");
         }
 
@@ -246,7 +237,6 @@ namespace ycpp {
         for (Matcher * matcher : allMatchers) {
             matcher->reset();
         }
-        lock.unlock();
     }
 
     void AbstractUserAgentAnalyzerDirect::lookingForRange(const std::string &treeName, const Range & range) {
@@ -288,7 +278,6 @@ namespace ycpp {
             return std::make_shared<ImmutableUserAgent>(*hardCodedPostProcessing(userAgent));
         }
 
-        lock.lock();
         {
             // Reset all Matchers
             reset();
@@ -329,7 +318,6 @@ namespace ycpp {
                 userAgent->setForced(HACKER_ATTACK_VECTOR, "Yauaa Exploit", 10000);
             }
         }
-        lock.unlock();
         return std::make_shared<ImmutableUserAgent>(*hardCodedPostProcessing(userAgent));
     }
 
@@ -385,10 +373,8 @@ namespace ycpp {
     }
 
     void AbstractUserAgentAnalyzerDirect::setVerbose(bool newVerbose) {
-        lock.lock();
         this->verbose = newVerbose;
         flattener->setVerbose(newVerbose);
-        lock.unlock();
     }
 
     linked_hash_set<size_t> * AbstractUserAgentAnalyzerDirect::getRequiredPrefixLengths(const std::string &treeName) {

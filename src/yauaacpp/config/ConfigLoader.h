@@ -14,7 +14,6 @@ namespace ycpp {
     class ConfigLoader {
 
     private:
-        std::recursive_mutex lock;
         bool doingOnlyASingleTest = false;
 
         std::list<DirExt>                               mandatoryResources;

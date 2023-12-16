@@ -54,18 +54,15 @@ namespace ycpp {
 
     void ConfigLoader::loadYaml(std::istream &yamlStream, const std::string &filename) {
 
-        lock.lock();
         YAML::Node loadedYaml;
         try {
             loadedYaml = YAML::Load(yamlStream);
         } catch (std::exception & e) {
-            lock.unlock();
             throw InvalidParserConfigurationException("Parse error in the file " + filename + ": " + e.what(), e);
         }
 
         if (loadedYaml.IsNull()) {
             LOG::warn("The file %s is empty", filename.c_str());
-            lock.unlock();
             return;
         }
 
@@ -83,7 +80,6 @@ namespace ycpp {
             if ("version" == name) {
                 // Check the version information from the Yaml files
                 // assertSameVersion(tuple, filename);
-                lock.unlock();
                 return;
             }
         }
@@ -111,7 +107,6 @@ namespace ycpp {
                 }
             }
             else {
-                lock.unlock();
                 throw InvalidParserConfigurationException(
                         std::string("Yaml config.(") + filename + ":" + itos(actualEntry.Mark().line) + "): " +
                         "Found unexpected config entry: " + entryType +
@@ -119,7 +114,6 @@ namespace ycpp {
             }
 
         }
-        lock.unlock();
     }
 
     void ConfigLoader::loadYamlLookup(YAML::Node &entry, const std::string &filename) {

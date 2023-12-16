@@ -106,9 +106,6 @@ namespace ycpp {
 
         MatcherList * touchedMatchers;
 
-    protected:
-        std::recursive_mutex lock;
-
     public:
         AbstractUserAgentAnalyzerDirect();
         ~AbstractUserAgentAnalyzerDirect();

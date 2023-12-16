@@ -11,7 +11,6 @@
 namespace ycpp{
 
     void AbstractUserAgentAnalyzer::initializeCache() {
-        lock.lock();
         if(parseCache)
             delete parseCache;
         if (cacheSize >= 1) {
@@ -19,14 +18,11 @@ namespace ycpp{
         } else {
             parseCache = nullptr;
         }
-        lock.unlock();
     }
 
     void AbstractUserAgentAnalyzer::destroy() {
-        lock.lock();
         AbstractUserAgentAnalyzerDirect::destroy();
         parseCache->clear();
-        lock.unlock();
     }
 
     void AbstractUserAgentAnalyzer::disableCaching() {
