@@ -21,7 +21,7 @@ namespace ycpp {
         };
         std::string version = getVersion();
         size_t width = version.length();
-        for (const std::string & line : lines) {
+        for (const std::string line : lines) {
             width = std::max(width, line.length());
         }
         for (const std::string & line : extraLines) {
@@ -34,7 +34,7 @@ namespace ycpp {
         LOG::error( "/-%s-\\", padding.c_str());
         logLine(version, width);
         LOG::error( "+-%s-+", padding.c_str());
-        for (const std::string & line : lines) {
+        for (const std::string line : lines) {
             logLine(line, width);
         }
         if (!extraLines.empty()) {
